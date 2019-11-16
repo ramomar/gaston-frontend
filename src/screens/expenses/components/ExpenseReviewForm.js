@@ -22,11 +22,11 @@ function ExpenseReviewForm({ expense }) {
   return (
     <Form>
       <Box>
-        <FormField label='Categoría'>
-          <Select name='category' options={['Comida']} />
-        </FormField>
         <FormField label='Nota'>
           <TextArea name='note' defaultValue={note} />
+        </FormField>
+        <FormField label='Categoría'>
+          <Select name='category' options={['Comida']} />
         </FormField>
         <FormField label='Fecha'>
           <MaskedInput name='date' defaultValue={date.toLocaleString()} />
