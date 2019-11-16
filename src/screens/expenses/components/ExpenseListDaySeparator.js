@@ -6,14 +6,18 @@ function ExpenseListDaySeparator({ day, amountForDay }) {
 
   return (
     <Box
-      height='xxsmall'
-      margin={{ bottom: 'large' }}
       pad='medium'
+      margin={{ bottom: 'large' }}
+      pad='large'
       direction='row'
       align='center'
-      justify='between'>
+      justify='between'
+      background='white'
+      style={{ position: 'sticky', top: 0 }}>
       <Text weight='bold'>{formattedDay}</Text>
-      <Text color='red' weight='bold' size='small'>-${amountForDay.toFixed(2)}</Text>
+      <Box align='end'>
+        <Text color='red' weight='bold' size='small'>-${amountForDay.toFixed(2)}</Text>
+      </Box>
     </Box>
   );
 }

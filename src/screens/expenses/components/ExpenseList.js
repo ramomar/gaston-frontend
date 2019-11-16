@@ -70,7 +70,7 @@ function ExpenseList(props) {
   // TODO: include button only when there are more items and handle errors. Also add isFirst and isLast to list items in order to change first margin.
   return (
     <Box fill='vertical'>
-      <Box overflow='scroll' fill='vertical' pad={{ top: 'large' }}>
+      <Box overflow='scroll' fill='vertical'>
         {listItems}
       </Box>
       {

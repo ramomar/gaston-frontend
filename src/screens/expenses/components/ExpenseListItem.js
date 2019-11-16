@@ -27,7 +27,7 @@ function ExpenseListItem({ expense }) {
     <Box
       height='xxsmall'
       margin={{ bottom: 'large' }}
-      pad='medium'
+      pad='large'
       direction='row'
       align='center'
       justify='between'
