@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button } from 'grommet';
+import { Box, Anchor } from 'grommet';
 import ExpenseListItem from './ExpenseListItem';
 import ExpenseListDaySeparator from './ExpenseListDaySeparator';
 import { chain, flatten } from 'ramda';
@@ -73,13 +73,14 @@ function ExpenseList(props) {
       <Box fill='vertical'>
         {listItems}
         {!isLoading &&
-          <Button
+          <Anchor
             primary
-            type='button'
-            label='Ver más gastos'
-            onClick={moreItems}
             alignSelf='center'
-            margin='small' />
+            margin={{ top: 'small', bottom: 'medium' }}
+            style={{ textDecoration: 'underline' }}
+            onClick={moreItems}>
+            Ver más gastos
+          </Anchor>
         }
       </Box>
     </Box >

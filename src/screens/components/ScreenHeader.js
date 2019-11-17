@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from 'grommet';
+import { Box } from 'grommet';
 
 function ScreenHeader({ start, center, end }) {
   return (

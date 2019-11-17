@@ -33,7 +33,7 @@ function ExpenseListItem({ expense }) {
       justify='between'
       onClick={toReviewScreen}>
       <Box basis='2/4'>
-        <Text truncate='true'>{note}</Text>
+        <Text truncate>{note}</Text>
       </Box>
       <Box align='end' basis='2/4'>
         <Text size='small' weight='bold'>-${amount.toFixed(2)}</Text>
