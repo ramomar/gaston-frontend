@@ -4,10 +4,11 @@ import { Box, Text } from 'grommet';
 function ScreenHeader({ start, center, end }) {
   return (
     <Box
+      flex={false}
       direction='row'
-      height='xsmall'
       align='center'
       justify='between'
+      margin={{ vertical: 'large' }}
       pad={{ horizontal: 'medium' }}>
       <Box>
         {start}
@@ -16,8 +17,9 @@ function ScreenHeader({ start, center, end }) {
         {center}
       </Box>
       <Box>
+        {end}
       </Box>
-    </Box >
+    </Box>
   );
 }
 

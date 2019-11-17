@@ -67,29 +67,21 @@ function ExpenseList(props) {
 
   const listItems = makeItemsFromExpenseGroups(items);
 
-  // TODO: include button only when there are more items and handle errors. Also add isFirst and isLast to list items in order to change first margin.
+  // TODO: include button only when there are more items and handle errors.
   return (
-    <Box fill='vertical'>
-      <Box overflow='scroll' fill='vertical'>
+    <Box overflow='scroll' pad={{ horizontal: 'medium' }}>
+      <Box fill='vertical'>
         {listItems}
-      </Box>
-      {
-        !isLoading &&
-        <Box style={{
-          position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          bottom: 20
-        }}>
+        {!isLoading &&
           <Button
             primary
             type='button'
             label='Ver más gastos'
-            align='center'
             onClick={moreItems}
-          />
-        </Box>
-      }
+            alignSelf='center'
+            margin='small' />
+        }
+      </Box>
     </Box >
   );
 }

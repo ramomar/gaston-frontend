@@ -27,13 +27,15 @@ function ExpenseListItem({ expense }) {
     <Box
       height='xxsmall'
       margin={{ bottom: 'medium' }}
-      pad='large'
+      pad={{ vertical: 'large' }}
       direction='row'
       align='center'
       justify='between'
       onClick={toReviewScreen}>
-      <Text>{note}</Text>
-      <Box align='end'>
+      <Box basis='2/4'>
+        <Text truncate='true'>{note}</Text>
+      </Box>
+      <Box align='end' basis='2/4'>
         <Text size='small' weight='bold'>-${amount.toFixed(2)}</Text>
         <Text size='small'>{date.toLocaleString(DateTime.TIME_24_SIMPLE)}</Text>
       </Box>

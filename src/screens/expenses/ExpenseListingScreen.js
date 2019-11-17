@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Text } from 'grommet';
-import { Screen, ScreenHeader } from '../components';
+import { Text } from 'grommet';
+import { Screen, ScreenHeader, ScreenBody } from '../components';
 import ExpenseList from './components/ExpenseList';
 
 function ExpenseListingScreen(props) {
@@ -9,7 +9,9 @@ function ExpenseListingScreen(props) {
       <ScreenHeader
         center={<Text weight='bold' size='large'>Gastos</Text>}
       />
-      <ExpenseList />
+      <ScreenBody>
+        <ExpenseList />
+      </ScreenBody>
     </Screen>
   );
 }

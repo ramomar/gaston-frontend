@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
-import { Screen, ScreenHeader } from '../components';
+import { Screen, ScreenHeader, ScreenBody } from '../components';
 import ExpenseReviewForm from './components/ExpenseReviewForm';
 import { DateTime } from 'luxon';
 import { assoc } from 'ramda';
@@ -23,7 +23,9 @@ function ExpenseReviewScreen(props) {
         start={<Button plain icon={<LinkPrevious />} onClick={goBack} />}
         center={<Text weight='bold' size='large'>{`Gasto del ${formattedDay}`}</Text>}
       />
-      <ExpenseReviewForm expense={expenseWithLuxonDate} />
+      <ScreenBody>
+        <ExpenseReviewForm expense={expenseWithLuxonDate} />
+      </ScreenBody>
     </Screen>
   );
 }

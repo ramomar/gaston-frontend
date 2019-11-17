@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from 'grommet';
 
-function Screen({ children }) {
+function ScreenBody({ children }) {
   return (
     <Box>
       {children}
@@ -9,4 +9,4 @@ function Screen({ children }) {
   );
 }
 
-export default Screen;
+export default ScreenBody;
