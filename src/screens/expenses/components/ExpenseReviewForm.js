@@ -20,8 +20,8 @@ function ExpenseReviewForm({ expense }) {
   // TODO: should we have a datetime instead of two separated fields?
   // TODO: add placeholders
   return (
-    <Form>
-      <Box>
+    <Box>
+      <Form>
         <FormField label='Nota'>
           <TextArea name='note' defaultValue={note} />
         </FormField>
@@ -37,14 +37,14 @@ function ExpenseReviewForm({ expense }) {
         <FormField label='Cantidad'>
           <MaskedInput name='amount' defaultValue={amount} />
         </FormField>
-        <Button
-          primary
-          type='submit'
-          label='Enviar'
-          margin='medium'
-          alignSelf='center' />
-      </Box>
-    </Form>
+      </Form>
+      <Button
+        primary
+        type='submit'
+        label='Enviar'
+        margin='medium'
+        alignSelf='center' />
+    </Box>
   );
 }
 

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "grommet": "^2.8.0",
+    "grommet-icons": "^4.4.0",
     "luxon": "^1.21.1",
     "polished": "^3.4.2",
     "ramda": "^0.26.1",

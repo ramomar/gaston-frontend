@@ -1,13 +1,16 @@
 import React from 'react';
-import ReviewSummary from './components/ReviewSummary';
+import { Box, Text } from 'grommet';
+import { Screen, ScreenHeader } from '../components';
 import ExpenseList from './components/ExpenseList';
 
 function ExpenseListingScreen(props) {
   return (
-    <>
-      <ReviewSummary />
+    <Screen>
+      <ScreenHeader
+        center={<Text weight='bold' size='large'>Gastos</Text>}
+      />
       <ExpenseList />
-    </>
+    </Screen>
   );
 }
 
