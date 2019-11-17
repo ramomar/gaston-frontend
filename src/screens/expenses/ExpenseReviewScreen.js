@@ -21,7 +21,7 @@ function ExpenseReviewScreen(props) {
     <Screen>
       <ScreenHeader
         start={<Button plain icon={<LinkPrevious />} onClick={goBack} />}
-        center={<Text weight='bold' size='large'>{`Gasto el ${formattedDay}`}</Text>}
+        center={<Text weight='bold' size='large'>{`Gasto del ${formattedDay}`}</Text>}
       />
       <ExpenseReviewForm expense={expenseWithLuxonDate} />
     </Screen>
