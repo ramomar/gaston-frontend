@@ -84,7 +84,7 @@ function ExpenseList(props) {
           <Button
             primary
             type='button'
-            label='Más'
+            label='Ver más gastos'
             align='center'
             onClick={moreItems}
           />
