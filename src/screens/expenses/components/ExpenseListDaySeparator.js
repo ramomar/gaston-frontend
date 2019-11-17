@@ -7,7 +7,7 @@ function ExpenseListDaySeparator({ day, amountForDay }) {
   return (
     <Box
       pad='medium'
-      margin={{ bottom: 'large' }}
+      margin={{ top: 'medium' }}
       pad='large'
       direction='row'
       align='center'
