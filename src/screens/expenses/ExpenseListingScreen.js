@@ -7,7 +7,7 @@ function ExpenseListingScreen(props) {
   return (
     <Screen>
       <ScreenHeader
-        center={<Text weight='bold' size='large'>Gastos</Text>}
+        center={<Text weight='bold' size='large'>Revisión de gastos</Text>}
       />
       <ScreenBody>
         <ExpenseList />
