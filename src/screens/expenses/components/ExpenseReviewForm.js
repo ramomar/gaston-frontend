@@ -46,7 +46,7 @@ function ExpenseReviewForm({ expense }) {
         <FormField label='Hora'>
           <MaskedInput
             name='hour'
-            defaultValue={date.toLocaleString()}
+            defaultValue={date.toLocaleString(DateTime.TIME_24_SIMPLE)}
             placeholder={DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)} />
         </FormField>
         <FormField label='Cantidad'>
