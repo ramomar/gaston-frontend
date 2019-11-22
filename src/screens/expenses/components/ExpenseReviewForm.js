@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Form,
   FormField,
@@ -65,6 +65,7 @@ function ExpenseReviewForm({ expense }) {
       <Form>
         <FormField label='Nota'>
           <TextArea
+            required
             autoFocus
             name='note'
             defaultValue={note}
@@ -72,12 +73,14 @@ function ExpenseReviewForm({ expense }) {
         </FormField>
         <FormField label='Categoría'>
           <Select
+            required
             name='category'
             options={['Comida']}
             placeholder='Alimentación' />
         </FormField>
         <FormField label='Fecha'>
           <MaskedInput
+            required
             mask={dateMask}
             name='date'
             defaultValue={date.toLocaleString()}
@@ -86,6 +89,7 @@ function ExpenseReviewForm({ expense }) {
         </FormField>
         <FormField label='Hora'>
           <MaskedInput
+            required
             mask={hourMask}
             name='hour'
             defaultValue={date.toLocaleString(DateTime.TIME_24_SIMPLE)}
@@ -93,6 +97,7 @@ function ExpenseReviewForm({ expense }) {
         </FormField>
         <FormField label='Cantidad'>
           <MaskedInput
+            required
             mask={amountMask}
             name='amount'
             defaultValue={amount.toFixed(2)}
