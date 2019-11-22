@@ -23,7 +23,7 @@ const dateMask = [
   { fixed: '/' },
   {
     length: 4,
-    regexp: /^\d*$/
+    regexp: /^20\d*$|^2[0]?$/
   }
 ];
 
