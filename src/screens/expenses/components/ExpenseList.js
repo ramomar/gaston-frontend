@@ -69,8 +69,8 @@ function ExpenseList(props) {
 
   // TODO: include button only when there are more items and handle errors.
   return (
-    <Box overflow='scroll' pad={{ horizontal: 'medium' }}>
-      <Box fill='vertical'>
+    <Box fill='vertical' pad={{ horizontal: 'medium' }}>
+      <Box overflow='scroll'>
         {listItems}
         {!isLoading &&
           <Anchor
