@@ -60,56 +60,56 @@ function ExpenseReviewForm({ expense }) {
   } = expense;
 
   return (
-    <Box>
-      <Form>
-        <FormField label='Nota'>
-          <TextArea
-            required
-            autoFocus
-            name='note'
-            defaultValue={note}
-            placeholder='Cena del viernes en la noche' />
-        </FormField>
-        <FormField label='Categoría'>
-          <Select
-            required
-            name='category'
-            options={['Comida']}
-            placeholder='Alimentación' />
-        </FormField>
-        <FormField label='Fecha'>
-          <MaskedInput
-            required
-            mask={dateMask}
-            name='date'
-            defaultValue={date.toLocaleString()}
-            placeholder={DateTime.local().toLocaleString()}
-          />
-        </FormField>
-        <FormField label='Hora'>
-          <MaskedInput
-            required
-            mask={hourMask}
-            name='hour'
-            defaultValue={date.toLocaleString(DateTime.TIME_24_SIMPLE)}
-            placeholder={DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)} />
-        </FormField>
-        <FormField label='Cantidad'>
-          <MaskedInput
-            required
-            mask={amountMask}
-            name='amount'
-            defaultValue={amount.toFixed(2)}
-            placeholder='250.00' />
-        </FormField>
-      </Form>
-      <Button
-        label='Terminar'
-        primary
-        type='submit'
-        margin='medium'
-        alignSelf='center' />
-    </Box >
+    <Form>
+      <FormField label='Nota'>
+        <TextArea
+          required
+          autoFocus
+          name='note'
+          defaultValue={note}
+          placeholder='Cena del viernes en la noche' />
+      </FormField>
+      <FormField label='Categoría'>
+        <Select
+          required
+          name='category'
+          options={['Comida']}
+          placeholder='Alimentación' />
+      </FormField>
+      <FormField label='Fecha'>
+        <MaskedInput
+          required
+          mask={dateMask}
+          name='date'
+          defaultValue={date.toLocaleString()}
+          placeholder={DateTime.local().toLocaleString()}
+        />
+      </FormField>
+      <FormField label='Hora'>
+        <MaskedInput
+          required
+          mask={hourMask}
+          name='hour'
+          defaultValue={date.toLocaleString(DateTime.TIME_24_SIMPLE)}
+          placeholder={DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)} />
+      </FormField>
+      <FormField label='Cantidad'>
+        <MaskedInput
+          required
+          mask={amountMask}
+          name='amount'
+          defaultValue={amount.toFixed(2)}
+          placeholder='250.00' />
+      </FormField>
+      <Box>
+        <Button
+          label='Terminar'
+          primary
+          type='submit'
+          margin='medium'
+          alignSelf='center' />
+      </Box>
+    </Form>
   );
 }
 
