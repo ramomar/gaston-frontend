@@ -36,21 +36,19 @@ const hourMask = [
   {
     length: 2,
     regexp: /^[0-5][0-9]$|^[0-9]$/,
-    placeholder: 'mm',
+    placeholder: 'mm'
   }
 ];
 
 const amountMask = [
   { fixed: '$ ' },
   {
-    regexp: /^\d$/,
-    placeholder: '200',
+    regexp: /^\d+$/
   },
   { fixed: '.' },
   {
     length: 2,
-    regexp: /^\d{2}$/,
-    placeholder: '00',
+    regexp: /^\d{2}$/
   }
 ];
 
