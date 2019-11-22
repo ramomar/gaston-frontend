@@ -30,7 +30,7 @@ const dateMask = [
 const hourMask = [
   {
     length: [1, 2],
-    options: /^2[0-3]$|^1[0-9]$^[0-9]$/,
+    regexp: /^2[0-3]$|^1[0-9]$^[0-9]$/,
   },
   { fixed: ':' },
   {
