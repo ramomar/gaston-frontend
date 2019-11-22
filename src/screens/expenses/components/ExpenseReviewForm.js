@@ -23,7 +23,7 @@ const dateMask = [
   { fixed: '/' },
   {
     length: 4,
-    regexp: /^20\d*$|^2[0]?$/
+    regexp: /^20\d*$|^20?$/
   }
 ];
 
@@ -35,7 +35,7 @@ const hourMask = [
   { fixed: ':' },
   {
     length: 2,
-    regexp: /^[0-5][0-9]$|^[0-9]$/
+    regexp: /^[0-5][0-9]?$/
   }
 ];
 
