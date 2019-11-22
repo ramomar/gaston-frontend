@@ -97,7 +97,8 @@ function ExpenseReviewForm({ expense }) {
           <MaskedInput
             mask={amountMask}
             name='amount'
-            defaultValue={amount.toFixed(2)} />
+            defaultValue={amount.toFixed(2)}
+            placeholder='250.00' />
         </FormField>
       </Form>
       <Button
