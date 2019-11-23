@@ -6,7 +6,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import { ExpenseListingScreen, ExpenseReviewScreen } from './screens/expenses';
+import { ExpenseListingScreen, ExpenseReviewScreen } from './expenses';
 import { Settings } from 'luxon';
 
 Settings.defaultLocale = 'es';
