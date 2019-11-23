@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Form,
   FormField,
@@ -51,6 +51,32 @@ const amountMask = [
   }
 ];
 
+function extractAmount(string) {
+  const r = /\d+\.\d{2}/;
+
+  return parseFloat(r.exec(string));
+}
+
+function createLuxonDate(day, hour) {
+  return DateTime.fromFormat(`${day} ${hour}`, 'd/L/yyyy HH:mm');
+}
+
+function onSubmit(expenseId) {
+  return ({ value }) => {
+    const { note, category, day, hour, amount } = value;
+
+    const expenseReview = {
+      id: expenseId,
+      note,
+      category,
+      date: createLuxonDate(day, hour).toISO(),
+      amount: extractAmount(amount)
+    };
+
+    console.log(expenseReview);
+  };
+}
+
 function ExpenseReviewForm({ expense }) {
   const {
     id,
@@ -59,48 +85,58 @@ function ExpenseReviewForm({ expense }) {
     date
   } = expense;
 
+  const initialValue = {
+    note,
+    day: date.toLocaleString(),
+    hour: date.toLocaleString(DateTime.TIME_24_SIMPLE),
+    amount: `\$ ${amount.toFixed(2)}`
+  };
+
   return (
-    <Form>
-      <FormField label='Nota'>
-        <TextArea
-          required
-          autoFocus
-          name='note'
-          defaultValue={note}
-          placeholder='Cena del viernes en la noche' />
-      </FormField>
-      <FormField label='Categoría'>
-        <Select
-          required
-          name='category'
-          options={['Comida']}
-          placeholder='Alimentación' />
-      </FormField>
-      <FormField label='Fecha'>
-        <MaskedInput
-          required
-          mask={dateMask}
-          name='date'
-          defaultValue={date.toLocaleString()}
-          placeholder={DateTime.local().toLocaleString()}
-        />
-      </FormField>
-      <FormField label='Hora'>
-        <MaskedInput
-          required
-          mask={hourMask}
-          name='hour'
-          defaultValue={date.toLocaleString(DateTime.TIME_24_SIMPLE)}
-          placeholder={DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)} />
-      </FormField>
-      <FormField label='Cantidad'>
-        <MaskedInput
-          required
-          mask={amountMask}
-          name='amount'
-          defaultValue={amount.toFixed(2)}
-          placeholder='250.00' />
-      </FormField>
+    <Form
+      messages={{
+        invalid: ':(',
+        required: 'Requerido'
+      }}
+      value={initialValue}
+      onSubmit={onSubmit(id)}>
+      <FormField
+        required
+        autoFocus
+        label='Nota'
+        name='note'
+        component={TextArea}
+        name='note'
+        placeholder='Cena del viernes en la noche' />
+      <FormField
+        required
+        label='Categoría'
+        name='category'
+        component={Select}
+        options={['Comida']}
+        placeholder='Alimentación' />
+      <FormField
+        required
+        label='Fecha'
+        name='day'
+        component={MaskedInput}
+        mask={dateMask}
+        placeholder={DateTime.local().toLocaleString()}
+      />
+      <FormField
+        required
+        label='Hora'
+        name='hour'
+        component={MaskedInput}
+        mask={hourMask}
+        placeholder={DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)} />
+      <FormField
+        required
+        label='Cantidad'
+        name='amount'
+        component={MaskedInput}
+        mask={amountMask}
+        placeholder='$ 250.00' />
       <Box>
         <Button
           label='Terminar'
@@ -109,7 +145,7 @@ function ExpenseReviewForm({ expense }) {
           margin='medium'
           alignSelf='center' />
       </Box>
-    </Form>
+    </Form >
   );
 }
 
