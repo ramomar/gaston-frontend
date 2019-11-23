@@ -18,7 +18,7 @@ function ExpenseListItem({ expense }) {
       id,
       note,
       amount,
-      date: date.toISO() // Passing it as Luxon object won't work when trying to use it as intended later.
+      date: date.toISO()
     },
     fromList: true
   });

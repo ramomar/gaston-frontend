@@ -11,7 +11,6 @@ function ExpenseReviewScreen(props) {
   const { state: { expense } } = useLocation();
   const { goBack } = useHistory();
 
-  // See ExpenseListItem
   const date = DateTime.fromISO(expense.date);
   const expenseWithLuxonDate = assoc('date', date, expense);
 
