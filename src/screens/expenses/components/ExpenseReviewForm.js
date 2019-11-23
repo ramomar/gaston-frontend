@@ -99,7 +99,8 @@ function ExpenseReviewForm({ expense }) {
         required: 'Requerido'
       }}
       value={initialValue}
-      onSubmit={onSubmit(id)}>
+      onSubmit={onSubmit(id)}
+    >
       <FormField
         required
         autoFocus
@@ -107,14 +108,16 @@ function ExpenseReviewForm({ expense }) {
         name='note'
         component={TextArea}
         name='note'
-        placeholder='Cena del viernes en la noche' />
+        placeholder='Cena del viernes en la noche'
+      />
       <FormField
         required
         label='Categoría'
         name='category'
         component={Select}
         options={['Comida']}
-        placeholder='Alimentación' />
+        placeholder='Alimentación'
+      />
       <FormField
         required
         label='Fecha'
@@ -129,21 +132,24 @@ function ExpenseReviewForm({ expense }) {
         name='hour'
         component={MaskedInput}
         mask={hourMask}
-        placeholder={DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)} />
+        placeholder={DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)}
+      />
       <FormField
         required
         label='Cantidad'
         name='amount'
         component={MaskedInput}
         mask={amountMask}
-        placeholder='$ 250.00' />
+        placeholder='$ 250.00'
+      />
       <Box>
         <Button
           label='Terminar'
           primary
           type='submit'
           margin='medium'
-          alignSelf='center' />
+          alignSelf='center'
+        />
       </Box>
     </Form>
   );
