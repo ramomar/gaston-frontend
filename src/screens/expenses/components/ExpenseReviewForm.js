@@ -89,7 +89,7 @@ function ExpenseReviewForm({ expense }) {
     note,
     day: date.toLocaleString(),
     hour: date.toLocaleString(DateTime.TIME_24_SIMPLE),
-    amount: `\$ ${amount.toFixed(2)}`
+    amount: `$ ${amount.toFixed(2)}`
   };
 
   return (
@@ -107,7 +107,6 @@ function ExpenseReviewForm({ expense }) {
         label='Nota'
         name='note'
         component={TextArea}
-        name='note'
         placeholder='Cena del viernes en la noche'
       />
       <FormField
