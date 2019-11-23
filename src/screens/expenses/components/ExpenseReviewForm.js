@@ -145,7 +145,7 @@ function ExpenseReviewForm({ expense }) {
           margin='medium'
           alignSelf='center' />
       </Box>
-    </Form >
+    </Form>
   );
 }
 
