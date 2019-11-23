@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'grommet';
-import { Screen, ScreenHeader, ScreenBody } from '../foundation/components/screens';
-import ExpenseList from './components/ExpenseList';
+import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screens';
+import ExpenseList from './ExpenseList';
 
 function ExpenseListingScreen(props) {
   return (

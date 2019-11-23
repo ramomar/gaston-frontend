@@ -2,8 +2,8 @@ import React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
-import { Screen, ScreenHeader, ScreenBody } from '../foundation/components/screens';
-import ExpenseReviewForm from './components/ExpenseReviewForm';
+import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screens';
+import ExpenseReviewForm from './ExpenseReviewForm';
 import { DateTime } from 'luxon';
 import { assoc } from 'ramda';
 

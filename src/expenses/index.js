@@ -1,5 +1,5 @@
-import ExpenseListingScreen from './ExpenseListingScreen';
-import ExpenseReviewScreen from './ExpenseReviewScreen';
+import ExpenseListingScreen from './components/ExpenseListingScreen';
+import ExpenseReviewScreen from './components/ExpenseReviewScreen';
 
 export {
   ExpenseListingScreen,

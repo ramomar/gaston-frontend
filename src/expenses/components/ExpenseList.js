@@ -3,7 +3,7 @@ import { Box, Anchor } from 'grommet';
 import ExpenseListItem from './ExpenseListItem';
 import ExpenseListDaySeparator from './ExpenseListDaySeparator';
 import { chain, flatten } from 'ramda';
-import EXPENSES from '../EXPENSES';
+import EXPENSES from '../../EXPENSES';
 
 function makeExpenseListDateSeparator(day, amountForDay) {
   // TODO: remove random
