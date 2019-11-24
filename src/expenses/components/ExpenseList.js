@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Box, Anchor } from 'grommet';
 import ExpenseListItem from './ExpenseListItem';
 import ExpenseListDaySeparator from './ExpenseListDaySeparator';
-import { chain, flatten } from 'ramda';
-import EXPENSES from '../../EXPENSES';
+import { chain, flatten, reduce } from 'ramda';
 
 function makeExpenseListDateSeparator(day, amountForDay) {
-  // TODO: remove random
   return (
     <ExpenseListDaySeparator
-      key={Math.floor(Math.random() * 20000000)}
+      key={day.toLocaleString()}
       day={day}
       amountForDay={amountForDay}
     />
@@ -17,55 +15,32 @@ function makeExpenseListDateSeparator(day, amountForDay) {
 }
 
 function makeExpenseListItem(expense) {
-  // TODO: remove random
   return (
     <ExpenseListItem
-      key={Math.floor(Math.random() * 234234234200)}
+      key={expense.id}
       expense={expense} />
   );
 }
 
 function makeItemsFromExpenseGroups(expenseGroups) {
-  const makeItems = (expenseGroup) => flatten([
-    makeExpenseListDateSeparator(expenseGroup.day, Math.floor(Math.random() * 200)),
-    expenseGroup.expenses.map(makeExpenseListItem)
+  const computeTotalAmount = reduce((acc, next) => acc + next.amount, 0);
+
+  const makeItems = ({ day, expenses }) => flatten([
+    makeExpenseListDateSeparator(day, computeTotalAmount(expenses)),
+    expenses.map(makeExpenseListItem)
   ]);
 
   return chain(makeItems, expenseGroups);
 }
 
-function ExpenseList(props) {
+function ExpenseList({ expenseGroups, fetchExpenses }) {
   const [state, setState] = useState({
-    isLoading: false,
-    items: [],
     paginationStart: 0,
     paginationEnd: 10
   });
 
-  const { isLoading, items, paginationStart, paginationEnd } = state;
-
-  useEffect(() => {
-    EXPENSES(paginationStart, paginationEnd)
-      .then((expenseGroups) => {
-        setState({
-          isLoading: false,
-          items: expenseGroups,
-          paginationStart: paginationStart,
-          paginationEnd: paginationEnd
-        });
-      });
-  }, [paginationStart, paginationEnd]);
-
-  const moreItems = () => {
-    setState({
-      isLoading: true,
-      items,
-      paginationStart,
-      paginationEnd: paginationEnd + 5
-    });
-  };
-
-  const listItems = makeItemsFromExpenseGroups(items);
+  const listItems = makeItemsFromExpenseGroups(expenseGroups);
+  const isLoading = false;
 
   // TODO: include button only when there are more items and handle errors.
   return (
@@ -78,7 +53,7 @@ function ExpenseList(props) {
             alignSelf='center'
             margin={{ top: 'small', bottom: 'medium' }}
             style={{ textDecoration: 'underline' }}
-            onClick={moreItems}>
+            onClick={() => fetchExpenses(0, 10)}>
             Ver más gastos
           </Anchor>
         }

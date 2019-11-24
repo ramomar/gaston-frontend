@@ -3,14 +3,14 @@ import { Text } from 'grommet';
 import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screens';
 import ExpenseList from './ExpenseList';
 
-function ExpenseListingScreen(props) {
+function ExpenseListingScreen({ expensesByDay, fetchExpenses }) {
   return (
     <Screen>
       <ScreenHeader
         center={<Text weight='bold' size='large'>Revisión de gastos</Text>}
       />
       <ScreenBody>
-        <ExpenseList />
+        <ExpenseList expenseGroups={expensesByDay} fetchExpenses={fetchExpenses} />
       </ScreenBody>
     </Screen>
   );

@@ -1,12 +1,14 @@
 import React from 'react';
-import { Grommet, Box } from 'grommet';
-import { grommet } from 'grommet/themes/grommet'
+import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
-import { ExpenseListingScreen, ExpenseReviewScreen } from './expenses';
+import { Grommet, Box } from 'grommet';
+import { grommet } from 'grommet/themes/grommet'
+import { ExpenseListingScreenContainer, ExpenseReviewScreen } from './expenses';
+import store from './foundation/state/store';
 import { Settings } from 'luxon';
 
 Settings.defaultLocale = 'es';
@@ -16,16 +18,18 @@ function App() {
   return (
     <Grommet theme={grommet} full>
       <Box fill='vertical' overflow='hidden'>
-        <Router>
-          <Switch>
-            <Route path='/expenses/:id/review'>
-              <ExpenseReviewScreen />
-            </Route>
-            <Route path='/expenses'>
-              <ExpenseListingScreen />
-            </Route>
-          </Switch>
-        </Router>
+        <Provider store={store}>
+          <Router>
+            <Switch>
+              <Route path='/expenses/:id/review'>
+                <ExpenseReviewScreen />
+              </Route>
+              <Route path='/expenses'>
+                <ExpenseListingScreenContainer />
+              </Route>
+            </Switch>
+          </Router>
+        </Provider>
       </Box>
     </Grommet >
   );
