@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import _expenses from '../../expenses.json';
+import _expenses from './expenses.json';
 
 function makeExpense(rawExpense) {
   return {
