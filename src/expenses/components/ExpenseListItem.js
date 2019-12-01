@@ -1,27 +1,13 @@
 import React from 'react';
 import { Text, Box } from 'grommet';
-import { useHistory } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
-function ExpenseListItem({ expense }) {
-  const { push } = useHistory();
-
+function ExpenseListItem({ expense, toExpenseReviewScreen }) {
   const {
-    id,
     note,
     amount,
     date
   } = expense;
-
-  const toReviewScreen = () => push(`/expenses/${id}/review`, {
-    expense: {
-      id,
-      note,
-      amount,
-      date: date.toISO()
-    },
-    fromList: true
-  });
 
   return (
     <Box
@@ -31,7 +17,7 @@ function ExpenseListItem({ expense }) {
       direction='row'
       align='center'
       justify='between'
-      onClick={toReviewScreen}>
+      onClick={() => toExpenseReviewScreen()}>
       <Box basis='2/4'>
         <Text truncate>{note}</Text>
       </Box>

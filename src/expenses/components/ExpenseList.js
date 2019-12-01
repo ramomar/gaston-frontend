@@ -14,30 +14,34 @@ function makeExpenseListDateSeparator(day, amountForDay) {
   );
 }
 
-function makeExpenseListItem(expense) {
-  return (
-    <ExpenseListItem
-      key={expense.id}
-      expense={expense} />
-  );
+function makeExpenseListItem(toExpenseReviewScreen) {
+  return (expense) => {
+    return (
+      <ExpenseListItem
+        key={expense.id}
+        expense={expense}
+        toExpenseReviewScreen={() => toExpenseReviewScreen(expense)}
+      />
+    );
+  };
 }
 
-function makeItemsFromExpenseGroups(expenseGroups) {
+function makeItemsFromExpenseGroups(expenseGroups, toExpenseReviewScreen) {
   const computeTotalAmount = R.reduce((acc, next) => acc + next.amount, 0);
 
   const makeItems = ({ day, expenses }) => R.flatten([
     makeExpenseListDateSeparator(day, computeTotalAmount(expenses)),
-    expenses.map(makeExpenseListItem)
+    expenses.map(makeExpenseListItem(toExpenseReviewScreen))
   ]);
 
   return R.chain(makeItems, expenseGroups);
 }
 
-function ExpenseList({ expenseGroups, moreExpenses, isFetching, hasMore }) {
+function ExpenseList({ expenseGroups, isFetching, hasMore, moreExpenses, toExpenseReviewScreen }) {
   return (
     <Box fill='vertical'>
       <Box overflow='scroll' pad={{ horizontal: 'medium' }}>
-        {makeItemsFromExpenseGroups(expenseGroups)}
+        {makeItemsFromExpenseGroups(expenseGroups, toExpenseReviewScreen)}
         {!isFetching && hasMore &&
           <Anchor
             primary

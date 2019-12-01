@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import { fetchExpenses } from '../../foundation/state/actions';
 import { expensesByDay } from '../../foundation/state/reducers';
 import { Text } from 'grommet';
@@ -7,6 +8,19 @@ import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/sc
 import ExpenseList from '../components/ExpenseList';
 
 function ExpenseListScreen(props) {
+  const { push } = useHistory();
+
+  const toExpenseReviewScreen = ({ id, note, amount, date }) =>
+    push(`/expenses/${id}/review`, {
+      expense: {
+        id,
+        note,
+        amount,
+        date: date.toISO()
+      },
+      fromList: true
+    });
+
   const moreExpenses = () =>
     props.dispatchFetchExpenses(props.paginationEnd, props.paginationEnd + 10);
 
@@ -26,6 +40,7 @@ function ExpenseListScreen(props) {
           hasMore={props.hasMore}
           error={props.error}
           moreExpenses={moreExpenses}
+          toExpenseReviewScreen={toExpenseReviewScreen}
         />
       </ScreenBody>
     </Screen>
