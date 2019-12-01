@@ -5,14 +5,14 @@ import { LinkPrevious } from 'grommet-icons';
 import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screen';
 import ExpenseReviewForm from './ExpenseReviewForm';
 import { DateTime } from 'luxon';
-import { assoc } from 'ramda';
+import * as R from 'ramda';
 
 function ExpenseReviewScreen(props) {
   const { state: { expense } } = useLocation();
   const { goBack } = useHistory();
 
   const date = DateTime.fromISO(expense.date);
-  const expenseWithLuxonDate = assoc('date', date, expense);
+  const expenseWithLuxonDate = R.assoc('date', date, expense);
 
   const formattedDay = date.toFormat(`d 'de' MMMM`);
 

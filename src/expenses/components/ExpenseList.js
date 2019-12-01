@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Anchor } from 'grommet';
 import ExpenseListItem from './ExpenseListItem';
 import ExpenseListDaySeparator from './ExpenseListDaySeparator';
-import { chain, flatten, reduce } from 'ramda';
+import * as R from 'ramda';
 
 function makeExpenseListDateSeparator(day, amountForDay) {
   return (
@@ -23,14 +23,14 @@ function makeExpenseListItem(expense) {
 }
 
 function makeItemsFromExpenseGroups(expenseGroups) {
-  const computeTotalAmount = reduce((acc, next) => acc + next.amount, 0);
+  const computeTotalAmount = R.reduce((acc, next) => acc + next.amount, 0);
 
-  const makeItems = ({ day, expenses }) => flatten([
+  const makeItems = ({ day, expenses }) => R.flatten([
     makeExpenseListDateSeparator(day, computeTotalAmount(expenses)),
     expenses.map(makeExpenseListItem)
   ]);
 
-  return chain(makeItems, expenseGroups);
+  return R.chain(makeItems, expenseGroups);
 }
 
 function ExpenseList({ expenseGroups, moreExpenses, isFetching, hasMore }) {
