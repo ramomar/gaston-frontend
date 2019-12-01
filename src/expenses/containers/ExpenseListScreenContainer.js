@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchExpenses } from '../../foundation/state/actions';
 import { expensesByDay } from '../../foundation/state/reducers';
@@ -9,6 +9,10 @@ import ExpenseList from '../components/ExpenseList';
 function ExpenseListScreen(props) {
   const moreExpenses = () =>
     props.dispatchFetchExpenses(props.paginationEnd, props.paginationEnd + 10);
+
+  useEffect(() => {
+    moreExpenses();
+  }, []);
 
   return (
     <Screen>
