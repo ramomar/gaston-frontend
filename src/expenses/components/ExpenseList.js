@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Box, Anchor } from 'grommet';
 import ExpenseListItem from './ExpenseListItem';
 import ExpenseListDaySeparator from './ExpenseListDaySeparator';
@@ -33,27 +33,18 @@ function makeItemsFromExpenseGroups(expenseGroups) {
   return chain(makeItems, expenseGroups);
 }
 
-function ExpenseList({ expenseGroups, fetchExpenses }) {
-  const [state, setState] = useState({
-    paginationStart: 0,
-    paginationEnd: 10
-  });
-
-  const listItems = makeItemsFromExpenseGroups(expenseGroups);
-  const isLoading = false;
-
-  // TODO: include button only when there are more items and handle errors.
+function ExpenseList({ expenseGroups, moreExpenses, isFetching, hasMore }) {
   return (
     <Box fill='vertical'>
       <Box overflow='scroll' pad={{ horizontal: 'medium' }}>
-        {listItems}
-        {!isLoading &&
+        {makeItemsFromExpenseGroups(expenseGroups)}
+        {!isFetching && hasMore &&
           <Anchor
             primary
             alignSelf='center'
             margin={{ top: 'small', bottom: 'medium' }}
             style={{ textDecoration: 'underline' }}
-            onClick={() => fetchExpenses(0, 10)}>
+            onClick={() => moreExpenses()}>
             Ver más gastos
           </Anchor>
         }

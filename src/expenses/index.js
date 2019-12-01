@@ -1,7 +1,7 @@
-import ExpenseListingScreenContainer from './containers/ExpenseListingScreenContainer';
+import ExpenseListScreenContainer from './containers/ExpenseListScreenContainer';
 import ExpenseReviewScreen from './components/ExpenseReviewScreen';
 
 export {
-  ExpenseListingScreenContainer,
+  ExpenseListScreenContainer,
   ExpenseReviewScreen
 };

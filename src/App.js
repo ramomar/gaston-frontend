@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { Grommet, Box } from 'grommet';
 import { grommet } from 'grommet/themes/grommet'
-import { ExpenseListingScreenContainer, ExpenseReviewScreen } from './expenses';
+import { ExpenseListScreenContainer, ExpenseReviewScreen } from './expenses';
 import store from './foundation/state/store';
 import { Settings } from 'luxon';
 
@@ -25,7 +25,7 @@ function App() {
                 <ExpenseReviewScreen />
               </Route>
               <Route path='/expenses'>
-                <ExpenseListingScreenContainer />
+                <ExpenseListScreenContainer />
               </Route>
             </Switch>
           </Router>

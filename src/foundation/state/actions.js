@@ -10,34 +10,36 @@ function makeExpense(rawExpense) {
   };
 }
 
-// Should it be pagination start and paginationEnd?
 function expenses(paginationStart, paginationEnd) {
-  return Promise.resolve(
-    _expenses
-      .map(makeExpense)
-      .slice(paginationStart, paginationEnd)
-  );
+  return Promise.resolve({
+    json: () => ({
+      expenses: _expenses
+        .map(makeExpense)
+        .sort((e1, e2) => e2.date.toMillis() - e1.date.toMillis())
+        .slice(paginationStart, paginationEnd),
+      hasMore: true
+    })
+  });
 }
 
 const REQUEST_EXPENSES = 'REQUEST_EXPENSES';
 const RECEIVE_EXPENSES = 'RECEIVE_EXPENSES';
 const REVIEW_EXPENSE = 'REVIEW_EXPENSE';
 
-function requestExpenses({ paginationStart, paginationEnd }) {
+function requestExpenses() {
   return {
     type: REQUEST_EXPENSES,
-    paginationStart,
-    paginationEnd
   };
 }
 
-function receiveExpenses({ paginationStart, paginationEnd, expenses, error }) {
+function receiveExpenses({ expenses, hasMore, error, paginationStart, paginationEnd }) {
   return {
     type: RECEIVE_EXPENSES,
-    paginationStart,
-    paginationEnd,
     expenses,
-    error
+    hasMore,
+    error,
+    paginationStart,
+    paginationEnd
   };
 }
 
@@ -48,19 +50,18 @@ function reviewExpense({ expenseReview }) {
   };
 }
 
-function fetchExpenses(paginationStart, paginationEnd) {
+function fetchExpenses({ paginationStart, paginationEnd }) {
   return dispatch => {
-    dispatch(requestExpenses({ paginationStart, paginationEnd }));
+    dispatch(requestExpenses());
 
     return expenses(paginationStart, paginationEnd)
-      .then(expenses => ({ json: () => expenses }))
       .then(
         response => response.json(),
-        error => receiveExpenses({ paginationStart, paginationEnd, expeness: [], error })
+        error => receiveExpenses({ expenses: [], error })
       )
       .then(
-        expenses => dispatch(receiveExpenses({ paginationStart, paginationEnd, expenses })),
-        error => receiveExpenses({ paginationStart, paginationEnd, expenses: [], error })
+        ({ expenses, hasMore }) => dispatch(receiveExpenses({ expenses, hasMore, paginationStart, paginationEnd, error: null })),
+        error => receiveExpenses({ expenses: [], error })
       );
   };
 }

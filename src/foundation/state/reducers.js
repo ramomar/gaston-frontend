@@ -1,18 +1,48 @@
 import { combineReducers } from 'redux';
 import { REQUEST_EXPENSES, RECEIVE_EXPENSES } from './actions';
-import { pipe, groupBy, toPairs, sort, map } from 'ramda';
+import * as R from 'ramda';
 import { DateTime } from 'luxon';
 
-function expenseListing(state = { expenses: [] }, action) {
+function makeExpenseListScreenState() {
+  return {
+    expenses: [],
+    isFetching: false,
+    hasMore: true,
+    hasError: false,
+    error: null,
+    paginationStart: 0,
+    paginationEnd: 0
+  };
+}
+
+function computeStateOnRequestExpenses(state, _) {
+  return R.mergeRight(state,
+    { isFetching: true }
+  );
+}
+
+function computeStateOnReceiveExpenses(state, action) {
+  const hasError = !!action.error;
+  return R.mergeAll([
+    state,
+    {
+      isFetching: false,
+    },
+    hasError ? { error: action.error } : {
+      paginationStart: action.paginationStart,
+      paginationEnd: action.paginationEnd,
+      hasMore: action.hasMore,
+      expenses: [...state.expenses, ...action.expenses]
+    }
+  ]);
+}
+
+function expenseListScreen(state = makeExpenseListScreenState(), action) {
   switch (action.type) {
     case REQUEST_EXPENSES:
-      // isFetching = true
-      return state;
+      return computeStateOnRequestExpenses(state, action);
     case RECEIVE_EXPENSES:
-      return {
-        ...state,
-        expenses: [...state.expenses, ...action.expenses]
-      };
+      return computeStateOnReceiveExpenses(state, action);
     default:
       return state;
   }
@@ -20,21 +50,21 @@ function expenseListing(state = { expenses: [] }, action) {
 
 function expensesByDay(expenses) {
   const compareDates = (d1, d2) => d2.toMillis() - d1.toMillis();
-  const byDay = pipe(
-    groupBy(expense => expense.date.toLocaleString()),
-    toPairs,
-    map(([day, expenses]) => ({
+  const groupByDay = R.pipe(
+    R.groupBy(expense => expense.date.toLocaleString()),
+    R.toPairs,
+    R.map(([day, expenses]) => ({
       day: DateTime.fromFormat(day, 'd/M/yyyy'),
-      expenses: sort((e1, e2) => compareDates(e1.date, e2.date), expenses)
+      expenses: R.sort((e1, e2) => compareDates(e1.date, e2.date), expenses)
     })),
-    sort((g1, g2) => compareDates(g1.day, g2.day))
+    R.sort((eg1, eg2) => compareDates(eg1.day, eg2.day))
   );
 
-  return byDay(expenses);
+  return groupByDay(expenses);
 }
 
 const rootReducer = combineReducers({
-  expenseListing
+  expenseListScreen
 });
 
 export {
