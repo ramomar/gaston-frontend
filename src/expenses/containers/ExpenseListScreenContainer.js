@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchExpenses } from '../../foundation/state/actions';
 import { expensesByDay } from '../../foundation/state/reducers';
 import { Text } from 'grommet';
-import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screens';
+import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screen';
 import ExpenseList from '../components/ExpenseList';
 
 function ExpenseListScreen(props) {
