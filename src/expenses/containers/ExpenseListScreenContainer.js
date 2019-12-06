@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Shapes from '../shapes';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { fetchExpenses } from '../../foundation/state/actions';
@@ -46,6 +48,13 @@ function ExpenseListScreen(props) {
     </Screen>
   );
 }
+
+ExpenseListScreen.propTypes = {
+  expenseGroups: PropTypes.arrayOf(Shapes.expenseGroup).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  hasMore: PropTypes.bool.isRequired,
+  error: PropTypes.instanceOf(Error)
+};
 
 function mapStateToProps(state) {
   const {

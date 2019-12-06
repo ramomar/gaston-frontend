@@ -1,4 +1,5 @@
 import React from 'react';
+import Shapes from '../shapes';
 import {
   Form,
   FormField,
@@ -153,5 +154,9 @@ function ExpenseReviewForm({ expense }) {
     </Form>
   );
 }
+
+ExpenseReviewForm.propTypes = {
+  expense: Shapes.expense.isRequired
+};
 
 export default ExpenseReviewForm;

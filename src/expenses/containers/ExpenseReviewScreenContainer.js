@@ -29,4 +29,8 @@ function ExpenseReviewScreen(props) {
   );
 }
 
+ExpenseReviewScreen.propTypes = {
+
+};
+
 export default ExpenseReviewScreen;

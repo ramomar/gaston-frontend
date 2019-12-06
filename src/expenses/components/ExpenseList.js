@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Shapes from '../shapes';
 import { Box, Anchor } from 'grommet';
 import ExpenseListItem from './ExpenseListItem';
 import ExpenseListDaySeparator from './ExpenseListDaySeparator';
@@ -56,5 +58,13 @@ function ExpenseList({ expenseGroups, isFetching, hasMore, moreExpenses, toExpen
     </Box >
   );
 }
+
+ExpenseList.propTypes = {
+  expenseGroups: PropTypes.arrayOf(Shapes.expenseGroup).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  hasMore: PropTypes.bool.isRequired,
+  moreExpenses: PropTypes.func.isRequired,
+  toExpenseReviewScreen: PropTypes.func.isRequired
+};
 
 export default ExpenseList;

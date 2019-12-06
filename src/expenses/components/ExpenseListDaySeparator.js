@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Text, Box } from 'grommet';
+import { DateTime } from 'luxon';
 
 function ExpenseListDaySeparator({ day, amountForDay }) {
   const formattedDay = day.toFormat(`d 'de' MMMM`);
@@ -21,5 +23,10 @@ function ExpenseListDaySeparator({ day, amountForDay }) {
     </Box>
   );
 }
+
+ExpenseListDaySeparator.propTypes = {
+  day: PropTypes.instanceOf(DateTime).isRequired,
+  amountForDay: PropTypes.number.isRequired
+};
 
 export default ExpenseListDaySeparator;

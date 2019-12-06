@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Shapes from '../shapes';
 import { Text, Box } from 'grommet';
 import { DateTime } from 'luxon';
 
@@ -28,5 +30,10 @@ function ExpenseListItem({ expense, toExpenseReviewScreen }) {
     </Box>
   );
 }
+
+ExpenseListItem.propTypes = {
+  expense: Shapes.expense.isRequired,
+  toExpenseReviewScreen: PropTypes.func.isRequired
+};
 
 export default ExpenseListItem;
