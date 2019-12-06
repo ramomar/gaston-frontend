@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box } from 'grommet';
 
 function ScreenHeader({ start, center, end }) {
@@ -22,5 +23,11 @@ function ScreenHeader({ start, center, end }) {
     </Box>
   );
 }
+
+ScreenHeader.propTypes = {
+  start: PropTypes.element,
+  center: PropTypes.element,
+  end: PropTypes.element
+};
 
 export default ScreenHeader;
