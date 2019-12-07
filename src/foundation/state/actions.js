@@ -60,7 +60,14 @@ function fetchExpenses({ paginationStart, paginationEnd }) {
         error => receiveExpenses({ expenses: [], error })
       )
       .then(
-        ({ expenses, hasMore }) => dispatch(receiveExpenses({ expenses, hasMore, paginationStart, paginationEnd, error: null })),
+        ({ expenses, hasMore }) =>
+          dispatch(receiveExpenses({
+            expenses,
+            hasMore,
+            paginationStart,
+            paginationEnd,
+            error: null
+          })),
         error => receiveExpenses({ expenses: [], error })
       );
   };
