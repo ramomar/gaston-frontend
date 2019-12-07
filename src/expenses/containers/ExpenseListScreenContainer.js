@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types';
 import Shapes from '../shapes';
-import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { fetchExpenses } from '../../foundation/state/actions';
 import { expensesByDay } from '../../foundation/state/reducers';
@@ -53,10 +53,11 @@ ExpenseListScreen.propTypes = {
   expenseGroups: PropTypes.arrayOf(Shapes.expenseGroup).isRequired,
   isFetching: PropTypes.bool.isRequired,
   hasMore: PropTypes.bool.isRequired,
-  error: PropTypes.instanceOf(Error)
+  error: PropTypes.instanceOf(Error),
+  paginationEnd: PropTypes.number.isRequired
 };
 
-function mapStateToProps(state) {
+function stateToProps(state) {
   const {
     expenseListScreen: {
       expenses,
@@ -78,14 +79,18 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function dispatchToProps(dispatch) {
   return {
     dispatchFetchExpenses: (paginationStart, paginationEnd) =>
       dispatch(fetchExpenses({ paginationStart, paginationEnd }))
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ExpenseListScreen);
+export default function ExpenseListScreenContainer(props) {
+  const stateProps = useSelector(stateToProps);
+  const dispatchProps = dispatchToProps(useDispatch());
+
+  return (
+    <ExpenseListScreen {...stateProps} {...dispatchProps} />
+  );
+}
