@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Text, Box } from 'grommet';
 import { DateTime } from 'luxon';
 
-function ExpenseListDaySeparator({ day, amountForDay }) {
-  const formattedDay = day.toFormat(`d 'de' MMMM`);
+function ExpenseListDaySeparator(props) {
+  const formattedDay = props.day.toFormat(`d 'de' MMMM`);
 
   return (
     <Box
@@ -18,7 +18,7 @@ function ExpenseListDaySeparator({ day, amountForDay }) {
       style={{ position: 'sticky', top: 0 }}>
       <Text weight='bold'>{formattedDay}</Text>
       <Box align='end'>
-        <Text color='red' weight='bold' size='small'>-${amountForDay.toFixed(2)}</Text>
+        <Text color='red' weight='bold' size='small'>-${props.amountForDay.toFixed(2)}</Text>
       </Box>
     </Box>
   );

@@ -4,12 +4,12 @@ import Shapes from '../shapes';
 import { Text, Box } from 'grommet';
 import { DateTime } from 'luxon';
 
-function ExpenseListItem({ expense, toExpenseReviewScreen }) {
+function ExpenseListItem(props) {
   const {
     note,
     amount,
     date
-  } = expense;
+  } = props.expense;
 
   return (
     <Box
@@ -19,7 +19,7 @@ function ExpenseListItem({ expense, toExpenseReviewScreen }) {
       direction='row'
       align='center'
       justify='between'
-      onClick={() => toExpenseReviewScreen()}>
+      onClick={() => props.toExpenseReviewScreen()}>
       <Box basis='2/4'>
         <Text truncate>{note}</Text>
       </Box>

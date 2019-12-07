@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from 'grommet';
 
-function ScreenHeader({ start, center, end }) {
+function ScreenHeader(props) {
   return (
     <Box
       flex={false}
@@ -12,13 +12,13 @@ function ScreenHeader({ start, center, end }) {
       margin={{ vertical: 'large' }}
       pad={{ horizontal: 'medium' }}>
       <Box>
-        {start}
+        {props.start}
       </Box>
       <Box>
-        {center}
+        {props.center}
       </Box>
       <Box>
-        {end}
+        {props.end}
       </Box>
     </Box>
   );

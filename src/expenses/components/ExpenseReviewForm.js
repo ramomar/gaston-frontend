@@ -78,13 +78,13 @@ function onSubmit(expenseId) {
   };
 }
 
-function ExpenseReviewForm({ expense }) {
+function ExpenseReviewForm(props) {
   const {
     id,
     note,
     amount,
     date
-  } = expense;
+  } = props.expense;
 
   const initialValue = {
     note,

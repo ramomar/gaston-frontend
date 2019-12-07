@@ -39,18 +39,18 @@ function makeItemsFromExpenseGroups(expenseGroups, toExpenseReviewScreen) {
   return R.chain(makeItems, expenseGroups);
 }
 
-function ExpenseList({ expenseGroups, isFetching, hasMore, moreExpenses, toExpenseReviewScreen }) {
+function ExpenseList(props) {
   return (
     <Box fill='vertical'>
       <Box overflow='scroll' pad={{ horizontal: 'medium' }}>
-        {makeItemsFromExpenseGroups(expenseGroups, toExpenseReviewScreen)}
-        {!isFetching && hasMore &&
+        {makeItemsFromExpenseGroups(props.expenseGroups, props.toExpenseReviewScreen)}
+        {!props.isFetching && props.hasMore &&
           <Anchor
             primary
             alignSelf='center'
             margin={{ top: 'small', bottom: 'medium' }}
             style={{ textDecoration: 'underline' }}
-            onClick={() => moreExpenses()}>
+            onClick={() => props.moreExpenses()}>
             Ver más gastos
           </Anchor>
         }

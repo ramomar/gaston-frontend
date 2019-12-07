@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from 'grommet';
 
-function ScreenBody({ children }) {
+function ScreenBody(props) {
   return (
     <Box>
-      {children}
+      {props.children}
     </Box>
   );
 }
