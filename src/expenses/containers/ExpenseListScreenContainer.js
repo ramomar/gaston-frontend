@@ -1,15 +1,45 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import PropTypes from 'prop-types';
-import Shapes from '../shapes';
 import { useHistory } from 'react-router';
 import { fetchExpenses } from '../../foundation/state/actions';
 import { expensesByDay } from '../../foundation/state/reducers';
-import { Text } from 'grommet';
-import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screen';
-import ExpenseList from '../components/ExpenseList';
+import ExpenseListScreen from '../components/ExpenseListScreen';
 
-function ExpenseListScreen(props) {
+
+function stateToProps(state) {
+  const { expenseListScreen } = state;
+
+  return {
+    expenseGroups: expensesByDay(expenseListScreen.expenses),
+    isFetching: expenseListScreen.isFetching,
+    hasMore: expenseListScreen.hasMore,
+    hasError: expenseListScreen.hasError,
+    error: expenseListScreen.error
+  };
+}
+
+function dispatchToProps(dispatch, paginationStart, paginationEnd) {
+  return {
+    moreExpenses: () =>
+      dispatch(fetchExpenses({
+        paginationStart: paginationStart,
+        paginationEnd: paginationEnd + 10
+      }))
+  };
+}
+
+export default function ExpenseListScreenContainer(props) {
+  const stateProps = useSelector(stateToProps);
+
+  const { paginationStart, paginationEnd } =
+    useSelector(({ expenseListScreen }) => expenseListScreen);
+
+  const dispatchProps = dispatchToProps(
+    useDispatch(),
+    paginationStart,
+    paginationEnd
+  );
+
   const { push } = useHistory();
 
   const toExpenseReviewScreen = ({ id, note, amount, date }) =>
@@ -23,74 +53,11 @@ function ExpenseListScreen(props) {
       fromList: true
     });
 
-  const moreExpenses = () =>
-    props.dispatchFetchExpenses(props.paginationEnd, props.paginationEnd + 10);
-
-  useEffect(() => {
-    moreExpenses();
-  }, []);
-
   return (
-    <Screen>
-      <ScreenHeader
-        center={<Text weight='bold' size='large'>Revisión de gastos</Text>}
-      />
-      <ScreenBody>
-        <ExpenseList
-          expenseGroups={props.expenseGroups}
-          isFetching={props.isFetching}
-          hasMore={props.hasMore}
-          error={props.error}
-          moreExpenses={moreExpenses}
-          toExpenseReviewScreen={toExpenseReviewScreen}
-        />
-      </ScreenBody>
-    </Screen>
-  );
-}
-
-ExpenseListScreen.propTypes = {
-  expenseGroups: PropTypes.arrayOf(Shapes.expenseGroup).isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  hasMore: PropTypes.bool.isRequired,
-  error: PropTypes.instanceOf(Error),
-  paginationEnd: PropTypes.number.isRequired
-};
-
-function stateToProps(state) {
-  const {
-    expenseListScreen: {
-      expenses,
-      isFetching,
-      hasMore,
-      hasError,
-      error,
-      paginationEnd
-    }
-  } = state;
-
-  return {
-    expenseGroups: expensesByDay(expenses),
-    isFetching,
-    hasMore,
-    hasError,
-    error,
-    paginationEnd
-  };
-}
-
-function dispatchToProps(dispatch) {
-  return {
-    dispatchFetchExpenses: (paginationStart, paginationEnd) =>
-      dispatch(fetchExpenses({ paginationStart, paginationEnd }))
-  };
-}
-
-export default function ExpenseListScreenContainer(props) {
-  const stateProps = useSelector(stateToProps);
-  const dispatchProps = dispatchToProps(useDispatch());
-
-  return (
-    <ExpenseListScreen {...stateProps} {...dispatchProps} />
+    <ExpenseListScreen
+      toExpenseReviewScreen={toExpenseReviewScreen}
+      {...stateProps}
+      {...dispatchProps}
+    />
   );
 }

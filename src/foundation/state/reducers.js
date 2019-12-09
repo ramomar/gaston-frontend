@@ -23,13 +23,14 @@ function computeStateOnRequestExpenses(state, _) {
 
 function computeStateOnReceiveExpenses(state, action) {
   const hasError = !!action.error;
+
   return R.mergeAll([
     state,
     {
       isFetching: false,
     },
     hasError ? { error: action.error } : {
-      paginationStart: action.paginationStart,
+      paginationStart: action.paginationEnd,
       paginationEnd: action.paginationEnd,
       hasMore: action.hasMore,
       expenses: [...state.expenses, ...action.expenses]
