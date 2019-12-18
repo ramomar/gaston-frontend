@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import fetchMock from 'fetch-mock'
-import * as ExpensesActions from './ExpensesActions';
+import * as ExpenseActions from './ExpenseActions';
 
 const mockStore = configureMockStore([thunk]);
 
@@ -37,11 +37,11 @@ describe('fetchExpenses', () => {
     const store = mockStore({});
 
     const expected = [
-      { type: ExpensesActions.FETCH_EXPENSES_REQUEST, payload: { paginationStart, paginationEnd } },
-      { type: ExpensesActions.FETCH_EXPENSES_SUCCESS, payload: { expenses, hasMore } }
+      { type: ExpenseActions.FETCH_EXPENSES_REQUEST, payload: { paginationStart, paginationEnd } },
+      { type: ExpenseActions.FETCH_EXPENSES_SUCCESS, payload: { expenses, hasMore } }
     ];
 
-    return store.dispatch(ExpensesActions.fetchExpenses({ paginationStart, paginationEnd }))
+    return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd }))
       .then(() => {
         expect(store.getActions()).toEqual(expected);
       });
@@ -61,13 +61,13 @@ describe('fetchExpenses', () => {
     const errorMessage = 'invalid json response body at /api/expenses reason: Unexpected token N in JSON at position 0';
 
     const expected = [
-      { type: ExpensesActions.FETCH_EXPENSES_REQUEST, payload: { paginationStart, paginationEnd } },
-      { type: ExpensesActions.FETCH_EXPENSES_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.FETCH_EXPENSES_REQUEST, payload: { paginationStart, paginationEnd } },
+      { type: ExpenseActions.FETCH_EXPENSES_FAILURE, payload: { errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpensesActions.fetchExpenses({ paginationStart, paginationEnd }))
+    return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd }))
       .catch(() => {
         expect(store.getActions()).toEqual(expected);
       });
@@ -85,13 +85,13 @@ describe('fetchExpenses', () => {
     const errorMessage = 'Forbidden';
 
     const expected = [
-      { type: ExpensesActions.FETCH_EXPENSES_REQUEST, payload: { paginationStart, paginationEnd } },
-      { type: ExpensesActions.FETCH_EXPENSES_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.FETCH_EXPENSES_REQUEST, payload: { paginationStart, paginationEnd } },
+      { type: ExpenseActions.FETCH_EXPENSES_FAILURE, payload: { errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpensesActions.fetchExpenses({ paginationStart, paginationEnd }))
+    return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd }))
       .catch(() => {
         expect(store.getActions()).toEqual(expected);
       });
@@ -111,13 +111,13 @@ describe('fetchExpenses', () => {
     });
 
     const expected = [
-      { type: ExpensesActions.FETCH_EXPENSES_REQUEST, payload: { paginationStart, paginationEnd } },
-      { type: ExpensesActions.FETCH_EXPENSES_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.FETCH_EXPENSES_REQUEST, payload: { paginationStart, paginationEnd } },
+      { type: ExpenseActions.FETCH_EXPENSES_FAILURE, payload: { errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpensesActions.fetchExpenses({ paginationStart, paginationEnd }))
+    return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd }))
       .catch(() => {
         expect(store.getActions()).toEqual(expected);
       });
@@ -154,11 +154,11 @@ describe('reviewExpenseRequest', () => {
     const store = mockStore({});
 
     const expected = [
-      { type: ExpensesActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpensesActions.REVIEW_EXPENSE_SUCCESS, payload: { reviewedExpense } }
+      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
+      { type: ExpenseActions.REVIEW_EXPENSE_SUCCESS, payload: { reviewedExpense } }
     ];
 
-    return store.dispatch(ExpensesActions.reviewExpense({ expense }))
+    return store.dispatch(ExpenseActions.reviewExpense({ expense }))
       .then(() => {
         expect(store.getActions()).toEqual(expected);
       });
@@ -180,13 +180,13 @@ describe('reviewExpenseRequest', () => {
     const errorMessage = 'Bad Request';
 
     const expected = [
-      { type: ExpensesActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpensesActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
+      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpensesActions.reviewExpense({ expense }))
+    return store.dispatch(ExpenseActions.reviewExpense({ expense }))
       .catch(() => {
         expect(store.getActions()).toEqual(expected);
       });
@@ -208,13 +208,13 @@ describe('reviewExpenseRequest', () => {
     const errorMessage = 'invalid json response body at /api/expenses/0007182d-54cb-42b7-88fc-bbaba51db198/review reason: Unexpected token H in JSON at position 0';
 
     const expected = [
-      { type: ExpensesActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpensesActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
+      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpensesActions.reviewExpense({ expense }))
+    return store.dispatch(ExpenseActions.reviewExpense({ expense }))
       .catch(() => {
         expect(store.getActions()).toEqual(expected);
       });
@@ -236,13 +236,13 @@ describe('reviewExpenseRequest', () => {
     const errorMessage = 'Forbidden';
 
     const expected = [
-      { type: ExpensesActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpensesActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
+      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpensesActions.reviewExpense({ expense }))
+    return store.dispatch(ExpenseActions.reviewExpense({ expense }))
       .catch(() => {
         expect(store.getActions()).toEqual(expected);
       });
@@ -265,13 +265,13 @@ describe('reviewExpenseRequest', () => {
     });
 
     const expected = [
-      { type: ExpensesActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpensesActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
+      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpensesActions.reviewExpense({ expense }))
+    return store.dispatch(ExpenseActions.reviewExpense({ expense }))
       .catch(() => {
         expect(store.getActions()).toEqual(expected);
       });
