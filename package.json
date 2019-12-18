@@ -40,7 +40,9 @@
     ]
   },
   "devDependencies": {
+    "fetch-mock": "^8.0.1",
     "@types/luxon": "^1.21.0",
-    "redux-devtools": "^3.5.0"
+    "redux-devtools": "^3.5.0",
+    "redux-mock-store": "^1.5.3"
   }
 }
