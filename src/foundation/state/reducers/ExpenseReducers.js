@@ -61,7 +61,7 @@ function computeStateOnReceiveExpensesFailure(state, { payload }) {
 function computeStateOnReviewExpenseSuccess(state, { payload }) {
   const expenses = [...state.expenses];
 
-  const expensesToKeep = expenses.filter(e => e.id != payload.expense.id);
+  const expensesToKeep = expenses.filter(e => e.id !== payload.expense.id);
 
   return R.mergeAll([
     state,
