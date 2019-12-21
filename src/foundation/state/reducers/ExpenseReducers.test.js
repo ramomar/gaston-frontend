@@ -1,5 +1,5 @@
-import * as ExpenseReducers from '.';
-import * as ExpenseActions from '../actions';
+import * as reducers from '.';
+import * as actions from '../actions';
 
 describe('expenses', () => {
   it('should return the initial state', () => {
@@ -21,12 +21,12 @@ describe('expenses', () => {
       }
     };
 
-    const actual = ExpenseReducers.rootReducer(undefined, {});
+    const actual = reducers.rootReducer(undefined, {});
 
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${ExpenseActions.FETCH_EXPENSES_REQUEST}`, () => {
+  it(`should handle ${actions.FETCH_EXPENSES_REQUEST}`, () => {
     const expected = {
       expenses: {
         expenses: new Set(),
@@ -45,14 +45,14 @@ describe('expenses', () => {
       }
     };
 
-    const action = ExpenseActions.fetchExpensesRequest({ paginationStart: 0, paginationEnd: 10 });
+    const action = actions.fetchExpensesRequest({ paginationStart: 0, paginationEnd: 10 });
 
-    const actual = ExpenseReducers.rootReducer(undefined, action);
+    const actual = reducers.rootReducer(undefined, action);
 
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${ExpenseActions.FETCH_EXPENSES_SUCCESS}`, () => {
+  it(`should handle ${actions.FETCH_EXPENSES_SUCCESS}`, () => {
     const state = {
       expenses: {
         expenses: new Set(),
@@ -104,19 +104,19 @@ describe('expenses', () => {
       }
     };
 
-    const action = ExpenseActions.fetchExpensesSuccess({
+    const action = actions.fetchExpensesSuccess({
       expenses,
       hasMore,
       paginationStart,
       paginationEnd
     });
 
-    const actual = ExpenseReducers.rootReducer(state, action);
+    const actual = reducers.rootReducer(state, action);
 
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${ExpenseActions.FETCH_EXPENSES_FAILURE}`, () => {
+  it(`should handle ${actions.FETCH_EXPENSES_FAILURE}`, () => {
     const state = {
       expenses: {
         expenses: new Set(),
@@ -153,16 +153,16 @@ describe('expenses', () => {
       }
     };
 
-    const action = ExpenseActions.fetchExpensesFailure({
+    const action = actions.fetchExpensesFailure({
       errorMessage: 'Some error'
     });
 
-    const actual = ExpenseReducers.rootReducer(state, action);
+    const actual = reducers.rootReducer(state, action);
 
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${ExpenseActions.REVIEW_EXPENSE_REQUEST}`, () => {
+  it(`should handle ${actions.REVIEW_EXPENSE_REQUEST}`, () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
@@ -213,14 +213,14 @@ describe('expenses', () => {
       }
     };
 
-    const action = ExpenseActions.reviewExpense({ expense: expense1 });
+    const action = actions.reviewExpense({ expense: expense1 });
 
-    const actual = ExpenseReducers.rootReducer(state, action);
+    const actual = reducers.rootReducer(state, action);
 
     expect(actual).toEqual(expected);
   });
 
-  it.only(`should handle ${ExpenseActions.REVIEW_EXPENSE_SUCCESS}`, () => {
+  it.only(`should handle ${actions.REVIEW_EXPENSE_SUCCESS}`, () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
@@ -271,14 +271,14 @@ describe('expenses', () => {
       }
     };
 
-    const action = ExpenseActions.reviewExpenseSuccess({ expense: expense1 });
+    const action = actions.reviewExpenseSuccess({ expense: expense1 });
 
-    const actual = ExpenseReducers.rootReducer(state, action);
+    const actual = reducers.rootReducer(state, action);
 
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${ExpenseActions.REVIEW_EXPENSE_FAILURE}`, () => {
+  it.only(`should handle ${actions.REVIEW_EXPENSE_FAILURE}`, () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
@@ -313,7 +313,7 @@ describe('expenses', () => {
 
     const expected = {
       expenses: {
-        expenses: new Set([expense2]),
+        expenses: new Set([expense1, expense2]),
         fetch: {
           isFetching: true,
           hasMore: true,
@@ -329,9 +329,9 @@ describe('expenses', () => {
       }
     };
 
-    const action = ExpenseActions.reviewExpenseFailure({ errorMessage: 'Some error' });
+    const action = actions.reviewExpenseFailure({ errorMessage: 'Some error' });
 
-    const actual = ExpenseReducers.rootReducer(state, action);
+    const actual = reducers.rootReducer(state, action);
 
     expect(actual).toEqual(expected);
   });

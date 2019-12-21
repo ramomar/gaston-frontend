@@ -27,8 +27,6 @@ function computeStateOnRequestExpenses(state, _) {
 }
 
 function computeStateOnReceiveExpensesSuccess(state, { payload }) {
-  const hasError = !!payload.error;
-
   return R.mergeAll([
     state,
     {
@@ -40,8 +38,8 @@ function computeStateOnReceiveExpensesSuccess(state, { payload }) {
         paginationEnd: payload.paginationEnd,
         isFetching: false,
         hasMore: payload.hasMore,
-        hasError,
-        error: hasError ? payload.error : null
+        hasError: false,
+        error: null
       }
     }
   ]);
@@ -74,7 +72,15 @@ function computeStateOnReviewExpenseSuccess(state, { payload }) {
 }
 
 function computeStateOnReviewExpenseFailure(state, { payload }) {
-  return
+  return R.mergeAll([
+    state,
+    {
+      review: R.mergeRight(state.review, {
+        hasError: true,
+        error: payload.errorMessage
+      })
+    }
+  ]);
 }
 
 export function expensesReducer(state = makeExpensesState(), action) {
