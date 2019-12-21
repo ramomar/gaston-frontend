@@ -38,7 +38,7 @@ describe('fetchExpenses', () => {
 
     const expected = [
       { type: ExpenseActions.FETCH_EXPENSES_REQUEST, payload: { paginationStart, paginationEnd } },
-      { type: ExpenseActions.FETCH_EXPENSES_SUCCESS, payload: { expenses, hasMore } }
+      { type: ExpenseActions.FETCH_EXPENSES_SUCCESS, payload: { expenses, hasMore, paginationStart, paginationEnd } }
     ];
 
     return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd }))
@@ -147,7 +147,7 @@ describe('reviewExpenseRequest', () => {
     fetchMock.postOnce(`/api/expenses/${expense.id}/review`, {
       headers: { 'Content-Type': 'application/json' },
       body: {
-        reviewedExpense
+        expense: reviewedExpense
       }
     });
 
@@ -155,7 +155,7 @@ describe('reviewExpenseRequest', () => {
 
     const expected = [
       { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpenseActions.REVIEW_EXPENSE_SUCCESS, payload: { reviewedExpense } }
+      { type: ExpenseActions.REVIEW_EXPENSE_SUCCESS, payload: { expense: reviewedExpense } }
     ];
 
     return store.dispatch(ExpenseActions.reviewExpense({ expense }))

@@ -12,12 +12,14 @@ export function fetchExpensesRequest({ paginationStart, paginationEnd }) {
   };
 }
 
-export function fetchExpensesSuccess({ expenses, hasMore }) {
+export function fetchExpensesSuccess({ expenses, hasMore, paginationStart, paginationEnd }) {
   return {
     type: FETCH_EXPENSES_SUCCESS,
     payload: {
       expenses,
-      hasMore
+      hasMore,
+      paginationStart,
+      paginationEnd
     }
   };
 }
@@ -35,12 +37,20 @@ export function fetchExpenses({ paginationStart, paginationEnd }) {
   return dispatch => {
     dispatch(fetchExpensesRequest({ paginationStart, paginationEnd }));
 
+    const successAction = ({ expenses, hasMore }) =>
+      dispatch(fetchExpensesSuccess({
+        expenses,
+        hasMore,
+        paginationStart,
+        paginationEnd
+      }));
+
     return fetch('/api/expenses', {
       method: 'GET'
     })
       .then(response =>
         response.ok ? response.json() : Promise.reject(new Error(response.statusText)))
-      .then(({ expenses, hasMore }) => dispatch(fetchExpensesSuccess({ expenses, hasMore })))
+      .then(successAction)
       .catch(
         (error) => {
           dispatch(fetchExpensesFailure({ errorMessage: error.message }));
@@ -62,11 +72,11 @@ export function reviewExpenseRequest({ expense }) {
   };
 }
 
-export function reviewExpenseSuccess({ reviewedExpense }) {
+export function reviewExpenseSuccess({ expense }) {
   return {
     type: REVIEW_EXPENSE_SUCCESS,
     payload: {
-      reviewedExpense
+      expense
     }
   };
 }
@@ -93,7 +103,7 @@ export function reviewExpense({ expense }) {
     })
       .then(response =>
         response.ok ? response.json() : Promise.reject(new Error(response.statusText)))
-      .then(({ reviewedExpense }) => dispatch(reviewExpenseSuccess({ reviewedExpense })))
+      .then(({ expense }) => dispatch(reviewExpenseSuccess({ expense })))
       .catch(
         (error) => {
           dispatch(reviewExpenseFailure({ errorMessage: error.message }));
