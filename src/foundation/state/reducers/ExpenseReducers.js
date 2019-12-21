@@ -61,13 +61,11 @@ function computeStateOnReceiveExpensesFailure(state, { payload }) {
 function computeStateOnReviewExpenseSuccess(state, { payload }) {
   const expenses = [...state.expenses];
 
-  const expenseToDelete = expenses.filter(e => e.id === payload.expense.id)[0];
-
-  state.expenses.delete(expenseToDelete);
+  const expensesToKeep = expenses.filter(e => e.id != payload.expense.id);
 
   return R.mergeAll([
     state,
-    { expenses: new Set([...state.expenses]) }
+    { expenses: new Set([...expensesToKeep]) }
   ]);
 }
 
