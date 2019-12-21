@@ -1,5 +1,5 @@
 import * as ExpenseReducers from '.';
-import * as ExpenseActions from '../actions/ExpenseActions';
+import * as ExpenseActions from '../actions';
 
 describe('expenses', () => {
   it('should return the initial state', () => {
