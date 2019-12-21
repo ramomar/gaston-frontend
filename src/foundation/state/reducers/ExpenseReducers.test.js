@@ -1,4 +1,4 @@
-import * as ExpenseReducers from './ExpenseReducers';
+import * as ExpenseReducers from '.';
 import * as ExpenseActions from '../actions/ExpenseActions';
 
 describe('expenses', () => {
