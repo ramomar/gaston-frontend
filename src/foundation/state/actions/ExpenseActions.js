@@ -1,4 +1,4 @@
-// TODO: remove this
+// TODO: move this
 import { DateTime } from 'luxon';
 function makeExpense(rawExpense) {
   return {

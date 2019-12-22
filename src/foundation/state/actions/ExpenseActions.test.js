@@ -10,7 +10,7 @@ describe('fetchExpenses', () => {
     fetchMock.reset();
   });
 
-  it('should dispatch the correct sequence of actions when the request is successful', () => {
+  it.only('should dispatch the correct sequence of actions when the request is successful', () => {
     const expenses = [
       {
         'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
@@ -26,7 +26,7 @@ describe('fetchExpenses', () => {
 
     const paginationEnd = 10;
 
-    fetchMock.getOnce('/api/expenses', {
+    fetchMock.getOnce('end:/api/expenses', {
       headers: { 'Content-Type': 'application/json' },
       body: {
         expenses,
@@ -54,11 +54,11 @@ describe('fetchExpenses', () => {
 
     const body = 'Not a json response';
 
-    fetchMock.getOnce('/api/expenses', {
+    fetchMock.getOnce('end:/api/expenses', {
       body
     });
 
-    const errorMessage = 'invalid json response body at /api/expenses reason: Unexpected token N in JSON at position 0';
+    const errorMessage = 'invalid json response body at http://localhost:5000/api/expenses reason: Unexpected token N in JSON at position 0';
 
     const expected = [
       { type: ExpenseActions.FETCH_EXPENSES_REQUEST, payload: { paginationStart, paginationEnd } },
@@ -78,7 +78,7 @@ describe('fetchExpenses', () => {
 
     const paginationEnd = 10
 
-    fetchMock.getOnce('/api/expenses', {
+    fetchMock.getOnce('end:/api/expenses', {
       status: 403
     });
 
@@ -106,7 +106,7 @@ describe('fetchExpenses', () => {
 
     const error = new Error(errorMessage);
 
-    fetchMock.getOnce('/api/expenses', {
+    fetchMock.getOnce('end:/api/expenses', {
       throws: error
     });
 
@@ -144,7 +144,7 @@ describe('reviewExpenseRequest', () => {
       'note': 'Cena'
     };
 
-    fetchMock.postOnce(`/api/expenses/${expense.id}/review`, {
+    fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
       headers: { 'Content-Type': 'application/json' },
       body: {
         expense: reviewedExpense
@@ -172,7 +172,7 @@ describe('reviewExpenseRequest', () => {
       'note': 'Cena'
     };
 
-    fetchMock.postOnce(`/api/expenses/${expense.id}/review`, {
+    fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
       body: 'Bad Request',
       status: 400
     });
@@ -200,12 +200,12 @@ describe('reviewExpenseRequest', () => {
       'note': 'Cena'
     };
 
-    fetchMock.postOnce(`/api/expenses/${expense.id}/review`, {
+    fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
       body: 'Hello',
       status: 200
     });
 
-    const errorMessage = 'invalid json response body at /api/expenses/0007182d-54cb-42b7-88fc-bbaba51db198/review reason: Unexpected token H in JSON at position 0';
+    const errorMessage = 'invalid json response body at http://localhost:5000/api/expenses/0007182d-54cb-42b7-88fc-bbaba51db198/review reason: Unexpected token H in JSON at position 0';
 
     const expected = [
       { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
@@ -228,7 +228,7 @@ describe('reviewExpenseRequest', () => {
       'note': 'Cena'
     };
 
-    fetchMock.postOnce(`/api/expenses/${expense.id}/review`, {
+    fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
       body: 'Forbidden',
       status: 403
     });
@@ -260,7 +260,7 @@ describe('reviewExpenseRequest', () => {
 
     const error = new Error(errorMessage)
 
-    fetchMock.postOnce(`/api/expenses/${expense.id}/review`, {
+    fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
       throws: error
     });
 
