@@ -2,19 +2,18 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router';
 import { fetchExpenses } from '../../foundation/state/actions';
-import { expensesByDay } from '../../foundation/state/reducers';
+import expensesByDay from '../../foundation/state/expensesByDay';
 import ExpenseListScreen from '../components/ExpenseListScreen';
 
-
 function stateToProps(state) {
-  const { expenseListScreen } = state;
+  const { expenses } = state;
 
   return {
-    expenseGroups: expensesByDay(expenseListScreen.expenses),
-    isFetching: expenseListScreen.isFetching,
-    hasMore: expenseListScreen.hasMore,
-    hasError: expenseListScreen.hasError,
-    error: expenseListScreen.error
+    expenseGroups: expensesByDay(expenses.expenses),
+    isFetching: expenses.fetch.isFetching,
+    hasMore: expenses.fetch.hasMore,
+    hasError: expenses.fetch.hasError,
+    error: expenses.fetch.error
   };
 }
 
@@ -32,7 +31,7 @@ export default function ExpenseListScreenContainer(props) {
   const stateProps = useSelector(stateToProps);
 
   const { paginationStart, paginationEnd } =
-    useSelector(({ expenseListScreen }) => expenseListScreen);
+    useSelector(({ expenses }) => expenses.fetch);
 
   const dispatchProps = dispatchToProps(
     useDispatch(),

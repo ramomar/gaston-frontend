@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Shapes from '../shapes';
 import {
   Form,
@@ -62,7 +63,7 @@ function createLuxonDate(day, hour) {
   return DateTime.fromFormat(`${day} ${hour}`, 'd/L/yyyy HH:mm');
 }
 
-function onSubmit(expenseId) {
+function onSubmit(reviewExpense, expenseId) {
   return ({ value }) => {
     const { note, category, day, hour, amount } = value;
 
@@ -74,7 +75,7 @@ function onSubmit(expenseId) {
       amount: extractAmount(amount)
     };
 
-    console.log(expenseReview);
+    reviewExpense({ expense: expenseReview });
   };
 }
 
@@ -100,7 +101,7 @@ function ExpenseReviewForm(props) {
         required: 'Requerido'
       }}
       value={initialValue}
-      onSubmit={onSubmit(id)}
+      onSubmit={onSubmit(props.reviewExpense, id)}
     >
       <FormField
         required
@@ -156,7 +157,8 @@ function ExpenseReviewForm(props) {
 }
 
 ExpenseReviewForm.propTypes = {
-  expense: Shapes.expense.isRequired
+  expense: Shapes.expense.isRequired,
+  reviewExpense: PropTypes.func.isRequired
 };
 
 export default ExpenseReviewForm;

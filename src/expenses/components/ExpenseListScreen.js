@@ -29,7 +29,7 @@ ExpenseListScreen.propTypes = {
   expenseGroups: PropTypes.arrayOf(Shapes.expenseGroup).isRequired,
   isFetching: PropTypes.bool.isRequired,
   hasMore: PropTypes.bool.isRequired,
-  error: PropTypes.instanceOf(Error),
+  error: PropTypes.string,
   moreExpenses: PropTypes.func.isRequired,
   toExpenseReviewScreen: PropTypes.func.isRequired
 };

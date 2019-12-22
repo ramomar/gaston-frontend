@@ -21,7 +21,10 @@ function ExpenseReviewScreen(props) {
         center={<Text weight='bold' size='large'>{`Gasto del ${formattedDay}`}</Text>}
       />
       <ScreenBody>
-        <ExpenseReviewForm expense={expenseWithLuxonDate} />
+        <ExpenseReviewForm
+          expense={expenseWithLuxonDate}
+          reviewExpense={props.reviewExpense}
+        />
       </ScreenBody>
     </Screen>
   );
@@ -34,7 +37,8 @@ ExpenseReviewScreen.propTypes = {
     amount: PropTypes.number.isRequired,
     date: PropTypes.string.isRequired
   }),
-  goBack: PropTypes.func.isRequired
+  goBack: PropTypes.func.isRequired,
+  reviewExpense: PropTypes.func.isRequired
 };
 
 export default ExpenseReviewScreen;

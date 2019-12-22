@@ -1,6 +1,7 @@
+import * as R from 'ramda';
 import { DateTime } from 'luxon';
 
-function expensesByDay(expenses) {
+export default function expensesByDay(expenses) {
   const compareDates = (d1, d2) => d2.toMillis() - d1.toMillis();
 
   const groupByDay = R.pipe(

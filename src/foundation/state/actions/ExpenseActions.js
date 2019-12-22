@@ -1,3 +1,14 @@
+// TODO: remove this
+import { DateTime } from 'luxon';
+function makeExpense(rawExpense) {
+  return {
+    id: rawExpense.id,
+    note: rawExpense.note || 'Sin nota',
+    amount: Math.abs(parseFloat(rawExpense.amount)),
+    date: DateTime.fromISO(rawExpense.date)
+  };
+}
+
 export const FETCH_EXPENSES_REQUEST = 'FETCH_EXPENSES_REQUEST';
 export const FETCH_EXPENSES_SUCCESS = 'FETCH_EXPENSES_SUCCESS';
 export const FETCH_EXPENSES_FAILURE = 'FETCH_EXPENESES_FAILURE';
@@ -39,13 +50,13 @@ export function fetchExpenses({ paginationStart, paginationEnd }) {
 
     const successAction = ({ expenses, hasMore }) =>
       dispatch(fetchExpensesSuccess({
-        expenses,
+        expenses: expenses.map(makeExpense),
         hasMore,
         paginationStart,
         paginationEnd
       }));
 
-    return fetch('/api/expenses', {
+    return fetch(`${process.env.REACT_APP_API_HOST}/api/expenses`, {
       method: 'GET'
     })
       .then(response =>
@@ -94,7 +105,7 @@ export function reviewExpense({ expense }) {
   return dispatch => {
     dispatch(reviewExpenseRequest({ expense }));
 
-    return fetch(`/api/expenses/${expense.id}/review`, {
+    return fetch(`${process.env.REACT_APP_API_HOST}/api/expenses/${expense.id}/review`, {
       method: 'POST',
       body: JSON.stringify(expense),
       headers: {
