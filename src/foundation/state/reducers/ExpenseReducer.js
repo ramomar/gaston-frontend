@@ -26,7 +26,7 @@ function computeStateOnRequestExpenses(state, _) {
   ]);
 }
 
-function computeStateOnReceiveExpensesSuccess(state, { payload }) {
+function computeStateOnExpensesSuccess(state, { payload }) {
   return R.mergeAll([
     state,
     {
@@ -45,7 +45,7 @@ function computeStateOnReceiveExpensesSuccess(state, { payload }) {
   ]);
 }
 
-function computeStateOnReceiveExpensesFailure(state, { payload }) {
+function computeStateOnExpensesFailure(state, { payload }) {
   return R.mergeAll([
     state,
     {
@@ -86,9 +86,9 @@ export function expenseReducer(state = makeExpensesState(), action) {
     case ExpenseActions.FETCH_EXPENSES_REQUEST:
       return computeStateOnRequestExpenses(state, action);
     case ExpenseActions.FETCH_EXPENSES_SUCCESS:
-      return computeStateOnReceiveExpensesSuccess(state, action);
+      return computeStateOnExpensesSuccess(state, action);
     case ExpenseActions.FETCH_EXPENSES_FAILURE:
-      return computeStateOnReceiveExpensesFailure(state, action);
+      return computeStateOnExpensesFailure(state, action);
     case ExpenseActions.REVIEW_EXPENSE_REQUEST:
       return state;
     case ExpenseActions.REVIEW_EXPENSE_SUCCESS:
