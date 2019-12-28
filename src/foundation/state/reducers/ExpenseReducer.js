@@ -81,7 +81,7 @@ function computeStateOnReviewExpenseFailure(state, { payload }) {
   ]);
 }
 
-export function expensesReducer(state = makeExpensesState(), action) {
+export function expenseReducer(state = makeExpensesState(), action) {
   switch (action.type) {
     case ExpenseActions.FETCH_EXPENSES_REQUEST:
       return computeStateOnRequestExpenses(state, action);
