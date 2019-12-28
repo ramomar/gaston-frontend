@@ -220,7 +220,7 @@ describe('expenses', () => {
     expect(actual).toEqual(expected);
   });
 
-  it.only(`should handle ${actions.REVIEW_EXPENSE_SUCCESS}`, () => {
+  it(`should handle ${actions.REVIEW_EXPENSE_SUCCESS}`, () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
@@ -278,7 +278,7 @@ describe('expenses', () => {
     expect(actual).toEqual(expected);
   });
 
-  it.only(`should handle ${actions.REVIEW_EXPENSE_FAILURE}`, () => {
+  it(`should handle ${actions.REVIEW_EXPENSE_FAILURE}`, () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
