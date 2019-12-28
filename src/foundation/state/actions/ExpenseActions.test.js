@@ -11,7 +11,7 @@ describe('fetchExpenses', () => {
     fetchMock.reset();
   });
 
-  it.only('should dispatch the correct sequence of actions when the request is successful', () => {
+  it('should dispatch the correct sequence of actions when the request is successful', () => {
     const expenses = [
       {
         'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
@@ -273,6 +273,101 @@ describe('reviewExpenseRequest', () => {
     const store = mockStore({});
 
     return store.dispatch(ExpenseActions.reviewExpense({ expense }))
+      .catch(() => {
+        expect(store.getActions()).toEqual(expected);
+      });
+  });
+});
+
+describe('fetchExpenseCategories', () => {
+  afterEach(() => {
+    fetchMock.reset();
+  });
+
+  const categories = [
+    { name: 'Cena' },
+    { name: 'Educación' }
+  ];
+
+  it('should dispatch the correct sequence of actions when the request is successful', () => {
+    fetchMock.getOnce('end:/api/expenses/categories', {
+      body: {
+        categories
+      }
+    });
+
+    const store = mockStore({});
+
+    const expected = [
+      { type: ExpenseActions.FETCH_EXPENSE_CATEGORIES_REQUEST, payload: {} },
+      { type: ExpenseActions.FETCH_EXPENSE_CATEGORIES_SUCCESS, payload: { categories } }
+    ];
+
+    return store.dispatch(ExpenseActions.fetchExpenseCategories())
+      .then(() => {
+        expect(store.getActions()).toEqual(expected);
+      });
+  });
+
+  it('should dispatch the correct sequence of actions when the request is unsuccessful because of invalid json', () => {
+    const body = 'Not a json response';
+
+    fetchMock.getOnce('end:/api/expenses/categories', {
+      body
+    });
+
+    const errorMessage = 'invalid json response body at http://localhost:5000/api/expenses/categories reason: Unexpected token N in JSON at position 0';
+
+    const expected = [
+      { type: ExpenseActions.FETCH_EXPENSE_CATEGORIES_REQUEST, payload: {} },
+      { type: ExpenseActions.FETCH_EXPENSE_CATEGORIES_FAILURE, payload: { errorMessage } }
+    ];
+
+    const store = mockStore({});
+
+    return store.dispatch(ExpenseActions.fetchExpenseCategories())
+      .catch(() => {
+        expect(store.getActions()).toEqual(expected);
+      });
+  });
+
+  it('should dispatch the correct sequence of actions when the request is unsuccessful because of some HTTP error', () => {
+    fetchMock.getOnce('end:/api/expenses/categories', {
+      status: 403
+    });
+
+    const errorMessage = 'Forbidden';
+
+    const expected = [
+      { type: ExpenseActions.FETCH_EXPENSE_CATEGORIES_REQUEST, payload: {} },
+      { type: ExpenseActions.FETCH_EXPENSE_CATEGORIES_FAILURE, payload: { errorMessage } }
+    ];
+
+    const store = mockStore({});
+
+    return store.dispatch(ExpenseActions.fetchExpenseCategories())
+      .catch(() => {
+        expect(store.getActions()).toEqual(expected);
+      });
+  });
+
+  it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
+    const errorMessage = 'Some error';
+
+    const error = new Error(errorMessage);
+
+    fetchMock.getOnce('end:/api/expenses/categories', {
+      throws: error
+    });
+
+    const expected = [
+      { type: ExpenseActions.FETCH_EXPENSE_CATEGORIES_REQUEST, payload: {} },
+      { type: ExpenseActions.FETCH_EXPENSE_CATEGORIES_FAILURE, payload: { errorMessage } }
+    ];
+
+    const store = mockStore({});
+
+    return store.dispatch(ExpenseActions.fetchExpenseCategories())
       .catch(() => {
         expect(store.getActions()).toEqual(expected);
       });
