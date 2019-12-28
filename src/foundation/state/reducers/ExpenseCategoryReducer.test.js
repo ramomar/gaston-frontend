@@ -63,7 +63,7 @@ describe('categories', () => {
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${actions.FETCH_EXPENSES_FAILURE}`, () => {
+  it(`should handle ${actions.FETCH_EXPENSE_CATEGORIES_FAILURE}`, () => {
     const state = {
       categories: new Set(),
       fetch: {
