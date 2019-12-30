@@ -9,10 +9,13 @@ import { Grommet, Box } from 'grommet';
 import { grommet } from 'grommet/themes/grommet'
 import { ExpenseListScreenContainer, ExpenseReviewScreenContainer } from './expenses';
 import store from './foundation/state/store';
+import * as Actions from './foundation/state/actions';
 import { Settings } from 'luxon';
 
 Settings.defaultLocale = 'es';
 Settings.defaultZoneName = 'America/Mexico_City';
+
+store.dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
 
 function App() {
   return (
