@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="StyledBox-sc-13pk1d4-0 hCTAHO"
+>
+  <div
+    className="StyledBox-sc-13pk1d4-0 ieLbCm"
+  >
+    <div
+      className="StyledBox-sc-13pk1d4-0 jNYyVh"
+      style={
+        Object {
+          "position": "sticky",
+          "top": 0,
+        }
+      }
+    >
+      <span
+        className="StyledText-sc-1sadyjn-0 bnqisW"
+      >
+        18 de March
+      </span>
+      <div
+        className="StyledBox-sc-13pk1d4-0 dRsJGz"
+      >
+        <span
+          className="StyledText-sc-1sadyjn-0 hLzlgx"
+          size="small"
+        >
+          -$
+          150.00
+        </span>
+      </div>
+    </div>
+    <div
+      className="StyledBox-sc-13pk1d4-0 vtIgb"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      tabIndex={0}
+    >
+      <div
+        className="StyledBox-sc-13pk1d4-0 cHMbYi"
+      >
+        <span
+          className="StyledText-sc-1sadyjn-0 jOAXsc"
+        >
+          Cena
+        </span>
+      </div>
+      <div
+        className="StyledBox-sc-13pk1d4-0 gIKgZq"
+      >
+        <span
+          className="StyledText-sc-1sadyjn-0 isVaoK"
+          size="small"
+        >
+          -$
+          150.00
+        </span>
+        <span
+          className="StyledText-sc-1sadyjn-0 gNZQxf"
+          size="small"
+        >
+          23:29
+        </span>
+      </div>
+    </div>
+    <a
+      className="StyledAnchor-sc-1rp7lwl-0 gxmhec"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "textDecoration": "underline",
+        }
+      }
+    >
+      Ver más gastos
+    </a>
+  </div>
+</div>
+`;

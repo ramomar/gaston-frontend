@@ -94,6 +94,8 @@ function ExpenseReviewForm(props) {
     amount: `$ ${amount.toFixed(2)}`
   };
 
+  const now = DateTime.local();
+
   return (
     <Form
       messages={{
@@ -125,7 +127,7 @@ function ExpenseReviewForm(props) {
         name='day'
         component={MaskedInput}
         mask={dateMask}
-        placeholder={DateTime.local().toLocaleString()}
+        placeholder={now.toLocaleString()}
       />
       <FormField
         required
@@ -133,7 +135,7 @@ function ExpenseReviewForm(props) {
         name='hour'
         component={MaskedInput}
         mask={hourMask}
-        placeholder={DateTime.local().toLocaleString(DateTime.TIME_24_SIMPLE)}
+        placeholder={now.toLocaleString(DateTime.TIME_24_SIMPLE)}
       />
       <FormField
         required

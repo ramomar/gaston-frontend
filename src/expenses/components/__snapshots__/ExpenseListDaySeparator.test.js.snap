@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="StyledBox-sc-13pk1d4-0 jNYyVh"
+  style={
+    Object {
+      "position": "sticky",
+      "top": 0,
+    }
+  }
+>
+  <span
+    className="StyledText-sc-1sadyjn-0 bnqisW"
+  >
+    29 de December
+  </span>
+  <div
+    className="StyledBox-sc-13pk1d4-0 dRsJGz"
+  >
+    <span
+      className="StyledText-sc-1sadyjn-0 hLzlgx"
+      size="small"
+    >
+      -$
+      100.50
+    </span>
+  </div>
+</div>
+`;
