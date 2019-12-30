@@ -3,33 +3,46 @@ import PropTypes from 'prop-types';
 import Shapes from '../shapes';
 import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
-import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screen';
+import {
+  Screen,
+  ScreenHeader,
+  ScreenBody,
+  SimpleLoadingScreen
+} from '../../foundation/components/screen';
 import ExpenseReviewForm from './ExpenseReviewForm';
 import { DateTime } from 'luxon';
 import * as R from 'ramda';
 
 function ExpenseReviewScreen(props) {
-  const date = DateTime.fromISO(props.expense.date);
+  if (props.expense) {
+    const date = DateTime.fromISO(props.expense.date);
 
-  const expenseWithLuxonDate = R.assoc('date', date, props.expense);
+    const expenseWithLuxonDate = R.assoc('date', date, props.expense);
 
-  const formattedDay = date.toFormat(`d 'de' MMMM`);
+    const formattedDay = date.toFormat(`d 'de' MMMM`);
 
-  return (
-    <Screen>
-      <ScreenHeader
-        start={<Button plain icon={<LinkPrevious />} onClick={props.goBack} />}
-        center={<Text weight='bold' size='large'>{`Gasto del ${formattedDay}`}</Text>}
-      />
-      <ScreenBody>
-        <ExpenseReviewForm
-          expense={expenseWithLuxonDate}
-          reviewExpense={props.reviewExpense}
-          expenseCategories={props.expenseCategories}
+    return (
+      <Screen>
+        <ScreenHeader
+          start={<Button plain icon={<LinkPrevious />} onClick={props.goToExpenses} />}
+          center={<Text weight='bold' size='large'>{`Gasto del ${formattedDay}`}</Text>}
         />
-      </ScreenBody>
-    </Screen>
-  );
+        <ScreenBody>
+          <ExpenseReviewForm
+            expense={expenseWithLuxonDate}
+            reviewExpense={props.reviewExpense}
+            expenseCategories={props.expenseCategories}
+          />
+        </ScreenBody>
+      </Screen>
+    );
+  } else {
+    return (
+      <SimpleLoadingScreen
+        start={<Button plain icon={<LinkPrevious />} onClick={props.goToExpenses} />}
+        center={<Text weight='bold' size='large'>{`Revisión de gasto`}</Text>} />
+    );
+  }
 }
 
 ExpenseReviewScreen.propTypes = {
@@ -39,7 +52,7 @@ ExpenseReviewScreen.propTypes = {
     amount: PropTypes.number.isRequired,
     date: PropTypes.string.isRequired
   }),
-  goBack: PropTypes.func.isRequired,
+  goToExpenses: PropTypes.func.isRequired,
   reviewExpense: PropTypes.func.isRequired,
   expenseCategories: PropTypes.arrayOf(Shapes.expenseCategory).isRequired
 };

@@ -12,35 +12,36 @@ function stateToProps(state) {
   };
 }
 
-function dispatchToProps(dispatch, goBack, expense) {
+function dispatchToProps(dispatch, goToExpenses) {
   return {
-    reviewExpense: () => {
+    reviewExpense: (expense) => {
       dispatch(reviewExpense({
         expense
       }));
 
-      goBack();
+      goToExpenses();
     }
   };
 }
 
 function ExpenseReviewScreenContainer(props) {
-  const { state: { expense } } = useLocation();
+  const { state: { expense } = {} } = useLocation();
 
-  const { goBack } = useHistory();
+  const { push } = useHistory();
+
+  const goToExpenses = () => push('/expenses');
 
   const stateProps = useSelector(stateToProps);
 
   const dispatchProps = dispatchToProps(
     useDispatch(),
-    goBack,
-    expense
+    goToExpenses
   );
 
   return (
     <ExpenseReviewScreen
       expense={expense}
-      goBack={goBack}
+      goToExpenses={goToExpenses}
       {...stateProps}
       {...dispatchProps}
     />

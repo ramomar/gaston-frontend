@@ -75,7 +75,7 @@ function onSubmit(reviewExpense, expenseId) {
       amount: extractAmount(amount)
     };
 
-    reviewExpense({ expense: expenseReview });
+    reviewExpense(expenseReview);
   };
 }
 
