@@ -29,7 +29,7 @@ it('renders correctly', () => {
     <Grommet>
       <ExpenseReviewScreen
         expense={expense}
-        goBack={() => null}
+        goToExpenses={() => null}
         reviewExpense={() => null}
         expenseCategories={expenseCategories}>
       </ExpenseReviewScreen>
