@@ -13,7 +13,12 @@ const expenseGroup = PropTypes.shape({
   expenses: PropTypes.arrayOf(expense).isRequired
 });
 
+const expenseCategory = PropTypes.shape({
+  name: PropTypes.string.isRequired
+});
+
 export default {
   expense,
-  expenseGroup
+  expenseGroup,
+  expenseCategory
 };

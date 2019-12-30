@@ -23,7 +23,8 @@ function computeStateOnExpenseCategoriesSuccess(state, { payload }) {
     state,
     {
       categories: new Set([...state.categories, ...payload.categories])
-    }
+    },
+    { fetch: R.mergeRight(state.fetch, { isFetching: false }) }
   ]);
 }
 
@@ -31,7 +32,7 @@ function computeStateOnExpenseCategoriesFailure(state, { payload }) {
   return R.mergeAll([
     state,
     {
-      fetch: R.mergeRight(state.fetch, { isFetching: false, errorMessage: payload.error })
+      fetch: R.mergeRight(state.fetch, { isFetching: false, error: payload.errorMessage })
     }
   ]);
 }

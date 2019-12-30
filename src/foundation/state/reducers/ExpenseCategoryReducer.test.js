@@ -36,7 +36,7 @@ describe('categories', () => {
     const state = {
       categories: new Set(),
       fetch: {
-        isFetching: false,
+        isFetching: true,
         error: null
       }
     };
@@ -68,7 +68,7 @@ describe('categories', () => {
       categories: new Set(),
       fetch: {
         isFetching: true,
-        error: 'Some error',
+        error: null
       }
     };
 

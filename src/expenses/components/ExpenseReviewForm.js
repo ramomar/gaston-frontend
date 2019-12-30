@@ -116,8 +116,8 @@ function ExpenseReviewForm(props) {
         label='Categoría'
         name='category'
         component={Select}
-        options={['Comida']}
-        placeholder='Alimentación'
+        options={props.expenseCategories.map(c => c.name)}
+        placeholder='Educación'
       />
       <FormField
         required
@@ -158,7 +158,8 @@ function ExpenseReviewForm(props) {
 
 ExpenseReviewForm.propTypes = {
   expense: Shapes.expense.isRequired,
-  reviewExpense: PropTypes.func.isRequired
+  reviewExpense: PropTypes.func.isRequired,
+  expenseCategories: PropTypes.arrayOf(Shapes.expenseCategory).isRequired
 };
 
 export default ExpenseReviewForm;

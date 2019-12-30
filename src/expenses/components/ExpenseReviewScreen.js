@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Shapes from '../shapes';
 import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screen';
@@ -24,6 +25,7 @@ function ExpenseReviewScreen(props) {
         <ExpenseReviewForm
           expense={expenseWithLuxonDate}
           reviewExpense={props.reviewExpense}
+          expenseCategories={props.expenseCategories}
         />
       </ScreenBody>
     </Screen>
@@ -38,7 +40,8 @@ ExpenseReviewScreen.propTypes = {
     date: PropTypes.string.isRequired
   }),
   goBack: PropTypes.func.isRequired,
-  reviewExpense: PropTypes.func.isRequired
+  reviewExpense: PropTypes.func.isRequired,
+  expenseCategories: PropTypes.arrayOf(Shapes.expenseCategory).isRequired
 };
 
 export default ExpenseReviewScreen;

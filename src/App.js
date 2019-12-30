@@ -16,6 +16,7 @@ Settings.defaultLocale = 'es';
 Settings.defaultZoneName = 'America/Mexico_City';
 
 store.dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
+store.dispatch(Actions.fetchExpenseCategories());
 
 function App() {
   return (
