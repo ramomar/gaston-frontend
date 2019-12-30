@@ -11,9 +11,7 @@ function stateToProps(state) {
   return {
     expenseGroups: expensesByDay(expenses.expenses),
     isFetching: expenses.fetch.isFetching,
-    hasMore: expenses.fetch.hasMore,
-    hasError: expenses.fetch.hasError,
-    error: expenses.fetch.error
+    hasMore: expenses.fetch.hasMore
   };
 }
 

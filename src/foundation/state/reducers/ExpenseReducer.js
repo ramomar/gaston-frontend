@@ -7,13 +7,11 @@ function makeExpensesState() {
     fetch: {
       isFetching: false,
       hasMore: true,
-      hasError: false,
       error: null,
       paginationStart: 0,
       paginationEnd: 0
     },
     review: {
-      hasError: false,
       error: null
     }
   };
@@ -38,7 +36,6 @@ function computeStateOnExpensesSuccess(state, { payload }) {
         paginationEnd: payload.paginationEnd,
         isFetching: false,
         hasMore: payload.hasMore,
-        hasError: false,
         error: null
       }
     }
@@ -51,7 +48,6 @@ function computeStateOnExpensesFailure(state, { payload }) {
     {
       fetch: R.mergeRight(state.fetch, {
         isFetching: false,
-        hasError: true,
         error: payload.errorMessage
       })
     }
@@ -74,7 +70,6 @@ function computeStateOnReviewExpenseFailure(state, { payload }) {
     state,
     {
       review: R.mergeRight(state.review, {
-        hasError: true,
         error: payload.errorMessage
       })
     }

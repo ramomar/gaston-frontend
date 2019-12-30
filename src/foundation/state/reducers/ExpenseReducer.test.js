@@ -8,13 +8,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: false,
         hasMore: true,
-        hasError: false,
         error: null,
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -30,13 +28,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: true,
         hasMore: true,
-        hasError: false,
         error: null,
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -54,13 +50,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: false,
         hasMore: true,
-        hasError: false,
         error: null,
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -85,13 +79,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: false,
         hasMore,
-        hasError: false,
         error: null,
         paginationStart,
         paginationEnd
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -114,13 +106,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: true,
         hasMore: true,
-        hasError: false,
         error: null,
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -130,13 +120,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: false,
         hasMore: true,
-        hasError: true,
         error: 'Some error',
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -170,13 +158,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: false,
         hasMore: true,
-        hasError: false,
         error: null,
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -186,13 +172,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: false,
         hasMore: true,
-        hasError: false,
         error: null,
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -224,13 +208,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: true,
         hasMore: true,
-        hasError: false,
         error: null,
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -240,13 +222,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: true,
         hasMore: true,
-        hasError: false,
         error: null,
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -278,13 +258,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: true,
         hasMore: true,
-        hasError: false,
         error: null,
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: false,
         error: null
       }
     };
@@ -294,13 +272,11 @@ describe('expenses', () => {
       fetch: {
         isFetching: true,
         hasMore: true,
-        hasError: false,
         error: null,
         paginationStart: 0,
         paginationEnd: 0
       },
       review: {
-        hasError: true,
         error: 'Some error'
       }
     };
