@@ -56,7 +56,7 @@ export function fetchExpenses({ paginationStart, paginationEnd }) {
       .catch(
         (error) => {
           dispatch(fetchExpensesFailure({ errorMessage: error.message }));
-          return Promise.reject(error);
+          return Promise.resolve(error);
         });
   };
 }
@@ -109,7 +109,7 @@ export function reviewExpense({ expense }) {
       .catch(
         (error) => {
           dispatch(reviewExpenseFailure({ errorMessage: error.message }));
-          return Promise.reject(error);
+          return Promise.resolve(error);
         });
   }
 }

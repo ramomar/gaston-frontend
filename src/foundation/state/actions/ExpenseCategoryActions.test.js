@@ -51,10 +51,9 @@ describe('fetchExpenseCategories', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseCategoryActions.fetchExpenseCategories())
-      .catch(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseCategoryActions.fetchExpenseCategories()).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of some HTTP error', () => {
@@ -71,10 +70,9 @@ describe('fetchExpenseCategories', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseCategoryActions.fetchExpenseCategories())
-      .catch(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseCategoryActions.fetchExpenseCategories()).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
@@ -93,9 +91,8 @@ describe('fetchExpenseCategories', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseCategoryActions.fetchExpenseCategories())
-      .catch(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseCategoryActions.fetchExpenseCategories()).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 });

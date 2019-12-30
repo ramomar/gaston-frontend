@@ -68,10 +68,9 @@ describe('fetchExpenses', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd }))
-      .catch(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of some HTTP error', () => {
@@ -92,10 +91,9 @@ describe('fetchExpenses', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd }))
-      .catch(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
@@ -118,10 +116,9 @@ describe('fetchExpenses', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd }))
-      .catch(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 });
 
@@ -159,10 +156,9 @@ describe('reviewExpenseRequest', () => {
       { type: ExpenseActions.REVIEW_EXPENSE_SUCCESS, payload: { expense: reviewedExpense } }
     ];
 
-    return store.dispatch(ExpenseActions.reviewExpense({ expense }))
-      .then(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseActions.reviewExpense({ expense })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of sending invalid json', () => {
@@ -187,10 +183,9 @@ describe('reviewExpenseRequest', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.reviewExpense({ expense }))
-      .catch(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseActions.reviewExpense({ expense })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of receiving invalid json', () => {
@@ -215,10 +210,9 @@ describe('reviewExpenseRequest', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.reviewExpense({ expense }))
-      .catch(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseActions.reviewExpense({ expense })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of some HTTP error', () => {
@@ -243,10 +237,9 @@ describe('reviewExpenseRequest', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.reviewExpense({ expense }))
-      .catch(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseActions.reviewExpense({ expense })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
@@ -272,9 +265,8 @@ describe('reviewExpenseRequest', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.reviewExpense({ expense }))
-      .catch(() => {
-        expect(store.getActions()).toEqual(expected);
-      });
+    return store.dispatch(ExpenseActions.reviewExpense({ expense })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
   });
 });

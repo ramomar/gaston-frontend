@@ -40,7 +40,7 @@ export function fetchExpenseCategories() {
       .catch(
         (error) => {
           dispatch(fetchExpenseCategoriesFailure({ errorMessage: error.message }));
-          return Promise.reject(error);
+          return Promise.resolve(error);
         });
   }
 }
