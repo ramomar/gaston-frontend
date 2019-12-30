@@ -5,6 +5,7 @@ import { Box, Anchor } from 'grommet';
 import ExpenseListItem from './ExpenseListItem';
 import ExpenseListDaySeparator from './ExpenseListDaySeparator';
 import * as R from 'ramda';
+import computeTotalAmount from '../../foundation/computeTotalAmount';
 
 function makeExpenseListDateSeparator(day, amountForDay) {
   return (
@@ -29,8 +30,6 @@ function makeExpenseListItem(toExpenseReviewScreen) {
 }
 
 function makeItemsFromExpenseGroups(expenseGroups, toExpenseReviewScreen) {
-  const computeTotalAmount = R.reduce((acc, next) => acc + next.amount, 0);
-
   const makeItems = ({ day, expenses }) => R.flatten([
     makeExpenseListDateSeparator(day, computeTotalAmount(expenses)),
     expenses.map(makeExpenseListItem(toExpenseReviewScreen))
