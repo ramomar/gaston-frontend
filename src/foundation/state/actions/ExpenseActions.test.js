@@ -16,7 +16,7 @@ describe('fetchExpenses', () => {
       {
         'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
         'amount': 150,
-        'date': new DateTime('2017-03-19T05:29:02.700Z'),
+        'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
         'note': 'Cena'
       }
     ];
@@ -134,7 +134,7 @@ describe('reviewExpenseRequest', () => {
     const expense = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': new DateTime('2017-03-19T05:29:02.700Z'),
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
       'note': 'Cena'
     };
 
@@ -169,7 +169,7 @@ describe('reviewExpenseRequest', () => {
     const expense = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': new DateTime('2017-03-19T05:29:02.700Z'),
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
       'note': 'Cena'
     };
 
@@ -197,7 +197,7 @@ describe('reviewExpenseRequest', () => {
     const expense = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': new DateTime('2017-03-19T05:29:02.700Z'),
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
       'note': 'Cena'
     };
 
@@ -225,7 +225,7 @@ describe('reviewExpenseRequest', () => {
     const expense = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': new DateTime('2017-03-19T05:29:02.700Z'),
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
       'note': 'Cena'
     };
 
@@ -253,7 +253,7 @@ describe('reviewExpenseRequest', () => {
     const expense = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': new DateTime('2017-03-19T05:29:02.700Z'),
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
       'note': 'Cena'
     };
 
