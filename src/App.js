@@ -15,10 +15,10 @@ import { Settings } from 'luxon';
 Settings.defaultLocale = 'es';
 Settings.defaultZoneName = 'America/Mexico_City';
 
-store.dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
-store.dispatch(Actions.fetchExpenseCategories());
-
 function App() {
+  store.dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
+  store.dispatch(Actions.fetchExpenseCategories());
+
   return (
     <Grommet theme={grommet} full>
       <Box fill='vertical' overflow='hidden'>
