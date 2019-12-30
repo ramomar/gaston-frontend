@@ -1,13 +1,4 @@
-// TODO: move this
-import { DateTime } from 'luxon';
-function makeExpense(rawExpense) {
-  return {
-    id: rawExpense.id,
-    note: rawExpense.note || 'Sin nota',
-    amount: Math.abs(parseFloat(rawExpense.amount)),
-    date: DateTime.fromISO(rawExpense.date)
-  };
-}
+import makeExpense from '../../makeExpense';
 
 export const FETCH_EXPENSES_REQUEST = 'FETCH_EXPENSES_REQUEST';
 export const FETCH_EXPENSES_SUCCESS = 'FETCH_EXPENSES_SUCCESS';

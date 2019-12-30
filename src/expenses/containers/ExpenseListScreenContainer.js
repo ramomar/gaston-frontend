@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router';
 import { fetchExpenses } from '../../foundation/state/actions';
-import expensesByDay from '../../foundation/state/expensesByDay';
+import expensesByDay from '../../foundation/expensesByDay';
 import ExpenseListScreen from '../components/ExpenseListScreen';
 
 function stateToProps(state) {
