@@ -3,7 +3,6 @@ import renderer from 'react-test-renderer';
 import ScreenBody from './ScreenBody';
 
 it('renders correctly', () => {
-
   const component =
     <ScreenBody>
       {<div>¡Hola!</div>}

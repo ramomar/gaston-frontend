@@ -3,7 +3,6 @@ import renderer from 'react-test-renderer';
 import ScreenHeader from './ScreenHeader';
 
 it('renders correctly', () => {
-
   const component =
     <ScreenHeader
       start={<div>Start</div>}

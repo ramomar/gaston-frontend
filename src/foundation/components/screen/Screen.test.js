@@ -3,7 +3,6 @@ import renderer from 'react-test-renderer';
 import Screen from './Screen';
 
 it('renders correctly', () => {
-
   const component =
     <Screen>
       {<div>¡Hola!</div>}
