@@ -2,7 +2,7 @@ import makeExpense from '../../makeExpense';
 
 export const FETCH_EXPENSES_REQUEST = 'FETCH_EXPENSES_REQUEST';
 export const FETCH_EXPENSES_SUCCESS = 'FETCH_EXPENSES_SUCCESS';
-export const FETCH_EXPENSES_FAILURE = 'FETCH_EXPENESES_FAILURE';
+export const FETCH_EXPENSES_FAILURE = 'FETCH_EXPENSES_FAILURE';
 
 export function fetchExpensesRequest({ paginationStart, paginationEnd }) {
   return {

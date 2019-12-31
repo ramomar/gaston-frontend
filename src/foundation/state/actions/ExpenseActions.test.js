@@ -122,7 +122,7 @@ describe('fetchExpenses', () => {
   });
 });
 
-describe.only('fetchExpense', () => {
+describe('fetchExpense', () => {
   afterEach(() => {
     fetchMock.reset();
   });
