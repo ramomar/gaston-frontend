@@ -2,6 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useHistory } from 'react-router-dom';
 import { reviewExpense } from '../../foundation/state/actions';
+import { Text, Button } from 'grommet';
+import { LinkPrevious } from 'grommet-icons';
+import { SimpleLoadingScreen } from '../../foundation/components/screen';
 import ExpenseReviewScreen from '../components/ExpenseReviewScreen';
 
 function stateToProps(state) {
@@ -38,14 +41,22 @@ function ExpenseReviewScreenContainer(props) {
     goToExpenses
   );
 
-  return (
-    <ExpenseReviewScreen
-      expense={expense}
-      goToExpenses={goToExpenses}
-      {...stateProps}
-      {...dispatchProps}
-    />
-  );
+  if (expense) {
+    return (
+      <ExpenseReviewScreen
+        expense={expense}
+        goToExpenses={goToExpenses}
+        {...stateProps}
+        {...dispatchProps}
+      />
+    );
+  } else {
+    return (
+      <SimpleLoadingScreen
+        start={<Button plain icon={<LinkPrevious />} onClick={goToExpenses} />}
+        center={<Text weight='bold' size='large'>{`Revisión de gasto`}</Text>} />
+    );
+  }
 }
 
 export default ExpenseReviewScreenContainer;
