@@ -122,6 +122,109 @@ describe('fetchExpenses', () => {
   });
 });
 
+describe.only('fetchExpense', () => {
+  afterEach(() => {
+    fetchMock.reset();
+  });
+
+  it('should dispatch the correct sequence of actions when the request is successful', () => {
+    const expenseId = '0007182d-54cb-42b7-88fc-bbaba51db198';
+
+    const expense = {
+      'id': expenseId,
+      'amount': 150,
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'note': 'Cena'
+    };
+
+    fetchMock.getOnce(`end:/api/expenses/${expenseId}`, {
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        expense
+      }
+    });
+
+    const store = mockStore({});
+
+    const expected = [
+      { type: ExpenseActions.FETCH_EXPENSE_REQUEST, payload: { id: expenseId } },
+      { type: ExpenseActions.FETCH_EXPENSE_SUCCESS, payload: { expense } }
+    ];
+
+    return store.dispatch(ExpenseActions.fetchExpense({ id: expenseId }))
+      .then(() => {
+        expect(store.getActions()).toEqual(expected);
+      });
+  });
+
+  it('should dispatch the correct sequence of actions when the request is unsuccessful because of invalid json', () => {
+    const expenseId = '0007182d-54cb-42b7-88fc-bbaba51db198';
+
+    const body = 'Not a json response';
+
+    fetchMock.getOnce(`end:/api/expenses/${expenseId}`, {
+      body
+    });
+
+    const errorMessage = `invalid json response body at http://localhost:5000/api/expenses/${expenseId} reason: Unexpected token N in JSON at position 0`;
+
+    const expected = [
+      { type: ExpenseActions.FETCH_EXPENSE_REQUEST, payload: { id: expenseId } },
+      { type: ExpenseActions.FETCH_EXPENSE_FAILURE, payload: { errorMessage } }
+    ];
+
+    const store = mockStore({});
+
+    return store.dispatch(ExpenseActions.fetchExpense({ id: expenseId })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
+  });
+
+  it('should dispatch the correct sequence of actions when the request is unsuccessful because of some HTTP error', () => {
+    const expenseId = '0007182d-54cb-42b7-88fc-bbaba51db198';
+
+    fetchMock.getOnce(`end:/api/expenses/${expenseId}`, {
+      status: 403
+    });
+
+    const errorMessage = 'Forbidden';
+
+    const expected = [
+      { type: ExpenseActions.FETCH_EXPENSE_REQUEST, payload: { id: expenseId } },
+      { type: ExpenseActions.FETCH_EXPENSE_FAILURE, payload: { errorMessage } }
+    ];
+
+    const store = mockStore({});
+
+    return store.dispatch(ExpenseActions.fetchExpense({ id: expenseId })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
+  });
+
+  it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
+    const expenseId = '0007182d-54cb-42b7-88fc-bbaba51db198';
+
+    const errorMessage = 'Some error';
+
+    const error = new Error(errorMessage);
+
+    fetchMock.getOnce(`end:/api/expenses/${expenseId}`, {
+      throws: error
+    });
+
+    const expected = [
+      { type: ExpenseActions.FETCH_EXPENSE_REQUEST, payload: { id: expenseId } },
+      { type: ExpenseActions.FETCH_EXPENSE_FAILURE, payload: { errorMessage } }
+    ];
+
+    const store = mockStore({});
+
+    return store.dispatch(ExpenseActions.fetchExpense({ id: expenseId })).then(() => {
+      expect(store.getActions()).toEqual(expected);
+    });
+  });
+});
+
 describe('reviewExpenseRequest', () => {
   afterEach(() => {
     fetchMock.reset();

@@ -61,6 +61,60 @@ export function fetchExpenses({ paginationStart, paginationEnd }) {
   };
 }
 
+export const FETCH_EXPENSE_REQUEST = 'FETCH_EXPENSE_REQUEST';
+export const FETCH_EXPENSE_SUCCESS = 'FETCH_EXPENSE_SUCCESS';
+export const FETCH_EXPENSE_FAILURE = 'FETCH_EXPENSE_FAILURE';
+
+export function fetchExpenseRequest({ id }) {
+  return {
+    type: FETCH_EXPENSE_REQUEST,
+    payload: {
+      id
+    }
+  };
+}
+
+export function fetchExpenseSuccess({ expense }) {
+  return {
+    type: FETCH_EXPENSE_SUCCESS,
+    payload: {
+      expense
+    }
+  };
+}
+
+export function fetchExpenseFailure({ errorMessage }) {
+  return {
+    type: FETCH_EXPENSE_FAILURE,
+    payload: {
+      errorMessage
+    }
+  };
+}
+
+export function fetchExpense({ id }) {
+  return dispatch => {
+    dispatch(fetchExpenseRequest({ id }));
+
+    const successAction = ({ expense }) =>
+      dispatch(fetchExpenseSuccess({
+        expense: makeExpense(expense)
+      }));
+
+    return fetch(`${process.env.REACT_APP_API_HOST}/api/expenses/${id}`, {
+      method: 'GET'
+    })
+      .then(response =>
+        response.ok ? response.json() : Promise.reject(new Error(response.statusText)))
+      .then(successAction)
+      .catch(
+        (error) => {
+          dispatch(fetchExpenseFailure({ errorMessage: error.message }));
+          return Promise.resolve(error);
+        });
+  };
+}
+
 export const REVIEW_EXPENSE_REQUEST = 'REVIEW_EXPENSE_REQUEST';
 export const REVIEW_EXPENSE_SUCCESS = 'REVIEW_EXPENSE_SUCCESS';
 export const REVIEW_EXPENSE_FAILURE = 'REVIEW_EXPENSE_FAILURE';
