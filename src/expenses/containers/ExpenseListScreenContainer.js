@@ -39,16 +39,8 @@ export default function ExpenseListScreenContainer(props) {
 
   const { push } = useHistory();
 
-  const toExpenseReviewScreen = ({ id, note, amount, date }) =>
-    push(`/expenses/${id}/review`, {
-      expense: {
-        id,
-        note,
-        amount,
-        date: date.toISO()
-      },
-      fromList: true
-    });
+  const toExpenseReviewScreen = ({ id }) =>
+    push(`/expenses/${id}/review`);
 
   return (
     <ExpenseListScreen

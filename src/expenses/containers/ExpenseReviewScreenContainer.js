@@ -1,11 +1,19 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { reviewExpense } from '../../foundation/state/actions';
 import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { SimpleLoadingScreen } from '../../foundation/components/screen';
 import ExpenseReviewScreen from '../components/ExpenseReviewScreen';
+
+function stateToExpense(expenseId) {
+  return (state) => {
+    const { expenses } = state;
+
+    return [...expenses.expenses].filter(e => e.id === expenseId)[0];
+  }
+}
 
 function stateToProps(state) {
   const { categories } = state;
@@ -28,7 +36,9 @@ function dispatchToProps(dispatch, goToExpenses) {
 }
 
 function ExpenseReviewScreenContainer(props) {
-  const { state: { expense } = {} } = useLocation();
+  const { id } = useParams();
+
+  const expense = useSelector(stateToExpense(id));
 
   const { push } = useHistory();
 
@@ -36,8 +46,10 @@ function ExpenseReviewScreenContainer(props) {
 
   const stateProps = useSelector(stateToProps);
 
+  const dispatch = useDispatch();
+
   const dispatchProps = dispatchToProps(
-    useDispatch(),
+    dispatch,
     goToExpenses
   );
 

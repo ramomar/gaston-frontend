@@ -5,15 +5,11 @@ import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screen';
 import ExpenseReviewForm from './ExpenseReviewForm';
-import { DateTime } from 'luxon';
-import * as R from 'ramda';
 
 function ExpenseReviewScreen(props) {
-  const date = DateTime.fromISO(props.expense.date);
+  const { expense } = props;
 
-  const expenseWithLuxonDate = R.assoc('date', date, props.expense);
-
-  const formattedDay = date.toFormat(`d 'de' MMMM`);
+  const formattedDay = expense.date.toFormat(`d 'de' MMMM`);
 
   return (
     <Screen>
@@ -23,7 +19,7 @@ function ExpenseReviewScreen(props) {
       />
       <ScreenBody>
         <ExpenseReviewForm
-          expense={expenseWithLuxonDate}
+          expense={expense}
           reviewExpense={props.reviewExpense}
           expenseCategories={props.expenseCategories}
         />
@@ -33,12 +29,7 @@ function ExpenseReviewScreen(props) {
 }
 
 ExpenseReviewScreen.propTypes = {
-  expense: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    note: PropTypes.string.isRequired,
-    amount: PropTypes.number.isRequired,
-    date: PropTypes.string.isRequired
-  }).isRequired,
+  expense: Shapes.expense.isRequired,
   goToExpenses: PropTypes.func.isRequired,
   reviewExpense: PropTypes.func.isRequired,
   expenseCategories: PropTypes.arrayOf(Shapes.expenseCategory).isRequired
