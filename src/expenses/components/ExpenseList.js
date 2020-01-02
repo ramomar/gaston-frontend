@@ -12,8 +12,7 @@ function makeExpenseListDateSeparator(day, amountForDay) {
     <ExpenseListDaySeparator
       key={day.toLocaleString()}
       day={day}
-      amountForDay={amountForDay}
-    />
+      amountForDay={amountForDay} />
   );
 }
 
@@ -23,8 +22,7 @@ function makeExpenseListItem(toExpenseReviewScreen) {
       <ExpenseListItem
         key={expense.id}
         expense={expense}
-        toExpenseReviewScreen={() => toExpenseReviewScreen(expense)}
-      />
+        toExpenseReviewScreen={() => toExpenseReviewScreen(expense)} />
     );
   };
 }
@@ -54,7 +52,7 @@ function ExpenseList(props) {
           </Anchor>
         }
       </Box>
-    </Box >
+    </Box>
   );
 }
 

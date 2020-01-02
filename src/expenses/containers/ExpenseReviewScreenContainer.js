@@ -68,8 +68,7 @@ function ExpenseReviewScreenContainer(props) {
         expense={expense}
         goToExpenses={goToExpenses}
         {...stateProps}
-        {...dispatchProps}
-      />
+        {...dispatchProps} />
     );
   } else {
     if (shouldFetchExpense) {

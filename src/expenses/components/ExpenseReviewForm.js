@@ -103,56 +103,49 @@ function ExpenseReviewForm(props) {
         required: 'Requerido'
       }}
       value={initialValue}
-      onSubmit={onSubmit(props.reviewExpense, id)}
-    >
+      onSubmit={onSubmit(props.reviewExpense, id)}>
       <FormField
         required
         autoFocus
         label='Nota'
         name='note'
         component={TextArea}
-        placeholder='Cena del viernes en la noche'
-      />
+        placeholder='Cena del viernes en la noche' />
       <FormField
         required
         label='Categoría'
         name='category'
         component={Select}
         options={props.expenseCategories.map(c => c.name)}
-        placeholder='Educación'
-      />
+        placeholder='Educación' />
       <FormField
         required
         label='Fecha'
         name='day'
         component={MaskedInput}
         mask={dateMask}
-        placeholder={now.toLocaleString()}
-      />
+        placeholder={now.toLocaleString()} />
       <FormField
         required
         label='Hora'
         name='hour'
         component={MaskedInput}
         mask={hourMask}
-        placeholder={now.toLocaleString(DateTime.TIME_24_SIMPLE)}
-      />
+        placeholder={now.toLocaleString(DateTime.TIME_24_SIMPLE)} />
       <FormField
         required
         label='Cantidad'
         name='amount'
         component={MaskedInput}
         mask={amountMask}
-        placeholder='$ 250.00'
-      />
+        placeholder='$ 250.00' />
       <Box>
         <Button
           label='Terminar'
           primary
           type='submit'
           margin='medium'
-          alignSelf='center'
-        />
+          alignSelf='center' />
       </Box>
     </Form>
   );

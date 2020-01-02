@@ -46,7 +46,6 @@ export default function ExpenseListScreenContainer(props) {
     <ExpenseListScreen
       toExpenseReviewScreen={toExpenseReviewScreen}
       {...stateProps}
-      {...dispatchProps}
-    />
+      {...dispatchProps} />
   );
 }

@@ -15,14 +15,12 @@ function ExpenseReviewScreen(props) {
     <Screen>
       <ScreenHeader
         start={<Button plain icon={<LinkPrevious />} onClick={props.goToExpenses} />}
-        center={<Text weight='bold' size='large'>{`Gasto del ${formattedDay}`}</Text>}
-      />
+        center={<Text weight='bold' size='large'>{`Gasto del ${formattedDay}`}</Text>} />
       <ScreenBody>
         <ExpenseReviewForm
           expense={expense}
           reviewExpense={props.reviewExpense}
-          expenseCategories={props.expenseCategories}
-        />
+          expenseCategories={props.expenseCategories} />
       </ScreenBody>
     </Screen>
   );

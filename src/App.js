@@ -1,10 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grommet, Box } from 'grommet';
 import { grommet } from 'grommet/themes/grommet'
 import { ExpenseListScreenContainer, ExpenseReviewScreenContainer } from './expenses';
@@ -35,7 +31,7 @@ function App() {
           </Router>
         </Provider>
       </Box>
-    </Grommet >
+    </Grommet>
   );
 }
 

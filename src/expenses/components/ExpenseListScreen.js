@@ -9,8 +9,7 @@ function ExpenseListScreen(props) {
   return (
     <Screen>
       <ScreenHeader
-        center={<Text weight='bold' size='large'>Revisión de gastos</Text>}
-      />
+        center={<Text weight='bold' size='large'>Revisión de gastos</Text>} />
       <ScreenBody>
         <ExpenseList
           expenseGroups={props.expenseGroups}
@@ -18,8 +17,7 @@ function ExpenseListScreen(props) {
           hasMore={props.hasMore}
           error={props.error}
           moreExpenses={props.moreExpenses}
-          toExpenseReviewScreen={props.toExpenseReviewScreen}
-        />
+          toExpenseReviewScreen={props.toExpenseReviewScreen} />
       </ScreenBody>
     </Screen>
   );
