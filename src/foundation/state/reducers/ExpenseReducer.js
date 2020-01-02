@@ -11,6 +11,10 @@ function makeExpensesState() {
       paginationStart: 0,
       paginationEnd: 0
     },
+    singleFetch: {
+      isFetching: false,
+      error: null
+    },
     review: {
       error: null
     }
@@ -54,6 +58,51 @@ function computeStateOnExpensesFailure(state, { payload }) {
   ]);
 }
 
+function computeStateOnFetchExpenseRequest(state, _) {
+  return R.mergeAll([
+    state,
+    {
+      singleFetch: R.mergeRight(state.singleFetch, {
+        isFetching: true
+      })
+    }
+  ]);
+}
+
+function computeStateOnFetchExpenseSuccess(state, { payload }) {
+  const expenseAlreadyExists = [...state.expenses].filter(e => e.id === payload.expense.id)[0];
+
+  return R.mergeAll([
+    state,
+    {
+      expenses:
+        expenseAlreadyExists ? state.expenses : new Set([...state.expenses, payload.expense])
+    },
+    {
+      singleFetch: R.mergeDeepRight(state.singleFetch, {
+        isFetching: false,
+        error: null
+      })
+    }
+  ]);
+}
+
+function computeStateOnFetchExpenseFailure(state, { payload }) {
+  return R.mergeAll([
+    state,
+    {
+      singleFetch: R.mergeRight(state.singleFetch, {
+        isFetching: false,
+        error: payload.errorMessage
+      })
+    }
+  ]);
+}
+
+function computeStateOnReviewExpenseRequest(state, _) {
+  return state;
+}
+
 function computeStateOnReviewExpenseSuccess(state, { payload }) {
   const expenses = [...state.expenses];
 
@@ -84,8 +133,14 @@ export function expenseReducer(state = makeExpensesState(), action) {
       return computeStateOnExpensesSuccess(state, action);
     case ExpenseActions.FETCH_EXPENSES_FAILURE:
       return computeStateOnExpensesFailure(state, action);
+    case ExpenseActions.FETCH_EXPENSE_REQUEST:
+      return computeStateOnFetchExpenseRequest(state, action);
+    case ExpenseActions.FETCH_EXPENSE_SUCCESS:
+      return computeStateOnFetchExpenseSuccess(state, action);
+    case ExpenseActions.FETCH_EXPENSE_FAILURE:
+      return computeStateOnFetchExpenseFailure(state, action);
     case ExpenseActions.REVIEW_EXPENSE_REQUEST:
-      return state;
+      return computeStateOnReviewExpenseRequest(state, action);
     case ExpenseActions.REVIEW_EXPENSE_SUCCESS:
       return computeStateOnReviewExpenseSuccess(state, action);
     case ExpenseActions.REVIEW_EXPENSE_FAILURE:

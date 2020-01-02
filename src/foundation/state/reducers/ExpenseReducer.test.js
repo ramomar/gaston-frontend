@@ -1,5 +1,6 @@
 import { expenseReducer } from './ExpenseReducer';
-import * as actions from '../actions';
+import * as Actions from '../actions';
+import { DateTime } from 'luxon';
 
 describe('expenses', () => {
   it('should return the initial state', () => {
@@ -12,6 +13,10 @@ describe('expenses', () => {
         paginationStart: 0,
         paginationEnd: 0
       },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
       review: {
         error: null
       }
@@ -22,7 +27,25 @@ describe('expenses', () => {
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${actions.FETCH_EXPENSES_REQUEST}`, () => {
+  it(`should handle ${Actions.FETCH_EXPENSES_REQUEST}`, () => {
+    const state = {
+      expenses: new Set(),
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
+      review: {
+        error: null
+      }
+    };
+
     const expected = {
       expenses: new Set(),
       fetch: {
@@ -32,19 +55,23 @@ describe('expenses', () => {
         paginationStart: 0,
         paginationEnd: 0
       },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
       review: {
         error: null
       }
     };
 
-    const action = actions.fetchExpensesRequest({ paginationStart: 0, paginationEnd: 10 });
+    const action = Actions.fetchExpensesRequest({ paginationStart: 0, paginationEnd: 10 });
 
-    const actual = expenseReducer(undefined, action);
+    const actual = expenseReducer(state, action);
 
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${actions.FETCH_EXPENSES_SUCCESS}`, () => {
+  it(`should handle ${Actions.FETCH_EXPENSES_SUCCESS}`, () => {
     const state = {
       expenses: new Set(),
       fetch: {
@@ -53,6 +80,10 @@ describe('expenses', () => {
         error: null,
         paginationStart: 0,
         paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
       },
       review: {
         error: null
@@ -63,7 +94,7 @@ describe('expenses', () => {
       {
         'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
         'amount': 150,
-        'date': '2017-03-19T05:29:02.700Z',
+        'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
         'note': 'Cena'
       }
     ]);
@@ -83,12 +114,16 @@ describe('expenses', () => {
         paginationStart,
         paginationEnd
       },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
       review: {
         error: null
       }
     };
 
-    const action = actions.fetchExpensesSuccess({
+    const action = Actions.fetchExpensesSuccess({
       expenses,
       hasMore,
       paginationStart,
@@ -100,7 +135,7 @@ describe('expenses', () => {
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${actions.FETCH_EXPENSES_FAILURE}`, () => {
+  it(`should handle ${Actions.FETCH_EXPENSES_FAILURE}`, () => {
     const state = {
       expenses: new Set(),
       fetch: {
@@ -109,6 +144,10 @@ describe('expenses', () => {
         error: null,
         paginationStart: 0,
         paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
       },
       review: {
         error: null
@@ -124,12 +163,16 @@ describe('expenses', () => {
         paginationStart: 0,
         paginationEnd: 0
       },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
       review: {
         error: null
       }
     };
 
-    const action = actions.fetchExpensesFailure({
+    const action = Actions.fetchExpensesFailure({
       errorMessage: 'Some error'
     });
 
@@ -138,19 +181,26 @@ describe('expenses', () => {
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${actions.REVIEW_EXPENSE_REQUEST}`, () => {
+  it(`should handle ${Actions.FETCH_EXPENSE_REQUEST}`, () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
+      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
       'note': 'Taco Norteño'
+    };
+
+    const fetchedExpense = {
+      'id': '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
+      'amount': 10,
+      'date': DateTime.fromISO('2017-03-25T20:00:00.000Z'),
+      'note': 'Cine'
     };
 
     const state = {
@@ -161,6 +211,10 @@ describe('expenses', () => {
         error: null,
         paginationStart: 0,
         paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
       },
       review: {
         error: null
@@ -176,30 +230,280 @@ describe('expenses', () => {
         paginationStart: 0,
         paginationEnd: 0
       },
+      singleFetch: {
+        isFetching: true,
+        error: null
+      },
       review: {
         error: null
       }
     };
 
-    const action = actions.reviewExpense({ expense: expense1 });
+    const action = Actions.fetchExpenseRequest({ id: fetchedExpense.id });
 
     const actual = expenseReducer(state, action);
 
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${actions.REVIEW_EXPENSE_SUCCESS}`, () => {
+  it(`should handle ${Actions.FETCH_EXPENSE_SUCCESS}`, () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
+      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'note': 'Taco Norteño'
+    };
+
+    const fetchedExpense = {
+      'id': '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
+      'amount': 10,
+      'date': DateTime.fromISO('2017-03-25T20:00:00.000Z'),
+      'note': 'Cine'
+    };
+
+    const state = {
+      expenses: new Set([expense1, expense2]),
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: true,
+        error: null
+      },
+      review: {
+        error: null
+      }
+    };
+
+    const expected = {
+      expenses: new Set([expense1, expense2, fetchedExpense]),
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
+      review: {
+        error: null
+      }
+    };
+
+    const action = Actions.fetchExpenseSuccess({ expense: fetchedExpense });
+
+    const actual = expenseReducer(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it(`should handle ${Actions.FETCH_EXPENSE_SUCCESS} with expense that already exists`, () => {
+    const expense1 = {
+      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
+      'amount': 150,
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'note': 'Cena'
+    };
+
+    const expense2 = {
+      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      'amount': 60,
+      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'note': 'Taco Norteño'
+    };
+
+    const fetchedExpense = {
+      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      'amount': 60,
+      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'note': 'Taco Norteño'
+    };
+
+    const state = {
+      expenses: new Set([expense1, expense2]),
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: true,
+        error: null
+      },
+      review: {
+        error: null
+      }
+    };
+
+    const expected = {
+      expenses: new Set([expense1, expense2]),
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
+      review: {
+        error: null
+      }
+    };
+
+    const action = Actions.fetchExpenseSuccess({ expense: fetchedExpense });
+
+    const actual = expenseReducer(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it(`should handle ${Actions.FETCH_EXPENSE_FAILURE}`, () => {
+    const expense1 = {
+      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
+      'amount': 150,
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'note': 'Cena'
+    };
+
+    const expense2 = {
+      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      'amount': 60,
+      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'note': 'Taco Norteño'
+    };
+
+    const state = {
+      expenses: new Set([expense1, expense2]),
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: true,
+        error: null
+      },
+      review: {
+        error: null
+      }
+    };
+
+    const expected = {
+      expenses: new Set([expense1, expense2]),
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: 'Some error'
+      },
+      review: {
+        error: null
+      }
+    };
+
+    const action = Actions.fetchExpenseFailure({ errorMessage: 'Some error' });
+
+    const actual = expenseReducer(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it(`should handle ${Actions.REVIEW_EXPENSE_REQUEST}`, () => {
+    const expense1 = {
+      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
+      'amount': 150,
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'note': 'Cena'
+    };
+
+    const expense2 = {
+      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      'amount': 60,
+      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'note': 'Taco Norteño'
+    };
+
+    const state = {
+      expenses: new Set([expense1, expense2]),
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
+      review: {
+        error: null
+      }
+    };
+
+    const expected = {
+      expenses: new Set([expense1, expense2]),
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
+      review: {
+        error: null
+      }
+    };
+
+    const action = Actions.reviewExpense({ expense: expense1 });
+
+    const actual = expenseReducer(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it(`should handle ${Actions.REVIEW_EXPENSE_SUCCESS}`, () => {
+    const expense1 = {
+      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
+      'amount': 150,
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'note': 'Cena'
+    };
+
+    const expense2 = {
+      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      'amount': 60,
+      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
       'note': 'Taco Norteño'
     };
 
@@ -211,6 +515,10 @@ describe('expenses', () => {
         error: null,
         paginationStart: 0,
         paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
       },
       review: {
         error: null
@@ -226,30 +534,34 @@ describe('expenses', () => {
         paginationStart: 0,
         paginationEnd: 0
       },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
       review: {
         error: null
       }
     };
 
-    const action = actions.reviewExpenseSuccess({ expense: expense1 });
+    const action = Actions.reviewExpenseSuccess({ expense: expense1 });
 
     const actual = expenseReducer(state, action);
 
     expect(actual).toEqual(expected);
   });
 
-  it(`should handle ${actions.REVIEW_EXPENSE_FAILURE}`, () => {
+  it(`should handle ${Actions.REVIEW_EXPENSE_FAILURE}`, () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
+      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
+      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
       'note': 'Taco Norteño'
     };
 
@@ -261,6 +573,10 @@ describe('expenses', () => {
         error: null,
         paginationStart: 0,
         paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
       },
       review: {
         error: null
@@ -276,12 +592,16 @@ describe('expenses', () => {
         paginationStart: 0,
         paginationEnd: 0
       },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
       review: {
         error: 'Some error'
       }
     };
 
-    const action = actions.reviewExpenseFailure({ errorMessage: 'Some error' });
+    const action = Actions.reviewExpenseFailure({ errorMessage: 'Some error' });
 
     const actual = expenseReducer(state, action);
 
