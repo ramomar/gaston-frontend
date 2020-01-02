@@ -22,19 +22,17 @@ function makeExpensesState() {
 }
 
 function computeStateOnRequestExpenses(state, _) {
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
-    { fetch: R.mergeRight(state.fetch, { isFetching: true }) }
-  ]);
+    { fetch: { isFetching: true } }
+  );
 }
 
 function computeStateOnExpensesSuccess(state, { payload }) {
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
     {
-      expenses: new Set([...state.expenses, ...payload.expenses])
-    },
-    {
+      expenses: new Set([...state.expenses, ...payload.expenses]),
       fetch: {
         paginationStart: payload.paginationStart,
         paginationEnd: payload.paginationEnd,
@@ -43,60 +41,58 @@ function computeStateOnExpensesSuccess(state, { payload }) {
         error: null
       }
     }
-  ]);
+  );
 }
 
 function computeStateOnExpensesFailure(state, { payload }) {
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
     {
-      fetch: R.mergeRight(state.fetch, {
+      fetch: {
         isFetching: false,
         error: payload.errorMessage
-      })
+      }
     }
-  ]);
+  );
 }
 
 function computeStateOnFetchExpenseRequest(state, _) {
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
     {
-      singleFetch: R.mergeRight(state.singleFetch, {
+      singleFetch: {
         isFetching: true
-      })
+      }
     }
-  ]);
+  );
 }
 
 function computeStateOnFetchExpenseSuccess(state, { payload }) {
   const expenseAlreadyExists = [...state.expenses].filter(e => e.id === payload.expense.id)[0];
 
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
     {
       expenses:
-        expenseAlreadyExists ? state.expenses : new Set([...state.expenses, payload.expense])
-    },
-    {
-      singleFetch: R.mergeDeepRight(state.singleFetch, {
+        expenseAlreadyExists ? state.expenses : new Set([...state.expenses, payload.expense]),
+      singleFetch: {
         isFetching: false,
         error: null
-      })
+      }
     }
-  ]);
+  );
 }
 
 function computeStateOnFetchExpenseFailure(state, { payload }) {
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
     {
-      singleFetch: R.mergeRight(state.singleFetch, {
+      singleFetch: {
         isFetching: false,
         error: payload.errorMessage
-      })
+      }
     }
-  ]);
+  );
 }
 
 function computeStateOnReviewExpenseRequest(state, _) {
@@ -108,21 +104,21 @@ function computeStateOnReviewExpenseSuccess(state, { payload }) {
 
   const expensesToKeep = expenses.filter(e => e.id !== payload.expense.id);
 
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
     { expenses: new Set([...expensesToKeep]) }
-  ]);
+  );
 }
 
 function computeStateOnReviewExpenseFailure(state, { payload }) {
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
     {
-      review: R.mergeRight(state.review, {
+      review: {
         error: payload.errorMessage
-      })
+      }
     }
-  ]);
+  );
 }
 
 export function expenseReducer(state = makeExpensesState(), action) {
