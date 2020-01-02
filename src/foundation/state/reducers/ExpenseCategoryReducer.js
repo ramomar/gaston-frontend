@@ -12,29 +12,29 @@ function makeExpenseCategoriesState() {
 }
 
 function computeStateOnExpenseCategoriesRequest(state, _) {
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
-    { fetch: R.mergeRight(state.fetch, { isFetching: true }) }
-  ]);
+    { fetch: { isFetching: true } }
+  );
 }
 
 function computeStateOnExpenseCategoriesSuccess(state, { payload }) {
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
     {
-      categories: new Set([...state.categories, ...payload.categories])
-    },
-    { fetch: R.mergeRight(state.fetch, { isFetching: false }) }
-  ]);
+      categories: new Set([...state.categories, ...payload.categories]),
+      fetch: { isFetching: false }
+    }
+  );
 }
 
 function computeStateOnExpenseCategoriesFailure(state, { payload }) {
-  return R.mergeAll([
+  return R.mergeDeepRight(
     state,
     {
-      fetch: R.mergeRight(state.fetch, { isFetching: false, error: payload.errorMessage })
+      fetch: { isFetching: false, error: payload.errorMessage }
     }
-  ]);
+  );
 }
 
 export function expenseCategoryReducer(state = makeExpenseCategoriesState(), action) {
