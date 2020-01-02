@@ -6,6 +6,7 @@ import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { SimpleLoadingScreen } from '../../foundation/components/screen';
 import ExpenseReviewScreen from '../components/ExpenseReviewScreen';
+import * as Actions from '../../foundation/state/actions';
 
 function stateToExpense(expenseId) {
   return (state) => {
@@ -13,6 +14,12 @@ function stateToExpense(expenseId) {
 
     return [...expenses.expenses].filter(e => e.id === expenseId)[0];
   }
+}
+
+function stateToShouldFetchExpense(state) {
+  const { expenses: { singleFetch: { isFetching, error } } } = state;
+
+  return !isFetching && !error
 }
 
 function stateToProps(state) {
@@ -46,6 +53,8 @@ function ExpenseReviewScreenContainer(props) {
 
   const stateProps = useSelector(stateToProps);
 
+  const shouldFetchExpense = useSelector(stateToShouldFetchExpense);
+
   const dispatch = useDispatch();
 
   const dispatchProps = dispatchToProps(
@@ -63,6 +72,10 @@ function ExpenseReviewScreenContainer(props) {
       />
     );
   } else {
+    if (shouldFetchExpense) {
+      dispatch(Actions.fetchExpense({ id }));
+    }
+
     return (
       <SimpleLoadingScreen
         start={<Button plain icon={<LinkPrevious />} onClick={goToExpenses} />}
