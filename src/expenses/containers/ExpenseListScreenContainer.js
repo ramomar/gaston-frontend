@@ -5,6 +5,15 @@ import { fetchExpenses } from '../../foundation/state/actions';
 import expensesByDay from '../../foundation/expensesByDay';
 import ExpenseListScreen from '../components/ExpenseListScreen';
 
+function stateToPagination(state) {
+  const { expenses: { fetch } } = state;
+
+  return {
+    paginationStart: fetch.paginationStart,
+    paginationEnd: fetch.paginationEnd
+  }
+}
+
 function stateToProps(state) {
   const { expenses } = state;
 
@@ -28,8 +37,7 @@ function dispatchToProps(dispatch, paginationStart, paginationEnd) {
 export default function ExpenseListScreenContainer(props) {
   const stateProps = useSelector(stateToProps);
 
-  const { paginationStart, paginationEnd } =
-    useSelector(({ expenses }) => expenses.fetch);
+  const { paginationStart, paginationEnd } = useSelector(stateToPagination);
 
   const dispatchProps = dispatchToProps(
     useDispatch(),
