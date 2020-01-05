@@ -3,7 +3,9 @@ import * as R from 'ramda';
 
 function makeExpensesState() {
   return {
-    expenses: new Set(),
+    expenses: {
+      byId: {}
+    },
     fetch: {
       isFetching: false,
       hasMore: true,
@@ -32,7 +34,9 @@ function computeStateOnExpensesSuccess(state, { payload }) {
   return R.mergeDeepRight(
     state,
     {
-      expenses: new Set([...state.expenses, ...payload.expenses]),
+      expenses: {
+        byId: R.fromPairs(R.map(e => [e.id, e], payload.expenses))
+      },
       fetch: {
         paginationStart: payload.paginationStart,
         paginationEnd: payload.paginationEnd,
@@ -68,13 +72,14 @@ function computeStateOnFetchExpenseRequest(state, _) {
 }
 
 function computeStateOnFetchExpenseSuccess(state, { payload }) {
-  const expenseAlreadyExists = [...state.expenses].filter(e => e.id === payload.expense.id)[0];
+  const { expense } = payload;
 
   return R.mergeDeepRight(
     state,
     {
-      expenses:
-        expenseAlreadyExists ? state.expenses : new Set([...state.expenses, payload.expense]),
+      expenses: {
+        byId: R.fromPairs([[expense.id, expense]])
+      },
       singleFetch: {
         isFetching: false,
         error: null
@@ -100,14 +105,7 @@ function computeStateOnReviewExpenseRequest(state, _) {
 }
 
 function computeStateOnReviewExpenseSuccess(state, { payload }) {
-  const expenses = [...state.expenses];
-
-  const expensesToKeep = expenses.filter(e => e.id !== payload.expense.id);
-
-  return R.mergeDeepRight(
-    state,
-    { expenses: new Set([...expensesToKeep]) }
-  );
+  return R.dissocPath(['expenses', 'byId', payload.expense.id], state);
 }
 
 function computeStateOnReviewExpenseFailure(state, { payload }) {

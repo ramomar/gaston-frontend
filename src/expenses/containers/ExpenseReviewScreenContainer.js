@@ -12,7 +12,9 @@ function stateToExpense(expenseId) {
   return (state) => {
     const { expenses } = state;
 
-    return [...expenses.expenses].filter(e => e.id === expenseId)[0];
+    const expensesById = expenses.expenses.byId;
+
+    return expensesById[expenseId];
   }
 }
 
