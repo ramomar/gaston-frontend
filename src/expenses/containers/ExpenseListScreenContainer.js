@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import { fetchExpenses } from '../../foundation/state/actions';
 import expensesByDay from '../../foundation/expensesByDay';
 import ExpenseListScreen from '../components/ExpenseListScreen';
+import makeExpense from '../../foundation/makeExpense';
 import * as R from 'ramda';
 
 function stateToPagination(state) {
@@ -20,8 +21,14 @@ function stateToProps(state) {
 
   const expensesById = expenses.expenses.byId;
 
+  const makeExpenseGroups = R.pipe(
+    R.props(Object.keys(expensesById)),
+    R.map(makeExpense),
+    expensesByDay
+  );
+
   return {
-    expenseGroups: expensesByDay(R.props(Object.keys(expensesById), expensesById)),
+    expenseGroups: makeExpenseGroups(expensesById),
     isFetching: expenses.fetch.isFetching,
     hasMore: expenses.fetch.hasMore
   };

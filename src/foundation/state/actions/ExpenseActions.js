@@ -1,5 +1,3 @@
-import makeExpense from '../../makeExpense';
-
 export const FETCH_EXPENSES_REQUEST = 'FETCH_EXPENSES_REQUEST';
 export const FETCH_EXPENSES_SUCCESS = 'FETCH_EXPENSES_SUCCESS';
 export const FETCH_EXPENSES_FAILURE = 'FETCH_EXPENSES_FAILURE';
@@ -41,7 +39,7 @@ export function fetchExpenses({ paginationStart, paginationEnd }) {
 
     const successAction = ({ expenses, hasMore }) =>
       dispatch(fetchExpensesSuccess({
-        expenses: expenses.map(makeExpense),
+        expenses,
         hasMore,
         paginationStart,
         paginationEnd
@@ -98,7 +96,7 @@ export function fetchExpense({ id }) {
 
     const successAction = ({ expense }) =>
       dispatch(fetchExpenseSuccess({
-        expense: makeExpense(expense)
+        expense
       }));
 
     return fetch(`${process.env.REACT_APP_API_HOST}/api/expenses/${id}`, {

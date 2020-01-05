@@ -7,6 +7,7 @@ import { LinkPrevious } from 'grommet-icons';
 import { SimpleLoadingScreen } from '../../foundation/components/screen';
 import ExpenseReviewScreen from '../components/ExpenseReviewScreen';
 import * as Actions from '../../foundation/state/actions';
+import makeExpense from '../../foundation/makeExpense';
 
 function stateToExpense(expenseId) {
   return (state) => {
@@ -14,7 +15,13 @@ function stateToExpense(expenseId) {
 
     const expensesById = expenses.expenses.byId;
 
-    return expensesById[expenseId];
+    const expense = expensesById[expenseId];
+
+    if (expense) {
+      return makeExpense(expense);
+    }
+
+    return null;
   }
 }
 

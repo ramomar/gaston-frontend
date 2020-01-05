@@ -2,7 +2,6 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import fetchMock from 'fetch-mock'
 import * as ExpenseActions from './ExpenseActions';
-import { DateTime } from 'luxon';
 
 const mockStore = configureMockStore([thunk]);
 
@@ -16,7 +15,7 @@ describe('fetchExpenses', () => {
       {
         'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
         'amount': 150,
-        'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+        'date': '2017-03-19T05:29:02.700Z',
         'note': 'Cena'
       }
     ];
@@ -133,7 +132,7 @@ describe('fetchExpense', () => {
     const expense = {
       'id': expenseId,
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
@@ -234,7 +233,7 @@ describe('reviewExpenseRequest', () => {
     const expense = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
@@ -268,7 +267,7 @@ describe('reviewExpenseRequest', () => {
     const expense = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
@@ -295,7 +294,7 @@ describe('reviewExpenseRequest', () => {
     const expense = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
@@ -322,7 +321,7 @@ describe('reviewExpenseRequest', () => {
     const expense = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
@@ -349,7 +348,7 @@ describe('reviewExpenseRequest', () => {
     const expense = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 

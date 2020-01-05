@@ -1,6 +1,5 @@
 import { expenseReducer } from './ExpenseReducer';
 import * as Actions from '../actions';
-import { DateTime } from 'luxon';
 import * as R from 'ramda';
 
 describe('expenses', () => {
@@ -82,21 +81,21 @@ describe('expenses', () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
     };
 
     const expense3 = {
       'id': '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
       'amount': 10,
-      'date': DateTime.fromISO('2017-03-25T20:00:00.000Z'),
+      'date': '2017-03-25T20:00:00.000Z',
       'note': 'Cine'
     };
 
@@ -172,21 +171,21 @@ describe('expenses', () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
     };
 
     const expense3 = {
       'id': '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
       'amount': 10,
-      'date': DateTime.fromISO('2017-03-25T20:00:00.000Z'),
+      'date': '2017-03-25T20:00:00.000Z',
       'note': 'Cine'
     };
 
@@ -313,21 +312,21 @@ describe('expenses', () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
     };
 
     const fetchedExpense = {
       'id': '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
       'amount': 10,
-      'date': DateTime.fromISO('2017-03-25T20:00:00.000Z'),
+      'date': '2017-03-25T20:00:00.000Z',
       'note': 'Cine'
     };
 
@@ -382,21 +381,21 @@ describe('expenses', () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
     };
 
     const fetchedExpense = {
       'id': '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
       'amount': 10,
-      'date': DateTime.fromISO('2017-03-25T20:00:00.000Z'),
+      'date': '2017-03-25T20:00:00.000Z',
       'note': 'Cine'
     };
 
@@ -451,21 +450,21 @@ describe('expenses', () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
     };
 
     const fetchedExpense = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
     };
 
@@ -520,14 +519,14 @@ describe('expenses', () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
     };
 
@@ -582,14 +581,14 @@ describe('expenses', () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
     };
 
@@ -644,14 +643,14 @@ describe('expenses', () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
     };
 
@@ -706,14 +705,14 @@ describe('expenses', () => {
     const expense1 = {
       'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
       'amount': 150,
-      'date': DateTime.fromISO('2017-03-19T05:29:02.700Z'),
+      'date': '2017-03-19T05:29:02.700Z',
       'note': 'Cena'
     };
 
     const expense2 = {
       'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
       'amount': 60,
-      'date': DateTime.fromISO('2017-03-24T19:42:25.608Z'),
+      'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
     };
 
