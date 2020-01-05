@@ -117,6 +117,7 @@ function ExpenseReviewForm(props) {
         name='category'
         component={Select}
         options={props.expenseCategories.map(c => c.name)}
+        emptySearchMessage='Sin categorías'
         placeholder='Educación' />
       <FormField
         required
