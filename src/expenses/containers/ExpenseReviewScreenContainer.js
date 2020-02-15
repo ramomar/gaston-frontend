@@ -28,7 +28,7 @@ function stateToExpense(expenseId) {
 function stateToShouldFetchExpense(state) {
   const { expenses: { singleFetch: { isFetching, error } } } = state;
 
-  return !isFetching && !error
+  return !isFetching && !error;
 }
 
 function stateToProps(state) {
