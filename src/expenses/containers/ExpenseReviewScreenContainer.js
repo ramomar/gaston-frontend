@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom';
-import { reviewExpense } from '../../foundation/state/actions';
 import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { SimpleLoadingScreen } from '../../foundation/components/screen';
@@ -9,20 +8,18 @@ import ExpenseReviewScreen from '../components/ExpenseReviewScreen';
 import * as Actions from '../../foundation/state/actions';
 import makeExpense from '../../foundation/makeExpense';
 
-function stateToExpense(expenseId) {
-  return (state) => {
-    const { expenses } = state;
+function stateToExpense(expenseId, state) {
+  const { expenses } = state;
 
-    const expensesById = expenses.expenses.byId;
+  const expensesById = expenses.expenses.byId;
 
-    const expense = expensesById[expenseId];
+  const expense = expensesById[expenseId];
 
-    if (expense) {
-      return makeExpense(expense);
-    }
-
-    return null;
+  if (expense) {
+    return makeExpense(expense);
   }
+
+  return null;
 }
 
 function stateToShouldFetchExpense(state) {
@@ -31,18 +28,27 @@ function stateToShouldFetchExpense(state) {
   return !isFetching && !error;
 }
 
-function stateToProps(state) {
-  const { categories } = state;
+function stateToShouldFetchCategories(state) {
+  const { categories: { fetch: { isFetching, error } } } = state;
 
-  return {
-    expenseCategories: [...categories.categories]
+  return !isFetching && !error;
+}
+
+function stateToProps(expenseId) {
+  return (state) => {
+    const { categories } = state;
+
+    return {
+      expenseCategories: [...categories.categories],
+      expense: stateToExpense(expenseId, state)
+    };
   };
 }
 
 function dispatchToProps(dispatch, goToExpenses) {
   return {
     reviewExpense: (expense) => {
-      dispatch(reviewExpense({
+      dispatch(Actions.reviewExpense({
         expense
       }));
 
@@ -54,15 +60,17 @@ function dispatchToProps(dispatch, goToExpenses) {
 function ExpenseReviewScreenContainer(props) {
   const { id } = useParams();
 
-  const expense = useSelector(stateToExpense(id));
-
   const { push } = useHistory();
 
   const goToExpenses = () => push('/expenses');
 
-  const stateProps = useSelector(stateToProps);
+  const stateProps = useSelector(stateToProps(id));
+
+  const { expense, expenseCategories } = stateProps;
 
   const shouldFetchExpense = useSelector(stateToShouldFetchExpense);
+
+  const shouldFetchCategories = useSelector(stateToShouldFetchCategories);
 
   const dispatch = useDispatch();
 
@@ -71,7 +79,7 @@ function ExpenseReviewScreenContainer(props) {
     goToExpenses
   );
 
-  if (expense) {
+  if (expense && expenseCategories.length > 0) {
     return (
       <ExpenseReviewScreen
         expense={expense}
@@ -82,6 +90,10 @@ function ExpenseReviewScreenContainer(props) {
   } else {
     if (shouldFetchExpense) {
       dispatch(Actions.fetchExpense({ id }));
+    }
+
+    if (shouldFetchCategories) {
+      dispatch(Actions.fetchExpenseCategories());
     }
 
     return (

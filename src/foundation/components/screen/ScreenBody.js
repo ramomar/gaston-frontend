@@ -4,7 +4,7 @@ import { Box } from 'grommet';
 
 function ScreenBody(props) {
   return (
-    <Box>
+    <Box fill='vertical'>
       {props.children}
     </Box>
   );

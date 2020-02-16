@@ -10,7 +10,7 @@ function SimpleLoadingScreen(props) {
         start={props.start}
         center={props.center} />
       <ScreenBody>
-        <Box>
+        <Box fill='vertical' justify='center'>
           <Spinner />
         </Box>
       </ScreenBody>

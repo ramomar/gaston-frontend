@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router';
-import { fetchExpenses } from '../../foundation/state/actions';
+import { Text } from 'grommet';
+import { SimpleLoadingScreen } from '../../foundation/components/screen';
 import expensesByDay from '../../foundation/expensesByDay';
 import ExpenseListScreen from '../components/ExpenseListScreen';
 import makeExpense from '../../foundation/makeExpense';
+import * as Actions from '../../foundation/state/actions';
 import * as R from 'ramda';
 
 function stateToPagination(state) {
@@ -14,6 +16,12 @@ function stateToPagination(state) {
     paginationStart: fetch.paginationStart,
     paginationEnd: fetch.paginationEnd
   }
+}
+
+function stateToShouldFetchExpenses(state) {
+  const { expenses: { fetch: { isFetching, error } } } = state;
+
+  return !isFetching && !error;
 }
 
 function stateToProps(state) {
@@ -37,7 +45,7 @@ function stateToProps(state) {
 function dispatchToProps(dispatch, paginationStart, paginationEnd) {
   return {
     moreExpenses: () =>
-      dispatch(fetchExpenses({
+      dispatch(Actions.fetchExpenses({
         paginationStart: paginationStart,
         paginationEnd: paginationEnd + 10
       }))
@@ -45,25 +53,42 @@ function dispatchToProps(dispatch, paginationStart, paginationEnd) {
 }
 
 export default function ExpenseListScreenContainer(props) {
-  const stateProps = useSelector(stateToProps);
-
-  const { paginationStart, paginationEnd } = useSelector(stateToPagination);
-
-  const dispatchProps = dispatchToProps(
-    useDispatch(),
-    paginationStart,
-    paginationEnd
-  );
-
   const { push } = useHistory();
 
   const toExpenseReviewScreen = ({ id }) =>
     push(`/expenses/${id}/review`);
 
-  return (
-    <ExpenseListScreen
-      toExpenseReviewScreen={toExpenseReviewScreen}
-      {...stateProps}
-      {...dispatchProps} />
+  const stateProps = useSelector(stateToProps);
+
+  const { expenseGroups } = stateProps;
+
+  const { paginationStart, paginationEnd } = useSelector(stateToPagination);
+
+  const shouldFetchExpenses = useSelector(stateToShouldFetchExpenses);
+
+  const dispatch = useDispatch();
+
+  const dispatchProps = dispatchToProps(
+    dispatch,
+    paginationStart,
+    paginationEnd
   );
+
+  if (expenseGroups.length > 0) {
+    return (
+      <ExpenseListScreen
+        toExpenseReviewScreen={toExpenseReviewScreen}
+        {...stateProps}
+        {...dispatchProps} />
+    );
+  } else {
+    if (shouldFetchExpenses) {
+      dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
+    }
+
+    return (
+      <SimpleLoadingScreen
+        center={<Text weight='bold' size='large'>{`Revisión de gastos`}</Text>} />
+    );
+  }
 }
