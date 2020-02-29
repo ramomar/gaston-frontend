@@ -17,7 +17,7 @@ function App() {
         <Provider store={store}>
           <Router>
             <Switch>
-              <Route path='/expenses/:id/review'>
+              <Route path='/expenses/:expenseId/review'>
                 <ExpenseReviewScreenContainer />
               </Route>
               <Route path='/expenses'>

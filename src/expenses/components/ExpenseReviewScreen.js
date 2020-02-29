@@ -20,7 +20,8 @@ function ExpenseReviewScreen(props) {
         <ExpenseReviewForm
           expense={expense}
           reviewExpense={props.reviewExpense}
-          expenseCategories={props.expenseCategories} />
+          expenseCategories={props.expenseCategories}
+          expenseReviewStatus={props.expenseReviewStatus} />
       </ScreenBody>
     </Screen>
   );
@@ -30,7 +31,8 @@ ExpenseReviewScreen.propTypes = {
   expense: Shapes.expense.isRequired,
   goToExpenses: PropTypes.func.isRequired,
   reviewExpense: PropTypes.func.isRequired,
-  expenseCategories: PropTypes.arrayOf(Shapes.expenseCategory).isRequired
+  expenseCategories: PropTypes.arrayOf(Shapes.expenseCategory).isRequired,
+  expenseReviewStatus: Shapes.expenseReviewStatus
 };
 
 export default ExpenseReviewScreen;

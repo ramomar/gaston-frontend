@@ -17,8 +17,23 @@ const expenseCategory = PropTypes.shape({
   name: PropTypes.string.isRequired
 });
 
+const expenseReview = PropTypes.shape({
+  note: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(DateTime).isRequired,
+  amount: PropTypes.number.isRequired
+});
+
+const expenseReviewStatus = PropTypes.shape({
+  isReviewing: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+  review: expenseReview.isRequired,
+  reviewed: PropTypes.bool.isRequired
+});
+
 export default {
   expense,
   expenseGroup,
-  expenseCategory
+  expenseCategory,
+  expenseReviewStatus
 };

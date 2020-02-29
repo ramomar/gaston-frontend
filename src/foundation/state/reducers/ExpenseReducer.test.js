@@ -20,13 +20,13 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
     const actual = expenseReducer(undefined, {});
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.FETCH_EXPENSES_REQUEST}`, () => {
@@ -46,7 +46,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -66,7 +66,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -74,29 +74,29 @@ describe('expenses', () => {
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.FETCH_EXPENSES_SUCCESS}`, () => {
     const expense1 = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
     };
 
     const expense2 = {
-      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
-      'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
-      'note': 'Taco Norteño'
+      id: '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      amount: 60,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño'
     };
 
     const expense3 = {
-      'id': '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
-      'amount': 10,
-      'date': '2017-03-25T20:00:00.000Z',
-      'note': 'Cine'
+      id: '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
+      amount: 10,
+      date: '2017-03-25T20:00:00.000Z',
+      note: 'Cine'
     };
 
     const expenses = [
@@ -121,7 +121,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -151,7 +151,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -164,29 +164,29 @@ describe('expenses', () => {
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.FETCH_EXPENSES_SUCCESS} when some expenses already exist`, () => {
     const expense1 = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
     };
 
     const expense2 = {
-      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
-      'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
-      'note': 'Taco Norteño'
+      id: '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      amount: 60,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño'
     };
 
     const expense3 = {
-      'id': '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
-      'amount': 10,
-      'date': '2017-03-25T20:00:00.000Z',
-      'note': 'Cine'
+      id: '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
+      amount: 10,
+      date: '2017-03-25T20:00:00.000Z',
+      note: 'Cine'
     };
 
     const expenses = [
@@ -211,7 +211,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -242,7 +242,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -255,7 +255,7 @@ describe('expenses', () => {
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.FETCH_EXPENSES_FAILURE}`, () => {
@@ -305,29 +305,29 @@ describe('expenses', () => {
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.FETCH_EXPENSE_REQUEST}`, () => {
     const expense1 = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
     };
 
     const expense2 = {
-      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
-      'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
-      'note': 'Taco Norteño'
+      id: '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      amount: 60,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño'
     };
 
     const fetchedExpense = {
-      'id': '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
-      'amount': 10,
-      'date': '2017-03-25T20:00:00.000Z',
-      'note': 'Cine'
+      id: '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
+      amount: 10,
+      date: '2017-03-25T20:00:00.000Z',
+      note: 'Cine'
     };
 
     const state = {
@@ -346,7 +346,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -366,7 +366,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -374,29 +374,29 @@ describe('expenses', () => {
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.FETCH_EXPENSE_SUCCESS}`, () => {
     const expense1 = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
     };
 
     const expense2 = {
-      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
-      'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
-      'note': 'Taco Norteño'
+      id: '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      amount: 60,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño'
     };
 
     const fetchedExpense = {
-      'id': '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
-      'amount': 10,
-      'date': '2017-03-25T20:00:00.000Z',
-      'note': 'Cine'
+      id: '017b7008-4d97-428b-8b6a-54c20e9cbd5d',
+      amount: 10,
+      date: '2017-03-25T20:00:00.000Z',
+      note: 'Cine'
     };
 
     const state = {
@@ -415,7 +415,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -435,7 +435,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -443,29 +443,29 @@ describe('expenses', () => {
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.FETCH_EXPENSE_SUCCESS} with expense that already exists`, () => {
     const expense1 = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
     };
 
     const expense2 = {
-      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
-      'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
-      'note': 'Taco Norteño'
+      id: '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      amount: 60,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño'
     };
 
     const fetchedExpense = {
-      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
-      'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
-      'note': 'Taco Norteño'
+      id: '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      amount: 60,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño'
     };
 
     const state = {
@@ -484,7 +484,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -504,7 +504,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -512,22 +512,22 @@ describe('expenses', () => {
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.FETCH_EXPENSE_FAILURE}`, () => {
     const expense1 = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
     };
 
     const expense2 = {
-      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
-      'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
-      'note': 'Taco Norteño'
+      id: '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      amount: 60,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño'
     };
 
     const state = {
@@ -546,7 +546,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -566,7 +566,7 @@ describe('expenses', () => {
         error: 'Some error'
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -574,22 +574,29 @@ describe('expenses', () => {
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.REVIEW_EXPENSE_REQUEST}`, () => {
     const expense1 = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
     };
 
     const expense2 = {
-      'id': '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
-      'amount': 60,
-      'date': '2017-03-24T19:42:25.608Z',
-      'note': 'Taco Norteño'
+      id: '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      amount: 60,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño'
+    };
+
+    const expense1Review = {
+      amount: 50,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño',
+      category: 'Comida'
     };
 
     const state = {
@@ -608,7 +615,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -628,15 +635,27 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {
+          '0007182d-54cb-42b7-88fc-bbaba51db198': {
+            isReviewing: true,
+            error: null,
+            review: {
+              amount: 50,
+              date: '2017-03-24T19:42:25.608Z',
+              note: 'Taco Norteño',
+              category: 'Comida'
+            },
+            reviewed: false
+          }
+        }
       }
     };
 
-    const action = Actions.reviewExpense({ expense: expense1 });
+    const action = Actions.reviewExpenseRequest({ expense: expense1, review: expense1Review });
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.REVIEW_EXPENSE_SUCCESS}`, () => {
@@ -652,6 +671,13 @@ describe('expenses', () => {
       'amount': 60,
       'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
+    };
+
+    const expense1Review = {
+      amount: 50,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño',
+      category: 'Comida'
     };
 
     const state = {
@@ -670,7 +696,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -690,15 +716,27 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {
+          '0007182d-54cb-42b7-88fc-bbaba51db198': {
+            isReviewing: false,
+            error: null,
+            review: {
+              amount: 50,
+              date: '2017-03-24T19:42:25.608Z',
+              note: 'Taco Norteño',
+              category: 'Comida'
+            },
+            reviewed: true
+          }
+        }
       }
     };
 
-    const action = Actions.reviewExpenseSuccess({ expense: expense1 });
+    const action = Actions.reviewExpenseSuccess({ expense: expense1, review: expense1Review });
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${Actions.REVIEW_EXPENSE_FAILURE}`, () => {
@@ -714,6 +752,13 @@ describe('expenses', () => {
       'amount': 60,
       'date': '2017-03-24T19:42:25.608Z',
       'note': 'Taco Norteño'
+    };
+
+    const expense1Review = {
+      amount: 50,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño',
+      category: 'Comida'
     };
 
     const state = {
@@ -732,7 +777,7 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: null
+        byId: {}
       }
     };
 
@@ -752,14 +797,30 @@ describe('expenses', () => {
         error: null
       },
       review: {
-        error: 'Some error'
+        byId: {
+          '0007182d-54cb-42b7-88fc-bbaba51db198': {
+            isReviewing: false,
+            error: 'Some error',
+            review: {
+              amount: 50,
+              date: '2017-03-24T19:42:25.608Z',
+              note: 'Taco Norteño',
+              category: 'Comida'
+            },
+            reviewed: false
+          }
+        }
       }
     };
 
-    const action = Actions.reviewExpenseFailure({ errorMessage: 'Some error' });
+    const action = Actions.reviewExpenseFailure({
+      expense: expense1,
+      review: expense1Review,
+      errorMessage: 'Some error'
+    });
 
     const actual = expenseReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 });

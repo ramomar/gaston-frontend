@@ -7,6 +7,8 @@ import { SimpleLoadingScreen } from '../../foundation/components/screen';
 import ExpenseReviewScreen from '../components/ExpenseReviewScreen';
 import * as Actions from '../../foundation/state/actions';
 import makeExpense from '../../foundation/makeExpense';
+import * as R from 'ramda';
+import { DateTime } from 'luxon';
 
 function stateToExpense(expenseId, state) {
   const { expenses } = state;
@@ -22,16 +24,37 @@ function stateToExpense(expenseId, state) {
   return null;
 }
 
-function stateToShouldFetchExpense(state) {
-  const { expenses: { singleFetch: { isFetching, error } } } = state;
+function stateToExpenseReviewStatus(expenseId, state) {
+  const reviewStatus = state.expenses.review.byId[expenseId];
 
-  return !isFetching && !error;
+  if (reviewStatus) {
+    return R.assocPath(
+      ['review', 'date'],
+      DateTime.fromISO(reviewStatus.review.date),
+      reviewStatus
+    );
+  }
+
+  return null;
+}
+
+function stateToShouldFetchExpense(expenseId) {
+  return (state) => {
+    const { expenses } = state;
+    const { singleFetch: { isFetching, error }, review } = expenses;
+    const alreadyReviewed = review.byId[expenseId] ?
+      !review.byId[expenseId].isReviewed :
+      false;
+
+    return !isFetching && !error && !alreadyReviewed;
+  };
 }
 
 function stateToShouldFetchCategories(state) {
-  const { categories: { fetch: { isFetching, error } } } = state;
+  const { categories } = state;
+  const { fetch: { isFetching, error } } = categories;
 
-  return !isFetching && !error;
+  return !isFetching && !error && categories.categories.size === 0;
 }
 
 function stateToProps(expenseId) {
@@ -40,44 +63,41 @@ function stateToProps(expenseId) {
 
     return {
       expenseCategories: [...categories.categories],
-      expense: stateToExpense(expenseId, state)
+      expense: stateToExpense(expenseId, state),
+      expenseReviewStatus: stateToExpenseReviewStatus(expenseId, state)
     };
   };
 }
 
-function dispatchToProps(dispatch, goToExpenses) {
+function dispatchToProps(dispatch) {
   return {
-    reviewExpense: (expense) => {
+    reviewExpense: (expense, review) => {
       dispatch(Actions.reviewExpense({
-        expense
+        expense,
+        review
       }));
-
-      goToExpenses();
     }
   };
 }
 
 function ExpenseReviewScreenContainer(props) {
-  const { id } = useParams();
+  const { expenseId } = useParams();
 
   const { push } = useHistory();
 
   const goToExpenses = () => push('/expenses');
 
-  const stateProps = useSelector(stateToProps(id));
+  const stateProps = useSelector(stateToProps(expenseId));
 
   const { expense, expenseCategories } = stateProps;
 
-  const shouldFetchExpense = useSelector(stateToShouldFetchExpense);
+  const shouldFetchExpense = useSelector(stateToShouldFetchExpense(expenseId));
 
   const shouldFetchCategories = useSelector(stateToShouldFetchCategories);
 
   const dispatch = useDispatch();
 
-  const dispatchProps = dispatchToProps(
-    dispatch,
-    goToExpenses
-  );
+  const dispatchProps = dispatchToProps(dispatch);
 
   if (expense && expenseCategories.length > 0) {
     return (
@@ -89,7 +109,7 @@ function ExpenseReviewScreenContainer(props) {
     );
   } else {
     if (shouldFetchExpense) {
-      dispatch(Actions.fetchExpense({ id }));
+      dispatch(Actions.fetchExpense({ id: expenseId }));
     }
 
     if (shouldFetchCategories) {

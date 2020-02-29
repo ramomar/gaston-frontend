@@ -18,7 +18,7 @@ function makeExpensesState() {
       error: null
     },
     review: {
-      error: null
+      byId: {}
     }
   };
 }
@@ -100,20 +100,55 @@ function computeStateOnFetchExpenseFailure(state, { payload }) {
   );
 }
 
-function computeStateOnReviewExpenseRequest(state, _) {
-  return state;
-}
+function computeStateOnReviewExpenseRequest(state, { payload }) {
+  const { expense, review } = payload;
 
-function computeStateOnReviewExpenseSuccess(state, { payload }) {
-  return R.dissocPath(['expenses', 'byId', payload.expense.id], state);
-}
-
-function computeStateOnReviewExpenseFailure(state, { payload }) {
   return R.mergeDeepRight(
     state,
     {
       review: {
-        error: payload.errorMessage
+        byId: R.fromPairs([[expense.id, {
+          isReviewing: true,
+          error: null,
+          review: review,
+          reviewed: false
+        }]])
+      }
+    }
+  );
+}
+
+function computeStateOnReviewExpenseSuccess(state, { payload }) {
+  const { expense, review } = payload;
+
+  return R.mergeDeepRight(
+    R.dissocPath(['expenses', 'byId', payload.expense.id], state),
+    {
+      review: {
+        byId: R.fromPairs([[expense.id, {
+          isReviewing: false,
+          error: null,
+          review: review,
+          reviewed: true
+        }]])
+      }
+    }
+  );
+}
+
+function computeStateOnReviewExpenseFailure(state, { payload }) {
+  const { expense, review, errorMessage } = payload;
+
+  return R.mergeDeepRight(
+    state,
+    {
+      review: {
+        byId: R.fromPairs([[expense.id, {
+          isReviewing: false,
+          error: errorMessage,
+          review: review,
+          reviewed: false
+        }]])
       }
     }
   );

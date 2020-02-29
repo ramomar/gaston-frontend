@@ -10,7 +10,9 @@ import {
   Box,
   MaskedInput
 } from 'grommet';
+import Spinner from '../../foundation/components/grommet/Spinner';
 import { DateTime } from 'luxon';
+import * as R from 'ramda';
 
 const dateMask = [
   {
@@ -63,36 +65,38 @@ function createLuxonDate(day, hour) {
   return DateTime.fromFormat(`${day} ${hour}`, 'd/L/yyyy HH:mm');
 }
 
-function onSubmit(reviewExpense, expenseId) {
+function onSubmit(reviewExpense, expense) {
   return ({ value }) => {
     const { note, category, day, hour, amount } = value;
 
     const expenseReview = {
-      id: expenseId,
       note,
       category,
       date: createLuxonDate(day, hour).toISO(),
       amount: extractAmount(amount)
     };
 
-    reviewExpense(expenseReview);
+    reviewExpense(expense, expenseReview);
   };
 }
 
-function ExpenseReviewForm(props) {
-  const {
-    id,
-    note,
-    amount,
-    date
-  } = props.expense;
-
+function makeInitialValue(rawInitialValue) {
   const initialValue = {
-    note,
-    day: date.toLocaleString(),
-    hour: date.toLocaleString(DateTime.TIME_24_SIMPLE),
-    amount: `$ ${amount.toFixed(2)}`
+    note: rawInitialValue.note,
+    day: rawInitialValue.date.toLocaleString(),
+    hour: rawInitialValue.date.toLocaleString(DateTime.TIME_24_SIMPLE),
+    amount: `$ ${rawInitialValue.amount.toFixed(2)}`
   };
+
+  return rawInitialValue.category ?
+    R.assoc('category', rawInitialValue.category, initialValue) :
+    initialValue;
+}
+
+function ExpenseReviewForm(props) {
+  const initialValue = props.expenseReviewStatus ?
+    makeInitialValue(props.expenseReviewStatus.review) :
+    makeInitialValue(props.expense);
 
   const now = DateTime.local();
 
@@ -103,7 +107,7 @@ function ExpenseReviewForm(props) {
         required: 'Requerido'
       }}
       value={initialValue}
-      onSubmit={onSubmit(props.reviewExpense, id)}>
+      onSubmit={onSubmit(props.reviewExpense, props.expense)}>
       <FormField
         required
         autoFocus
@@ -140,13 +144,18 @@ function ExpenseReviewForm(props) {
         component={MaskedInput}
         mask={amountMask}
         placeholder='$ 250.00' />
-      <Box>
-        <Button
-          label='Terminar'
-          primary
-          type='submit'
-          margin='medium'
-          alignSelf='center' />
+      <Box margin='medium'>
+        {(props.expenseReviewStatus ? props.expenseReviewStatus.isReviewing : false) ?
+          <Box margin='medium' pad='medium'>
+            <Spinner />
+          </Box> :
+          <Button
+            label='Terminar'
+            primary
+            type='submit'
+            margin='medium'
+            alignSelf='center' />
+        }
       </Box>
     </Form>
   );
@@ -155,7 +164,8 @@ function ExpenseReviewForm(props) {
 ExpenseReviewForm.propTypes = {
   expense: Shapes.expense.isRequired,
   reviewExpense: PropTypes.func.isRequired,
-  expenseCategories: PropTypes.arrayOf(Shapes.expenseCategory).isRequired
+  expenseCategories: PropTypes.arrayOf(Shapes.expenseCategory).isRequired,
+  expenseReviewStatus: Shapes.expenseReviewStatus
 };
 
 export default ExpenseReviewForm;

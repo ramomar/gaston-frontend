@@ -13,10 +13,10 @@ describe('fetchExpenses', () => {
   it('should dispatch the correct sequence of actions when the request is successful', () => {
     const expenses = [
       {
-        'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-        'amount': 150,
-        'date': '2017-03-19T05:29:02.700Z',
-        'note': 'Cena'
+        id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+        amount: 150,
+        date: '2017-03-19T05:29:02.700Z',
+        note: 'Cena'
       }
     ];
 
@@ -43,7 +43,7 @@ describe('fetchExpenses', () => {
 
     return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd }))
       .then(() => {
-        expect(store.getActions()).toEqual(expected);
+        expect(store.getActions()).toStrictEqual(expected);
       });
   });
 
@@ -68,7 +68,7 @@ describe('fetchExpenses', () => {
     const store = mockStore({});
 
     return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 
@@ -91,7 +91,7 @@ describe('fetchExpenses', () => {
     const store = mockStore({});
 
     return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 
@@ -116,7 +116,7 @@ describe('fetchExpenses', () => {
     const store = mockStore({});
 
     return store.dispatch(ExpenseActions.fetchExpenses({ paginationStart, paginationEnd })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 });
@@ -130,10 +130,10 @@ describe('fetchExpense', () => {
     const expenseId = '0007182d-54cb-42b7-88fc-bbaba51db198';
 
     const expense = {
-      'id': expenseId,
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: expenseId,
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
     };
 
     fetchMock.getOnce(`end:/api/expenses/${expenseId}`, {
@@ -152,7 +152,7 @@ describe('fetchExpense', () => {
 
     return store.dispatch(ExpenseActions.fetchExpense({ id: expenseId }))
       .then(() => {
-        expect(store.getActions()).toEqual(expected);
+        expect(store.getActions()).toStrictEqual(expected);
       });
   });
 
@@ -175,7 +175,7 @@ describe('fetchExpense', () => {
     const store = mockStore({});
 
     return store.dispatch(ExpenseActions.fetchExpense({ id: expenseId })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 
@@ -196,7 +196,7 @@ describe('fetchExpense', () => {
     const store = mockStore({});
 
     return store.dispatch(ExpenseActions.fetchExpense({ id: expenseId })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 
@@ -219,7 +219,7 @@ describe('fetchExpense', () => {
     const store = mockStore({});
 
     return store.dispatch(ExpenseActions.fetchExpense({ id: expenseId })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 });
@@ -231,44 +231,59 @@ describe('reviewExpenseRequest', () => {
 
   it('should dispatch the correct sequence of actions when the request is successful', () => {
     const expense = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
     };
 
-    const reviewedExpense = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+    const review = {
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena',
+      category: 'Comida'
+    };
+
+    const reviewSuccess = {
+      id: '574b9903-03eb-46be-96a2-176d6b578da3',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena',
+      category: 'Comida'
     };
 
     fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
       headers: { 'Content-Type': 'application/json' },
       body: {
-        expense: reviewedExpense
+        review: reviewSuccess
       }
     });
 
     const store = mockStore({});
 
     const expected = [
-      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpenseActions.REVIEW_EXPENSE_SUCCESS, payload: { expense: reviewedExpense } }
+      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense, review } },
+      { type: ExpenseActions.REVIEW_EXPENSE_SUCCESS, payload: { expense, review: reviewSuccess } }
     ];
 
-    return store.dispatch(ExpenseActions.reviewExpense({ expense })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+    return store.dispatch(ExpenseActions.reviewExpense({ expense, review })).then(() => {
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of sending invalid json', () => {
     const expense = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
+    };
+
+    const review = {
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena',
+      category: 'Comida'
     };
 
     fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
@@ -279,23 +294,30 @@ describe('reviewExpenseRequest', () => {
     const errorMessage = 'Bad Request';
 
     const expected = [
-      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense, review } },
+      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { expense, review, errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.reviewExpense({ expense })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+    return store.dispatch(ExpenseActions.reviewExpense({ expense, review })).then(() => {
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of receiving invalid json', () => {
     const expense = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
+    };
+
+    const review = {
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena',
+      category: 'Comida'
     };
 
     fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
@@ -306,23 +328,30 @@ describe('reviewExpenseRequest', () => {
     const errorMessage = 'invalid json response body at http://localhost:5000/api/expenses/0007182d-54cb-42b7-88fc-bbaba51db198/review reason: Unexpected token H in JSON at position 0';
 
     const expected = [
-      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense, review } },
+      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { expense, review, errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.reviewExpense({ expense })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+    return store.dispatch(ExpenseActions.reviewExpense({ expense, review })).then(() => {
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of some HTTP error', () => {
     const expense = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
+    };
+
+    const review = {
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena',
+      category: 'Comida'
     };
 
     fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
@@ -333,23 +362,30 @@ describe('reviewExpenseRequest', () => {
     const errorMessage = 'Forbidden';
 
     const expected = [
-      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense, review } },
+      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { expense, review, errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.reviewExpense({ expense })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+    return store.dispatch(ExpenseActions.reviewExpense({ expense, review })).then(() => {
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
     const expense = {
-      'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
-      'amount': 150,
-      'date': '2017-03-19T05:29:02.700Z',
-      'note': 'Cena'
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
+    };
+
+    const review = {
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena',
+      category: 'Comida'
     };
 
     const errorMessage = 'Some error';
@@ -361,14 +397,14 @@ describe('reviewExpenseRequest', () => {
     });
 
     const expected = [
-      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense } },
-      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { errorMessage } }
+      { type: ExpenseActions.REVIEW_EXPENSE_REQUEST, payload: { expense, review } },
+      { type: ExpenseActions.REVIEW_EXPENSE_FAILURE, payload: { expense, review, errorMessage } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(ExpenseActions.reviewExpense({ expense })).then(() => {
-      expect(store.getActions()).toEqual(expected);
+    return store.dispatch(ExpenseActions.reviewExpense({ expense, review })).then(() => {
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 });

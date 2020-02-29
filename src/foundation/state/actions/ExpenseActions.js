@@ -117,50 +117,54 @@ export const REVIEW_EXPENSE_REQUEST = 'REVIEW_EXPENSE_REQUEST';
 export const REVIEW_EXPENSE_SUCCESS = 'REVIEW_EXPENSE_SUCCESS';
 export const REVIEW_EXPENSE_FAILURE = 'REVIEW_EXPENSE_FAILURE';
 
-export function reviewExpenseRequest({ expense }) {
+export function reviewExpenseRequest({ expense, review }) {
   return {
     type: REVIEW_EXPENSE_REQUEST,
     payload: {
-      expense
+      expense,
+      review
     }
   };
 }
 
-export function reviewExpenseSuccess({ expense }) {
+export function reviewExpenseSuccess({ expense, review }) {
   return {
     type: REVIEW_EXPENSE_SUCCESS,
     payload: {
-      expense
+      expense,
+      review
     }
   };
 }
 
-export function reviewExpenseFailure({ errorMessage }) {
+export function reviewExpenseFailure({ expense, review, errorMessage }) {
   return {
     type: REVIEW_EXPENSE_FAILURE,
     payload: {
+      expense,
+      review,
       errorMessage
     }
   };
 }
 
-export function reviewExpense({ expense }) {
+export function reviewExpense({ expense, review }) {
   return dispatch => {
-    dispatch(reviewExpenseRequest({ expense }));
+    dispatch(reviewExpenseRequest({ expense, review }));
 
     return fetch(`${process.env.REACT_APP_API_HOST}/api/expenses/${expense.id}/review`, {
       method: 'POST',
-      body: JSON.stringify(expense),
+      body: JSON.stringify(review),
       headers: {
         'Content-Type': 'application/json'
       }
     })
       .then(response =>
         response.ok ? response.json() : Promise.reject(new Error(response.statusText)))
-      .then(({ expense }) => dispatch(reviewExpenseSuccess({ expense })))
+      .then(({ review }) => dispatch(reviewExpenseSuccess({ expense, review })))
       .catch(
         (error) => {
-          dispatch(reviewExpenseFailure({ errorMessage: error.message }));
+          dispatch(reviewExpenseFailure({ expense, review, errorMessage: error.message }));
           return Promise.resolve(error);
         });
   }
