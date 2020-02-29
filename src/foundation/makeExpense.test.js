@@ -22,7 +22,7 @@ it('should make a expense', () => {
     date: now.toISO()
   });
 
-  expect(actual).toEqual(expected);
+  expect(actual).toStrictEqual(expected);
 });
 
 it('should provide defaults for the note field', () => {
@@ -41,5 +41,5 @@ it('should provide defaults for the note field', () => {
     date: now.toISO()
   });
 
-  expect(actual).toEqual(expected);
+  expect(actual).toStrictEqual(expected);
 });

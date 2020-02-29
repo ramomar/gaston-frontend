@@ -54,5 +54,5 @@ it('should group a list of expenses by day and return gropus as well as expenses
 
   const actual = expensesByDay(expenses);
 
-  expect(actual).toEqual(expected);
+  expect(actual).toStrictEqual(expected);
 });

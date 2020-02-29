@@ -31,7 +31,7 @@ describe('fetchExpenseCategories', () => {
 
     return store.dispatch(ExpenseCategoryActions.fetchExpenseCategories())
       .then(() => {
-        expect(store.getActions()).toEqual(expected);
+        expect(store.getActions()).toStrictEqual(expected);
       });
   });
 
@@ -52,7 +52,7 @@ describe('fetchExpenseCategories', () => {
     const store = mockStore({});
 
     return store.dispatch(ExpenseCategoryActions.fetchExpenseCategories()).then(() => {
-      expect(store.getActions()).toEqual(expected);
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 
@@ -71,7 +71,7 @@ describe('fetchExpenseCategories', () => {
     const store = mockStore({});
 
     return store.dispatch(ExpenseCategoryActions.fetchExpenseCategories()).then(() => {
-      expect(store.getActions()).toEqual(expected);
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 
@@ -92,7 +92,7 @@ describe('fetchExpenseCategories', () => {
     const store = mockStore({});
 
     return store.dispatch(ExpenseCategoryActions.fetchExpenseCategories()).then(() => {
-      expect(store.getActions()).toEqual(expected);
+      expect(store.getActions()).toStrictEqual(expected);
     });
   });
 });

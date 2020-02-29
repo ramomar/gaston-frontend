@@ -13,7 +13,7 @@ describe('categories', () => {
 
     const actual = expenseCategoryReducer(undefined, {});
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${actions.FETCH_EXPENSE_CATEGORIES_REQUEST}`, () => {
@@ -29,7 +29,7 @@ describe('categories', () => {
 
     const actual = expenseCategoryReducer(undefined, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${actions.FETCH_EXPENSE_CATEGORIES_SUCCESS}`, () => {
@@ -60,7 +60,7 @@ describe('categories', () => {
 
     const actual = expenseCategoryReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 
   it(`should handle ${actions.FETCH_EXPENSE_CATEGORIES_FAILURE}`, () => {
@@ -86,6 +86,6 @@ describe('categories', () => {
 
     const actual = expenseCategoryReducer(state, action);
 
-    expect(actual).toEqual(expected);
+    expect(actual).toStrictEqual(expected);
   });
 });
