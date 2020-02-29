@@ -645,7 +645,7 @@ describe('expenses', () => {
               note: 'Taco Norteño',
               category: 'Comida'
             },
-            reviewed: false
+            isReviewed: false
           }
         }
       }
@@ -726,7 +726,7 @@ describe('expenses', () => {
               note: 'Taco Norteño',
               category: 'Comida'
             },
-            reviewed: true
+            isReviewed: true
           }
         }
       }
@@ -807,7 +807,7 @@ describe('expenses', () => {
               note: 'Taco Norteño',
               category: 'Comida'
             },
-            reviewed: false
+            isReviewed: false
           }
         }
       }

@@ -111,7 +111,7 @@ function computeStateOnReviewExpenseRequest(state, { payload }) {
           isReviewing: true,
           error: null,
           review: review,
-          reviewed: false
+          isReviewed: false
         }]])
       }
     }
@@ -129,7 +129,7 @@ function computeStateOnReviewExpenseSuccess(state, { payload }) {
           isReviewing: false,
           error: null,
           review: review,
-          reviewed: true
+          isReviewed: true
         }]])
       }
     }
@@ -147,7 +147,7 @@ function computeStateOnReviewExpenseFailure(state, { payload }) {
           isReviewing: false,
           error: errorMessage,
           review: review,
-          reviewed: false
+          isReviewed: false
         }]])
       }
     }

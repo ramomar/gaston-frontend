@@ -28,7 +28,7 @@ const expenseReviewStatus = PropTypes.shape({
   isReviewing: PropTypes.bool.isRequired,
   error: PropTypes.string,
   review: expenseReview.isRequired,
-  reviewed: PropTypes.bool.isRequired
+  isReviewed: PropTypes.bool.isRequired
 });
 
 export default {

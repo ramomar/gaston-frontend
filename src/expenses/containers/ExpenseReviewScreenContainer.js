@@ -43,7 +43,7 @@ function stateToShouldFetchExpense(expenseId) {
     const { expenses } = state;
     const { singleFetch: { isFetching, error }, review } = expenses;
     const alreadyReviewed = review.byId[expenseId] ?
-      !review.byId[expenseId].isReviewed :
+      review.byId[expenseId].isReviewed :
       false;
 
     return !isFetching && !error && !alreadyReviewed;
@@ -100,7 +100,7 @@ function ExpenseReviewScreenContainer(props) {
   const dispatchProps = dispatchToProps(dispatch);
 
   useEffect(() => {
-    if (!!expenseReviewStatus && expenseReviewStatus.reviewed) {
+    if (!!expenseReviewStatus && expenseReviewStatus.isReviewed) {
       goToExpenses();
     }
   });
