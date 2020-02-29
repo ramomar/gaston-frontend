@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom';
 import { Text, Button } from 'grommet';
@@ -89,7 +89,7 @@ function ExpenseReviewScreenContainer(props) {
 
   const stateProps = useSelector(stateToProps(expenseId));
 
-  const { expense, expenseCategories } = stateProps;
+  const { expense, expenseCategories, expenseReviewStatus } = stateProps;
 
   const shouldFetchExpense = useSelector(stateToShouldFetchExpense(expenseId));
 
@@ -98,6 +98,12 @@ function ExpenseReviewScreenContainer(props) {
   const dispatch = useDispatch();
 
   const dispatchProps = dispatchToProps(dispatch);
+
+  useEffect(() => {
+    if (!!expenseReviewStatus && expenseReviewStatus.reviewed) {
+      goToExpenses();
+    }
+  });
 
   if (expense && expenseCategories.length > 0) {
     return (
