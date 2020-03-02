@@ -77,6 +77,54 @@ describe('expenses', () => {
     expect(actual).toStrictEqual(expected);
   });
 
+  it(`should handle ${Actions.FETCH_EXPENSES_REQUEST} when there was an error previously`, () => {
+    const state = {
+      expenses: {
+        byId: {}
+      },
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: 'Some error',
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
+      review: {
+        byId: {}
+      }
+    };
+
+    const expected = {
+      expenses: {
+        byId: {}
+      },
+      fetch: {
+        isFetching: true,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null
+      },
+      review: {
+        byId: {}
+      }
+    };
+
+    const action = Actions.fetchExpensesRequest({ paginationStart: 0, paginationEnd: 10 });
+
+    const actual = expenseReducer(state, action);
+
+    expect(actual).toStrictEqual(expected);
+  });
+
   it(`should handle ${Actions.FETCH_EXPENSES_SUCCESS}`, () => {
     const expense1 = {
       id: '0007182d-54cb-42b7-88fc-bbaba51db198',

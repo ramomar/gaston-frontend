@@ -32,6 +32,30 @@ describe('categories', () => {
     expect(actual).toStrictEqual(expected);
   });
 
+  it(`should handle ${actions.FETCH_EXPENSE_CATEGORIES_REQUEST} when there was an error previously`, () => {
+    const state = {
+      categories: new Set(),
+      fetch: {
+        isFetching: true,
+        error: 'Some error'
+      }
+    };
+
+    const expected = {
+      categories: new Set(),
+      fetch: {
+        isFetching: true,
+        error: null
+      }
+    };
+
+    const action = actions.fetchExpenseCategoriesRequest();
+
+    const actual = expenseCategoryReducer(state, action);
+
+    expect(actual).toStrictEqual(expected);
+  });
+
   it(`should handle ${actions.FETCH_EXPENSE_CATEGORIES_SUCCESS}`, () => {
     const state = {
       categories: new Set(),

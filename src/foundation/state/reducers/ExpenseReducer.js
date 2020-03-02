@@ -26,7 +26,12 @@ function makeExpensesState() {
 function computeStateOnRequestExpenses(state, _) {
   return R.mergeDeepRight(
     state,
-    { fetch: { isFetching: true } }
+    {
+      fetch: {
+        isFetching: true,
+        error: null
+      }
+    }
   );
 }
 
@@ -65,7 +70,8 @@ function computeStateOnFetchExpenseRequest(state, _) {
     state,
     {
       singleFetch: {
-        isFetching: true
+        isFetching: true,
+        error: null
       }
     }
   );

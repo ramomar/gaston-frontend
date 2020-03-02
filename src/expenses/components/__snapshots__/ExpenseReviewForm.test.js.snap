@@ -195,7 +195,10 @@ exports[`renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="StyledBox-sc-13pk1d4-0 hhFCGp"
+      className="StyledBox-sc-13pk1d4-0 NxMgH"
+    />
+    <div
+      className="StyledBox-sc-13pk1d4-0 koruWX"
     >
       <button
         className="StyledButton-sc-323bzc-0 cSMahv"

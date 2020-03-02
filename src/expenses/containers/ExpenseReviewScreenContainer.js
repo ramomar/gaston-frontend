@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom';
 import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
-import { SimpleLoadingScreen } from '../../foundation/components/screen';
+import { SimpleLoadingScreen, SimpleErrorScreen } from '../../foundation/components/screen';
 import ExpenseReviewScreen from '../components/ExpenseReviewScreen';
 import * as Actions from '../../foundation/state/actions';
 import makeExpense from '../../foundation/makeExpense';
@@ -46,8 +46,20 @@ function stateToShouldFetchExpense(expenseId) {
       review.byId[expenseId].isReviewed :
       false;
 
-    return !isFetching && !error && !alreadyReviewed;
+    return !isFetching && !error && !alreadyReviewed && !stateToExpense(expenseId, state);
   };
+}
+
+function stateToExpenseFetchFailed(state) {
+  const { expenses: { singleFetch: { error } } } = state;
+
+  return !!error;
+}
+
+function stateToCategoriesFetchFailed(state) {
+  const { categories: { fetch: { error } } } = state;
+
+  return !!error;
 }
 
 function stateToShouldFetchCategories(state) {
@@ -93,17 +105,44 @@ function ExpenseReviewScreenContainer(props) {
 
   const shouldFetchExpense = useSelector(stateToShouldFetchExpense(expenseId));
 
+  const expenseFetchFailed = useSelector(stateToExpenseFetchFailed);
+
   const shouldFetchCategories = useSelector(stateToShouldFetchCategories);
+
+  const categoriesFetchFailed = useSelector(stateToCategoriesFetchFailed);
 
   const dispatch = useDispatch();
 
   const dispatchProps = dispatchToProps(dispatch);
 
+  const retryFetch = () => {
+    if (expenseFetchFailed) {
+      dispatch(Actions.fetchExpense({ id: expenseId }));
+    }
+
+    if (categoriesFetchFailed) {
+      dispatch(Actions.fetchExpenseCategories());
+    }
+  };
+
   useEffect(() => {
     if (!!expenseReviewStatus && expenseReviewStatus.isReviewed) {
       goToExpenses();
     }
-  });
+  }, [expenseReviewStatus]);
+
+  useEffect(() => {
+    if (shouldFetchExpense) {
+      dispatch(Actions.fetchExpense({ id: expenseId }));
+    }
+
+    if (shouldFetchCategories) {
+      dispatch(Actions.fetchExpenseCategories());
+    }
+  }, [shouldFetchExpense, shouldFetchCategories]);
+
+  const start = <Button plain icon={<LinkPrevious />} onClick={goToExpenses} />;
+  const title = <Text weight='bold' size='large'>{`Revisión de gasto`}</Text>;
 
   if (expense && expenseCategories.length > 0) {
     return (
@@ -114,18 +153,17 @@ function ExpenseReviewScreenContainer(props) {
         {...dispatchProps} />
     );
   } else {
-    if (shouldFetchExpense) {
-      dispatch(Actions.fetchExpense({ id: expenseId }));
-    }
-
-    if (shouldFetchCategories) {
-      dispatch(Actions.fetchExpenseCategories());
+    if (expenseFetchFailed || categoriesFetchFailed) {
+      return <SimpleErrorScreen
+        start={start}
+        center={title}
+        retry={retryFetch} />
     }
 
     return (
       <SimpleLoadingScreen
-        start={<Button plain icon={<LinkPrevious />} onClick={goToExpenses} />}
-        center={<Text weight='bold' size='large'>{`Revisión de gasto`}</Text>} />
+        start={start}
+        center={title} />
     );
   }
 }

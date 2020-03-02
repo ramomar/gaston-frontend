@@ -8,7 +8,8 @@ import {
   Select,
   Button,
   Box,
-  MaskedInput
+  MaskedInput,
+  Text
 } from 'grommet';
 import Spinner from '../../foundation/components/grommet/Spinner';
 import { DateTime } from 'luxon';
@@ -98,6 +99,9 @@ function ExpenseReviewForm(props) {
     makeInitialValue(props.expenseReviewStatus.review) :
     makeInitialValue(props.expense);
 
+
+  const hasError = props.expenseReviewStatus ? props.expenseReviewStatus.error : false;
+
   const now = DateTime.local();
 
   return (
@@ -144,9 +148,15 @@ function ExpenseReviewForm(props) {
         component={MaskedInput}
         mask={amountMask}
         placeholder='$ 250.00' />
-      <Box margin='medium'>
+      <Box margin={{ top: 'large' }}>
+        {hasError ?
+          <Text textAlign='center' color='status-error'>
+            ¡Ocurrió un error!
+          </Text> : null}
+      </Box>
+      <Box>
         {(props.expenseReviewStatus ? props.expenseReviewStatus.isReviewing : false) ?
-          <Box margin='medium' pad='medium'>
+          <Box margin='small' pad='medium'>
             <Spinner />
           </Box> :
           <Button

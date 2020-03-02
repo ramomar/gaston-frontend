@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router';
 import { Text } from 'grommet';
-import { SimpleLoadingScreen } from '../../foundation/components/screen';
+import { SimpleLoadingScreen, SimpleErrorScreen } from '../../foundation/components/screen';
 import expensesByDay from '../../foundation/expensesByDay';
 import ExpenseListScreen from '../components/ExpenseListScreen';
 import makeExpense from '../../foundation/makeExpense';
@@ -22,6 +22,12 @@ function stateToShouldFetchExpenses(state) {
   const { expenses: { fetch: { isFetching, error } } } = state;
 
   return !isFetching && !error;
+}
+
+function stateToExpensesFetchFailed(state) {
+  const { expenses: { fetch: { error } } } = state;
+
+  return !!error;
 }
 
 function stateToProps(state) {
@@ -64,7 +70,9 @@ export default function ExpenseListScreenContainer(props) {
 
   const { paginationStart, paginationEnd } = useSelector(stateToPagination);
 
-  const shouldFetchExpenses = useSelector(stateToShouldFetchExpenses);
+  const shouldFetchExpenses = useSelector(stateToShouldFetchExpenses, expenseGroups);
+
+  const expensesFetchFailed = useSelector(stateToExpensesFetchFailed);
 
   const dispatch = useDispatch();
 
@@ -74,6 +82,17 @@ export default function ExpenseListScreenContainer(props) {
     paginationEnd
   );
 
+  const retryFetch = () =>
+    dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
+
+  useEffect(() => {
+    if (shouldFetchExpenses && expenseGroups.length === 0) {
+      dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
+    }
+  }, [dispatch, shouldFetchExpenses]);
+
+  const title = <Text weight='bold' size='large'>{`Revisión de gastos`}</Text>;
+
   if (expenseGroups.length > 0) {
     return (
       <ExpenseListScreen
@@ -82,13 +101,15 @@ export default function ExpenseListScreenContainer(props) {
         {...dispatchProps} />
     );
   } else {
-    if (shouldFetchExpenses) {
-      dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
+    if (expensesFetchFailed) {
+      return <SimpleErrorScreen
+        center={title}
+        retry={retryFetch} />
     }
 
     return (
       <SimpleLoadingScreen
-        center={<Text weight='bold' size='large'>{`Revisión de gastos`}</Text>} />
+        center={title} />
     );
   }
 }

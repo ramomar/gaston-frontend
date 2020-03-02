@@ -14,7 +14,12 @@ function makeExpenseCategoriesState() {
 function computeStateOnExpenseCategoriesRequest(state, _) {
   return R.mergeDeepRight(
     state,
-    { fetch: { isFetching: true } }
+    {
+      fetch: {
+        isFetching: true,
+        error: null
+      }
+    }
   );
 }
 
@@ -23,7 +28,9 @@ function computeStateOnExpenseCategoriesSuccess(state, { payload }) {
     state,
     {
       categories: new Set([...state.categories, ...payload.categories]),
-      fetch: { isFetching: false }
+      fetch: {
+        isFetching: false
+      }
     }
   );
 }
@@ -32,7 +39,10 @@ function computeStateOnExpenseCategoriesFailure(state, { payload }) {
   return R.mergeDeepRight(
     state,
     {
-      fetch: { isFetching: false, error: payload.errorMessage }
+      fetch: {
+        isFetching: false,
+        error: payload.errorMessage
+      }
     }
   );
 }
