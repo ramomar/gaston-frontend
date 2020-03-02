@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Shapes from '../shapes';
-import { Box, Anchor } from 'grommet';
+import { Box, Anchor, Text } from 'grommet';
 import ExpenseListItem from './ExpenseListItem';
 import ExpenseListDaySeparator from './ExpenseListDaySeparator';
 import * as R from 'ramda';
@@ -39,6 +39,13 @@ function makeItemsFromExpenseGroups(expenseGroups, toExpenseReviewScreen) {
 function ExpenseList(props) {
   return (
     <Box fill='vertical'>
+      {props.expenseGroups.length === 0 &&
+        <Box fill='vertical' justify='center'>
+          <Text textAlign='center'>
+            Aqui apareceran tus gastos.
+          </Text>
+        </Box>
+      }
       <Box overflow='scroll' pad={{ horizontal: 'medium' }}>
         {makeItemsFromExpenseGroups(props.expenseGroups, props.toExpenseReviewScreen)}
         {!props.isFetching && props.hasMore &&

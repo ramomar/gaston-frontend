@@ -37,13 +37,18 @@ export function fetchExpenses({ paginationStart, paginationEnd }) {
   return dispatch => {
     dispatch(fetchExpensesRequest({ paginationStart, paginationEnd }));
 
-    const successAction = ({ expenses, hasMore }) =>
+    const successAction = ({ expenses, hasMore }) => {
+      if (expenses.length === 0 && hasMore) {
+        throw Error('Invalid response: no expenses and response says there are more expenses.');
+      }
+
       dispatch(fetchExpensesSuccess({
         expenses,
         hasMore,
         paginationStart,
         paginationEnd
       }));
+    }
 
     return fetch(`${process.env.REACT_APP_API_HOST}/api/expenses`, {
       method: 'GET'

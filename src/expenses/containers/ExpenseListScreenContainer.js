@@ -19,9 +19,9 @@ function stateToPagination(state) {
 }
 
 function stateToShouldFetchExpenses(state) {
-  const { expenses: { fetch: { isFetching, error }, expenses: { byId } } } = state;
+  const { expenses: { fetch: { isFetching, error, hasMore }, expenses: { byId } } } = state;
 
-  return !isFetching && !error && Object.keys(byId).length === 0;
+  return !isFetching && !error && hasMore && Object.keys(byId).length === 0;
 }
 
 function stateToExpensesFetchFailed(state) {
@@ -66,11 +66,11 @@ export default function ExpenseListScreenContainer(props) {
 
   const stateProps = useSelector(stateToProps);
 
-  const { expenseGroups } = stateProps;
+  const { isFetching } = stateProps;
 
   const { paginationStart, paginationEnd } = useSelector(stateToPagination);
 
-  const shouldFetchExpenses = useSelector(stateToShouldFetchExpenses, expenseGroups);
+  const shouldFetchExpenses = useSelector(stateToShouldFetchExpenses);
 
   const expensesFetchFailed = useSelector(stateToExpensesFetchFailed);
 
@@ -89,27 +89,25 @@ export default function ExpenseListScreenContainer(props) {
     if (shouldFetchExpenses) {
       dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
     }
-  }, [dispatch, shouldFetchExpenses, expenseGroups]);
+  }, [dispatch, shouldFetchExpenses]);
 
   const title = <Text weight='bold' size='large'>{`Revisión de gastos`}</Text>;
 
-  if (expenseGroups.length > 0) {
-    return (
-      <ExpenseListScreen
-        toExpenseReviewScreen={toExpenseReviewScreen}
-        {...stateProps}
-        {...dispatchProps} />
-    );
-  } else {
-    if (expensesFetchFailed) {
-      return <SimpleErrorScreen
-        center={title}
-        retry={retryFetch} />
-    }
-
+  if (isFetching) {
     return (
       <SimpleLoadingScreen
         center={title} />
     );
   }
+
+  if (expensesFetchFailed) {
+    return <SimpleErrorScreen
+      center={title}
+      retry={retryFetch} />
+  }
+
+  return <ExpenseListScreen
+    toExpenseReviewScreen={toExpenseReviewScreen}
+    {...stateProps}
+    {...dispatchProps} />
 }

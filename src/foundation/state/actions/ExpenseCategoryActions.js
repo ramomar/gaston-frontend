@@ -31,12 +31,20 @@ export function fetchExpenseCategories() {
   return dispatch => {
     dispatch(fetchExpenseCategoriesRequest());
 
+    const successAction = (categories) => {
+      if (categories.length === 0) {
+        throw Error('Invalid response: no categories.')
+      }
+
+      dispatch(fetchExpenseCategoriesSuccess({ categories }));
+    };
+
     return fetch(`${process.env.REACT_APP_API_HOST}/api/expenses/categories`, {
       method: 'GET'
     })
       .then(response =>
         response.ok ? response.json() : Promise.reject(new Error(response.statusText)))
-      .then(({ categories }) => dispatch(fetchExpenseCategoriesSuccess({ categories })))
+      .then(({ categories }) => successAction(categories))
       .catch(
         (error) => {
           dispatch(fetchExpenseCategoriesFailure({ errorMessage: error.message }));

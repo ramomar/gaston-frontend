@@ -149,10 +149,10 @@ function ExpenseReviewForm(props) {
         mask={amountMask}
         placeholder='$ 250.00' />
       <Box margin={{ top: 'large' }}>
-        {hasError ?
+        {hasError &&
           <Text textAlign='center' color='status-error'>
             ¡Ocurrió un error!
-          </Text> : null}
+          </Text>}
       </Box>
       <Box>
         {(props.expenseReviewStatus ? props.expenseReviewStatus.isReviewing : false) ?
