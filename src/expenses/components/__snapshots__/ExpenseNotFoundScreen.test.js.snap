@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="StyledGrommet-sc-19lkkz7-0 eUfLDp"
+>
+  <div
+    className="StyledBox-sc-13pk1d4-0 hCTAHO"
+  >
+    <div
+      className="StyledBox-sc-13pk1d4-0 fpgWwd"
+    >
+      <div
+        className="StyledBox-sc-13pk1d4-0 koruWX"
+      >
+        <button
+          className="StyledButton-sc-323bzc-0 laBEqz"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+          type="button"
+        >
+          <svg
+            aria-label="LinkPrevious"
+            className="StyledIcon-ofa7kd-0 iOkQrb"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M2,12 L22,12 M13,3 L22,12 L13,21"
+              fill="none"
+              stroke="#000"
+              strokeWidth="2"
+              transform="matrix(-1 0 0 1 24 0)"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        className="StyledBox-sc-13pk1d4-0 koruWX"
+      >
+        <span
+          className="StyledText-sc-1sadyjn-0 dFefMJ"
+          size="large"
+        >
+          Gasto no encontrado
+        </span>
+      </div>
+      <div
+        className="StyledBox-sc-13pk1d4-0 koruWX"
+      />
+    </div>
+    <div
+      className="StyledBox-sc-13pk1d4-0 hCTAHO"
+    >
+      <div
+        className="StyledBox-sc-13pk1d4-0 cVpCGR"
+      >
+        <span
+          className="StyledText-sc-1sadyjn-0 dmvzzC"
+        >
+          ¡Ese gasto no se encontró!
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

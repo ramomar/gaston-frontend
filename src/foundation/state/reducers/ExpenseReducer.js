@@ -15,7 +15,8 @@ function makeExpensesState() {
     },
     singleFetch: {
       isFetching: false,
-      error: null
+      error: null,
+      found: true
     },
     review: {
       byId: {}
@@ -71,7 +72,8 @@ function computeStateOnFetchExpenseRequest(state, _) {
     {
       singleFetch: {
         isFetching: true,
-        error: null
+        error: null,
+        found: true
       }
     }
   );
@@ -84,11 +86,12 @@ function computeStateOnFetchExpenseSuccess(state, { payload }) {
     state,
     {
       expenses: {
-        byId: R.fromPairs([[expense.id, expense]])
+        byId: payload.expense ? R.fromPairs([[expense.id, expense]]) : {}
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: !!payload.expense
       }
     }
   );

@@ -107,8 +107,16 @@ export function fetchExpense({ id }) {
     return fetch(`${process.env.REACT_APP_API_HOST}/api/expenses/${id}`, {
       method: 'GET'
     })
-      .then(response =>
-        response.ok ? response.json() : Promise.reject(new Error(response.statusText)))
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else if (response.status === 404) {
+          dispatch(fetchExpenseSuccess({ expense: null }));
+          return;
+        }
+
+        return Promise.reject(new Error(response.statusText));
+      })
       .then(successAction)
       .catch(
         (error) => {

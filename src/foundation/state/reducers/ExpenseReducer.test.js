@@ -17,7 +17,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -43,7 +44,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -63,7 +65,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -91,7 +94,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -111,7 +115,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -166,7 +171,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -196,7 +202,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -256,7 +263,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -287,7 +295,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -320,7 +329,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         error: null
@@ -340,7 +350,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         error: null
@@ -391,7 +402,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -411,7 +423,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: true,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -460,7 +473,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: true,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -480,7 +494,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -529,7 +544,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: true,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -549,7 +565,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -557,6 +574,70 @@ describe('expenses', () => {
     };
 
     const action = Actions.fetchExpenseSuccess({ expense: fetchedExpense });
+
+    const actual = expenseReducer(state, action);
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it(`should handle ${Actions.FETCH_EXPENSE_SUCCESS} when expense was not found`, () => {
+    const expense1 = {
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
+    };
+
+    const expense2 = {
+      id: '017b7008-4d97-428b-8b6a-53f31e9cfc4c',
+      amount: 60,
+      date: '2017-03-24T19:42:25.608Z',
+      note: 'Taco Norteño'
+    };
+
+    const state = {
+      expenses: {
+        byId: R.fromPairs(R.map(e => [e.id, e], [expense1, expense2]))
+      },
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: true,
+        error: null,
+        found: true
+      },
+      review: {
+        byId: {}
+      }
+    };
+
+    const expected = {
+      expenses: {
+        byId: R.fromPairs(R.map(e => [e.id, e], [expense1, expense2]))
+      },
+      fetch: {
+        isFetching: false,
+        hasMore: true,
+        error: null,
+        paginationStart: 0,
+        paginationEnd: 0
+      },
+      singleFetch: {
+        isFetching: false,
+        error: null,
+        found: false
+      },
+      review: {
+        byId: {}
+      }
+    };
+
+    const action = Actions.fetchExpenseSuccess({ expense: null });
 
     const actual = expenseReducer(state, action);
 
@@ -591,7 +672,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: true,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -611,7 +693,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: 'Some error'
+        error: 'Some error',
+        found: true
       },
       review: {
         byId: {}
@@ -660,7 +743,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -680,7 +764,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {
@@ -741,7 +826,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -761,7 +847,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {
@@ -822,7 +909,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {}
@@ -842,7 +930,8 @@ describe('expenses', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: null
+        error: null,
+        found: true
       },
       review: {
         byId: {

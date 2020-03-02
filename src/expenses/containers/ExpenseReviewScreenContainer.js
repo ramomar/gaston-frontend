@@ -1,10 +1,11 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom';
 import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { SimpleLoadingScreen, SimpleErrorScreen } from '../../foundation/components/screen';
 import ExpenseReviewScreen from '../components/ExpenseReviewScreen';
+import ExpenseNotFoundScreen from '../components/ExpenseNotFoundScreen';
 import * as Actions from '../../foundation/state/actions';
 import makeExpense from '../../foundation/makeExpense';
 import * as R from 'ramda';
@@ -48,6 +49,12 @@ function stateToShouldFetchExpense(expenseId) {
 
     return !isFetching && !error && !alreadyReviewed && !stateToExpense(expenseId, state);
   };
+}
+
+function stateToFound(state) {
+  const { expenses: { singleFetch: { found } } } = state;
+
+  return found;
 }
 
 function stateToExpenseFetchFailed(state) {
@@ -101,6 +108,8 @@ function ExpenseReviewScreenContainer(props) {
 
   const { expense, expenseCategories, expenseReviewStatus } = stateProps;
 
+  const found = useSelector(stateToFound);
+
   const shouldFetchExpense = useSelector(stateToShouldFetchExpense(expenseId));
 
   const expenseFetchFailed = useSelector(stateToExpenseFetchFailed);
@@ -123,6 +132,8 @@ function ExpenseReviewScreenContainer(props) {
     }
   };
 
+  const [firstDispatch, setFirstDispatch] = useState(true);
+
   const goToExpenses = useCallback(() => {
     push('/expenses');
   }, [push]);
@@ -134,14 +145,23 @@ function ExpenseReviewScreenContainer(props) {
   }, [goToExpenses, expenseReviewStatus]);
 
   useEffect(() => {
-    if (shouldFetchExpense) {
+    if (shouldFetchExpense && firstDispatch) {
       dispatch(Actions.fetchExpense({ id: expenseId }));
     }
 
-    if (shouldFetchCategories) {
+    if (shouldFetchCategories && firstDispatch) {
       dispatch(Actions.fetchExpenseCategories());
     }
-  }, [dispatch, shouldFetchExpense, shouldFetchCategories, expenseId]);
+    if (firstDispatch) {
+      setFirstDispatch(false);
+    }
+  }, [dispatch,
+    setFirstDispatch,
+    firstDispatch,
+    shouldFetchExpense,
+    shouldFetchCategories,
+    expenseId
+  ]);
 
   const start = <Button plain icon={<LinkPrevious />} onClick={goToExpenses} />;
   const title = <Text weight='bold' size='large'>{`Revisión de gasto`}</Text>;
@@ -154,20 +174,26 @@ function ExpenseReviewScreenContainer(props) {
         {...stateProps}
         {...dispatchProps} />
     );
-  } else {
-    if (expenseFetchFailed || categoriesFetchFailed) {
-      return <SimpleErrorScreen
+  }
+
+  if (!found && !firstDispatch) {
+    return (<ExpenseNotFoundScreen goToExpenses={goToExpenses} />);
+  }
+
+  if (expenseFetchFailed || categoriesFetchFailed) {
+    return (
+      <SimpleErrorScreen
         start={start}
         center={title}
         retry={retryFetch} />
-    }
-
-    return (
-      <SimpleLoadingScreen
-        start={start}
-        center={title} />
-    );
+    )
   }
+
+  return (
+    <SimpleLoadingScreen
+      start={start}
+      center={title} />
+  );
 }
 
 export default ExpenseReviewScreenContainer;
