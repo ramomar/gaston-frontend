@@ -19,9 +19,9 @@ function stateToPagination(state) {
 }
 
 function stateToShouldFetchExpenses(state) {
-  const { expenses: { fetch: { isFetching, error } } } = state;
+  const { expenses: { fetch: { isFetching, error }, expenses: { byId } } } = state;
 
-  return !isFetching && !error;
+  return !isFetching && !error && Object.keys(byId).length === 0;
 }
 
 function stateToExpensesFetchFailed(state) {
@@ -86,7 +86,7 @@ export default function ExpenseListScreenContainer(props) {
     dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
 
   useEffect(() => {
-    if (shouldFetchExpenses && expenseGroups.length === 0) {
+    if (shouldFetchExpenses) {
       dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
     }
   }, [dispatch, shouldFetchExpenses, expenseGroups]);
