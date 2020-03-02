@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom';
 import { Text, Button } from 'grommet';
@@ -97,8 +97,6 @@ function ExpenseReviewScreenContainer(props) {
 
   const { push } = useHistory();
 
-  const goToExpenses = () => push('/expenses');
-
   const stateProps = useSelector(stateToProps(expenseId));
 
   const { expense, expenseCategories, expenseReviewStatus } = stateProps;
@@ -125,11 +123,15 @@ function ExpenseReviewScreenContainer(props) {
     }
   };
 
+  const goToExpenses = useCallback(() => {
+    push('/expenses');
+  }, [push]);
+
   useEffect(() => {
     if (!!expenseReviewStatus && expenseReviewStatus.isReviewed) {
       goToExpenses();
     }
-  }, [expenseReviewStatus]);
+  }, [goToExpenses, expenseReviewStatus]);
 
   useEffect(() => {
     if (shouldFetchExpense) {
@@ -139,7 +141,7 @@ function ExpenseReviewScreenContainer(props) {
     if (shouldFetchCategories) {
       dispatch(Actions.fetchExpenseCategories());
     }
-  }, [shouldFetchExpense, shouldFetchCategories]);
+  }, [dispatch, shouldFetchExpense, shouldFetchCategories, expenseId]);
 
   const start = <Button plain icon={<LinkPrevious />} onClick={goToExpenses} />;
   const title = <Text weight='bold' size='large'>{`Revisión de gasto`}</Text>;

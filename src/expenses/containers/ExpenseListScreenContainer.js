@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router';
 import { Text } from 'grommet';
@@ -89,7 +89,7 @@ export default function ExpenseListScreenContainer(props) {
     if (shouldFetchExpenses && expenseGroups.length === 0) {
       dispatch(Actions.fetchExpenses({ paginationStart: 0, paginationEnd: 10 }));
     }
-  }, [dispatch, shouldFetchExpenses]);
+  }, [dispatch, shouldFetchExpenses, expenseGroups]);
 
   const title = <Text weight='bold' size='large'>{`Revisión de gastos`}</Text>;
 
