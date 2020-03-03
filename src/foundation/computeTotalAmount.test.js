@@ -41,5 +41,5 @@ it('should compute total amount for a given list of expenses', () => {
 
   const actual = computeTotalAmount(expenses);
 
-  expect(actual).toStrictEqual(expected);
+  expect(actual).toStrict(expected);
 });
