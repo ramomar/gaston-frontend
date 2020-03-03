@@ -252,7 +252,7 @@ describe('reviewExpenseRequest', () => {
       category: 'Comida'
     };
 
-    fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
+    fetchMock.putOnce(`end:/api/expenses/${expense.id}/review`, {
       headers: { 'Content-Type': 'application/json' },
       body: {
         review: reviewSuccess
@@ -286,7 +286,7 @@ describe('reviewExpenseRequest', () => {
       category: 'Comida'
     };
 
-    fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
+    fetchMock.putOnce(`end:/api/expenses/${expense.id}/review`, {
       body: 'Bad Request',
       status: 400
     });
@@ -320,7 +320,7 @@ describe('reviewExpenseRequest', () => {
       category: 'Comida'
     };
 
-    fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
+    fetchMock.putOnce(`end:/api/expenses/${expense.id}/review`, {
       body: 'Hello',
       status: 200
     });
@@ -354,7 +354,7 @@ describe('reviewExpenseRequest', () => {
       category: 'Comida'
     };
 
-    fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
+    fetchMock.putOnce(`end:/api/expenses/${expense.id}/review`, {
       body: 'Forbidden',
       status: 403
     });
@@ -392,7 +392,7 @@ describe('reviewExpenseRequest', () => {
 
     const error = new Error(errorMessage)
 
-    fetchMock.postOnce(`end:/api/expenses/${expense.id}/review`, {
+    fetchMock.putOnce(`end:/api/expenses/${expense.id}/review`, {
       throws: error
     });
 

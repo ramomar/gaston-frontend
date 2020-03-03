@@ -166,7 +166,7 @@ export function reviewExpense({ expense, review }) {
     dispatch(reviewExpenseRequest({ expense, review }));
 
     return fetch(`${process.env.REACT_APP_API_HOST}/api/expenses/${expense.id}/review`, {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify(review),
       headers: {
         'Content-Type': 'application/json'
