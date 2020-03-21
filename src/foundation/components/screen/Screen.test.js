@@ -8,7 +8,7 @@ it('renders correctly', () => {
       {<div>¡Hola!</div>}
     </Screen>;
 
-  const tree = renderer.create(component)
+  const tree = renderer.create(component);
 
   expect(tree).toMatchSnapshot();
 });

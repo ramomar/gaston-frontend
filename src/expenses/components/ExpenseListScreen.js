@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Shapes from '../shapes'
+import Shapes from '../shapes';
 import { Text } from 'grommet';
 import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screen';
 import ExpenseList from './ExpenseList';

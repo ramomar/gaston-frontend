@@ -33,7 +33,7 @@ export function fetchExpenseCategories() {
 
     const successAction = (categories) => {
       if (categories.length === 0) {
-        throw Error('Invalid response: no categories.')
+        throw Error('Invalid response: no categories.');
       }
 
       dispatch(fetchExpenseCategoriesSuccess({ categories }));
@@ -50,5 +50,5 @@ export function fetchExpenseCategories() {
           dispatch(fetchExpenseCategoriesFailure({ errorMessage: error.message }));
           return Promise.resolve(error);
         });
-  }
+  };
 }

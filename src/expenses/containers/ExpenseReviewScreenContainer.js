@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
@@ -186,7 +186,7 @@ function ExpenseReviewScreenContainer(props) {
         start={start}
         center={title}
         retry={retryFetch} />
-    )
+    );
   }
 
   return (

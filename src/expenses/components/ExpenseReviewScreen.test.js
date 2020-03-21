@@ -35,7 +35,7 @@ it('renders correctly', () => {
       </ExpenseReviewScreen>
     </Grommet>;
 
-  const tree = renderer.create(component)
+  const tree = renderer.create(component);
 
   expect(tree).toMatchSnapshot();
 });

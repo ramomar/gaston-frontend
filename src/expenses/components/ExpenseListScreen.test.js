@@ -26,7 +26,7 @@ it('renders correctly', () => {
       moreExpenses={() => null}
       toExpenseReviewScreen={() => null} />;
 
-  const tree = renderer.create(component)
+  const tree = renderer.create(component);
 
   expect(tree).toMatchSnapshot();
 });

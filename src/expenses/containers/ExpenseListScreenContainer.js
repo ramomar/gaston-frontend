@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Text } from 'grommet';
 import { SimpleLoadingScreen, SimpleErrorScreen } from '../../foundation/components/screen';
@@ -15,7 +15,7 @@ function stateToPagination(state) {
   return {
     paginationStart: fetch.paginationStart,
     paginationEnd: fetch.paginationEnd
-  }
+  };
 }
 
 function stateToShouldFetchExpenses(state) {
@@ -103,11 +103,11 @@ export default function ExpenseListScreenContainer(props) {
   if (expensesFetchFailed) {
     return <SimpleErrorScreen
       center={title}
-      retry={retryFetch} />
+      retry={retryFetch} />;
   }
 
   return <ExpenseListScreen
     toExpenseReviewScreen={toExpenseReviewScreen}
     {...stateProps}
-    {...dispatchProps} />
+    {...dispatchProps} />;
 }

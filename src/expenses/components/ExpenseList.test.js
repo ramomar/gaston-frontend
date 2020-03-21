@@ -24,7 +24,7 @@ it('renders correctly', () => {
       isFetching={false}
       hasMore={true}
       moreExpenses={() => null}
-      toExpenseReviewScreen={() => null} />
+      toExpenseReviewScreen={() => null} />;
 
   const tree = renderer.create(component).toJSON();
 

@@ -48,7 +48,7 @@ export function fetchExpenses({ paginationStart, paginationEnd }) {
         paginationStart,
         paginationEnd
       }));
-    }
+    };
 
     return fetch(`${process.env.REACT_APP_API_HOST}/api/expenses`, {
       method: 'GET'
@@ -180,5 +180,5 @@ export function reviewExpense({ expense, review }) {
           dispatch(reviewExpenseFailure({ expense, review, errorMessage: error.message }));
           return Promise.resolve(error);
         });
-  }
+  };
 }

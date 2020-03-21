@@ -11,7 +11,7 @@ it('renders correctly', () => {
       </ExpenseNotFoundScreen>
     </Grommet>;
 
-  const tree = renderer.create(component)
+  const tree = renderer.create(component);
 
   expect(tree).toMatchSnapshot();
 });

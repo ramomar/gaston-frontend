@@ -1,6 +1,6 @@
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import fetchMock from 'fetch-mock'
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import fetchMock from 'fetch-mock';
 import * as ExpenseActions from './ExpenseActions';
 
 const mockStore = configureMockStore([thunk]);
@@ -50,7 +50,7 @@ describe('fetchExpenses', () => {
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of invalid json', () => {
     const paginationStart = 0;
 
-    const paginationEnd = 10
+    const paginationEnd = 10;
 
     const body = 'Not a json response';
 
@@ -75,7 +75,7 @@ describe('fetchExpenses', () => {
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of some HTTP error', () => {
     const paginationStart = 0;
 
-    const paginationEnd = 10
+    const paginationEnd = 10;
 
     fetchMock.getOnce('end:/api/expenses', {
       status: 403
@@ -98,7 +98,7 @@ describe('fetchExpenses', () => {
   it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
     const paginationStart = 0;
 
-    const paginationEnd = 10
+    const paginationEnd = 10;
 
     const errorMessage = 'Some error';
 
@@ -390,7 +390,7 @@ describe('reviewExpenseRequest', () => {
 
     const errorMessage = 'Some error';
 
-    const error = new Error(errorMessage)
+    const error = new Error(errorMessage);
 
     fetchMock.putOnce(`end:/api/expenses/${expense.id}/review`, {
       throws: error

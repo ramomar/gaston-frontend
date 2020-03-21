@@ -10,7 +10,7 @@ it('renders correctly', () => {
       end={<div>End</div>}>
     </ScreenHeader>;
 
-  const tree = renderer.create(component)
+  const tree = renderer.create(component);
 
   expect(tree).toMatchSnapshot();
 });
