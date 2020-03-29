@@ -18,7 +18,7 @@ import * as R from 'ramda';
 const dateMask = [
   {
     length: [1, 2],
-    regexp: /^3[0-1]$|^2[0-9]$|^1[0-9]$|^[0-9]$/,
+    regexp: /^3[0-1]$|^2[0-9]$|^1[0-9]$|^[0-9]$/
   },
   { fixed: '/' },
   {
@@ -35,7 +35,7 @@ const dateMask = [
 const hourMask = [
   {
     length: [1, 2],
-    regexp: /^2[0-3]$|^1[0-9]$|^[0-9]$/,
+    regexp: /^2[0-3]$|^1[0-9]$|^[0-9]$/
   },
   { fixed: ':' },
   {

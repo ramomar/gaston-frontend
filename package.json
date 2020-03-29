@@ -32,7 +32,8 @@
   "eslintConfig": {
     "extends": "react-app",
     "rules": {
-      "semi": "error"
+      "semi": "error",
+      "comma-dangle": "error"
     }
   },
   "browserslist": {
