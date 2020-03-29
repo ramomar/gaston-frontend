@@ -2,24 +2,24 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="StyledBox-sc-13pk1d4-0 fpgWwd"
+  className="StyledBox-sc-13pk1d4-0 fFWPAz"
 >
   <div
-    className="StyledBox-sc-13pk1d4-0 koruWX"
+    className="StyledBox-sc-13pk1d4-0 fWrrBh"
   >
     <div>
       Start
     </div>
   </div>
   <div
-    className="StyledBox-sc-13pk1d4-0 koruWX"
+    className="StyledBox-sc-13pk1d4-0 fWrrBh"
   >
     <div>
       Center
     </div>
   </div>
   <div
-    className="StyledBox-sc-13pk1d4-0 koruWX"
+    className="StyledBox-sc-13pk1d4-0 fWrrBh"
   >
     <div>
       End

@@ -2,15 +2,11 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="StyledBox-sc-13pk1d4-0 vtIgb"
-  onBlur={[Function]}
+  className="StyledBox-sc-13pk1d4-0 iLrjLl"
   onClick={[Function]}
-  onFocus={[Function]}
-  onKeyDown={[Function]}
-  tabIndex={0}
 >
   <div
-    className="StyledBox-sc-13pk1d4-0 cHMbYi"
+    className="StyledBox-sc-13pk1d4-0 dtolEv"
   >
     <span
       className="StyledText-sc-1sadyjn-0 jOAXsc"
@@ -19,7 +15,7 @@ exports[`renders correctly 1`] = `
     </span>
   </div>
   <div
-    className="StyledBox-sc-13pk1d4-0 gIKgZq"
+    className="StyledBox-sc-13pk1d4-0 bqDjXT"
   >
     <span
       className="StyledText-sc-1sadyjn-0 isVaoK"

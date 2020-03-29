@@ -3,12 +3,12 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grommet, Box } from 'grommet';
 import { grommet } from 'grommet/themes/grommet';
+import { PrivateRoute, LoginScreenContainer } from './auth';
 import { ExpenseListScreenContainer, ExpenseReviewScreenContainer } from './expenses';
 import store from './foundation/state/store';
 import { Settings } from 'luxon';
 
 import Amplify from 'aws-amplify';
-import { withAuthenticator } from 'aws-amplify-react';
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
 
@@ -22,12 +22,17 @@ function App() {
         <Provider store={store}>
           <Router>
             <Switch>
-              <Route path='/expenses/:expenseId/review'>
+              <Route path='/login'>
+                <LoginScreenContainer />
+              </Route>
+            </Switch>
+            <Switch>
+              <PrivateRoute path='/expenses/:expenseId/review'>
                 <ExpenseReviewScreenContainer />
-              </Route>
-              <Route path='/expenses'>
+              </PrivateRoute>
+              <PrivateRoute path='/expenses'>
                 <ExpenseListScreenContainer />
-              </Route>
+              </PrivateRoute>
             </Switch>
           </Router>
         </Provider>
@@ -36,4 +41,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+export default App;

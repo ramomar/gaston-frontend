@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="StyledGrommet-sc-19lkkz7-0 eUfLDp"
+>
+  <div
+    className="StyledBox-sc-13pk1d4-0 eQUjUa"
+  >
+    <span
+      className="StyledText-sc-1sadyjn-0 hQNbky"
+    >
+      <span
+        aria-label="gaston logo"
+        role="img"
+      >
+        💵
+      </span>
+    </span>
+    <h2
+      className="StyledHeading-sc-1rdh4aw-0 czAbaA"
+    >
+      Gaston
+    </h2>
+    <div
+      className="StyledBox-sc-13pk1d4-0 eqXmZd"
+    >
+      <form
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <div
+          className="StyledBox-sc-13pk1d4-0 lfluzk FormField__FormFieldBox-m9hood-0 eshLKp"
+        >
+          <label
+            className="StyledText-sc-1sadyjn-0 bKLvLm"
+          >
+            Usuario
+          </label>
+          <div
+            className="StyledBox-sc-13pk1d4-0 bDrWKZ"
+          >
+            <div
+              className="StyledTextInput__StyledTextInputContainer-sc-1x30a0s-1 kYQCpm"
+            >
+              <input
+                autoComplete="off"
+                className="StyledTextInput-sc-1x30a0s-0 duvNfq"
+                label="Usuario"
+                name="user"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                placeholder="yo@ramomar.dev"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 lfluzk FormField__FormFieldBox-m9hood-0 eshLKp"
+        >
+          <label
+            className="StyledText-sc-1sadyjn-0 bKLvLm"
+          >
+            Contraseña
+          </label>
+          <div
+            className="StyledBox-sc-13pk1d4-0 bDrWKZ"
+          >
+            <div
+              className="StyledTextInput__StyledTextInputContainer-sc-1x30a0s-1 kYQCpm"
+            >
+              <input
+                autoComplete="off"
+                className="StyledTextInput-sc-1x30a0s-0 duvNfq"
+                label="Contraseña"
+                name="password"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                placeholder="********"
+                type="password"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 hLaOSi"
+        />
+        <div
+          className="StyledBox-sc-13pk1d4-0 fWrrBh"
+        >
+          <button
+            className="StyledButton-sc-323bzc-0 cSMahv"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+            type="submit"
+          >
+            Continuar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

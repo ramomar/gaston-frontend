@@ -5,13 +5,13 @@ exports[`renders correctly 1`] = `
   className="StyledGrommet-sc-19lkkz7-0 eUfLDp"
 >
   <div
-    className="StyledBox-sc-13pk1d4-0 hCTAHO"
+    className="StyledBox-sc-13pk1d4-0 tkzRw"
   >
     <div
-      className="StyledBox-sc-13pk1d4-0 fpgWwd"
+      className="StyledBox-sc-13pk1d4-0 fFWPAz"
     >
       <div
-        className="StyledBox-sc-13pk1d4-0 koruWX"
+        className="StyledBox-sc-13pk1d4-0 fWrrBh"
       >
         <button
           className="StyledButton-sc-323bzc-0 laBEqz"
@@ -38,7 +38,7 @@ exports[`renders correctly 1`] = `
         </button>
       </div>
       <div
-        className="StyledBox-sc-13pk1d4-0 koruWX"
+        className="StyledBox-sc-13pk1d4-0 fWrrBh"
       >
         <span
           className="StyledText-sc-1sadyjn-0 dFefMJ"
@@ -48,14 +48,14 @@ exports[`renders correctly 1`] = `
         </span>
       </div>
       <div
-        className="StyledBox-sc-13pk1d4-0 koruWX"
+        className="StyledBox-sc-13pk1d4-0 fWrrBh"
       />
     </div>
     <div
-      className="StyledBox-sc-13pk1d4-0 hCTAHO"
+      className="StyledBox-sc-13pk1d4-0 tkzRw"
     >
       <div
-        className="StyledBox-sc-13pk1d4-0 cVpCGR"
+        className="StyledBox-sc-13pk1d4-0 eQUjUa"
       >
         <span
           className="StyledText-sc-1sadyjn-0 dmvzzC"
