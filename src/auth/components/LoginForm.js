@@ -10,7 +10,7 @@ import {
 import Spinner from '../../foundation/components/grommet/Spinner';
 
 function logIn() {
-  console.log('Loggin in...');
+  console.log('Logging in...');
 }
 
 function LoginForm(props) {
