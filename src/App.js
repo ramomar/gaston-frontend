@@ -9,6 +9,7 @@ import { ExpenseListScreenContainer, ExpenseReviewScreenContainer } from './expe
 import store from './foundation/state/store';
 import { Settings } from 'luxon';
 
+import { Auth } from 'aws-amplify';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
@@ -16,11 +17,11 @@ Amplify.configure(awsconfig);
 Settings.defaultLocale = 'es';
 Settings.defaultZoneName = 'America/Mexico_City';
 
-function App() {
+function App(props) {
   return (
     <Grommet theme={grommet} full>
       <Box fill='vertical' overflow='hidden'>
-        <Provider store={store}>
+        <Provider store={props.store || store}>
           <Router>
             <Switch>
               <Route path='/login'>

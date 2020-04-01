@@ -4,8 +4,9 @@ import * as Actions from '../actions';
 describe('auth', () => {
   it('should return the initial state', () => {
     const expected = {
-      authenticated: false,
+      isAuthenticated: false,
       user: null,
+      authenticatedAt: null,
       login: {
         isLoggingIn: false,
         error: null
@@ -19,8 +20,9 @@ describe('auth', () => {
 
   it(`should handle ${Actions.LOGIN_REQUEST} `, () => {
     const state = {
-      authenticated: false,
+      isAuthenticated: false,
       user: null,
+      authenticatedAt: null,
       login: {
         isLoggingIn: false,
         error: null
@@ -28,8 +30,9 @@ describe('auth', () => {
     };
 
     const expected = {
-      authenticated: false,
+      isAuthenticated: false,
       user: null,
+      authenticatedAt: null,
       login: {
         isLoggingIn: true,
         error: null
@@ -49,8 +52,9 @@ describe('auth', () => {
 
   it(`should handle ${Actions.LOGIN_SUCCESS}`, () => {
     const state = {
-      authenticated: false,
+      isAuthenticated: false,
       user: null,
+      authenticatedAt: null,
       login: {
         isLoggingIn: true,
         error: null
@@ -60,8 +64,9 @@ describe('auth', () => {
     const user = 'user';
 
     const expected = {
-      authenticated: true,
+      isAuthenticated: true,
       user,
+      authenticatedAt: null,
       login: {
         isLoggingIn: false,
         error: null
@@ -77,8 +82,9 @@ describe('auth', () => {
 
   it(`should handle ${Actions.LOGIN_FAILURE}`, () => {
     const state = {
-      authenticated: false,
+      isAuthenticated: false,
       user: null,
+      authenticatedAt: null,
       login: {
         isLoggingIn: true,
         error: null
@@ -88,8 +94,9 @@ describe('auth', () => {
     const errorMessage = 'User not found';
 
     const expected = {
-      authenticated: false,
+      isAuthenticated: false,
       user: null,
+      authenticatedAt: null,
       login: {
         isLoggingIn: false,
         error: errorMessage
