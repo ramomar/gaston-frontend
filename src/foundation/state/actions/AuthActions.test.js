@@ -8,7 +8,7 @@ const mockStore = configureMockStore([thunk]);
 
 function makeAuthClient({ withSuccessfulResponse, errorCode }) {
   return {
-    signIn: ({ user, password }) => withSuccessfulResponse ?
+    logIn: ({ user, password }) => withSuccessfulResponse ?
       Promise.resolve({ success: true }) :
       Promise.reject({ success: false, code: errorCode })
   };
@@ -40,7 +40,7 @@ describe('login', () => {
     const Storage = makeStorage({ setFnMock, removeFnMock });
 
     const expected = [
-      { type: AuthActions.LOGIN_REQUEST, payload: { user, password } },
+      { type: AuthActions.LOGIN_REQUEST, payload: { user } },
       { type: AuthActions.LOGIN_SUCCESS, payload: { user } }
     ];
 
@@ -58,7 +58,7 @@ describe('login', () => {
 
     const password = 'password';
 
-    const errorMessage = 'User not found';
+    const errorMessage = 'An error';
 
     const store = mockStore({});
 
@@ -69,8 +69,60 @@ describe('login', () => {
     const Storage = makeStorage({ setFnMock: () => null, removeFnMock: () => null });
 
     const expected = [
-      { type: AuthActions.LOGIN_REQUEST, payload: { user, password } },
-      { type: AuthActions.LOGIN_FAILURE, payload: { errorMessage } }
+      { type: AuthActions.LOGIN_REQUEST, payload: { user } },
+      { type: AuthActions.LOGIN_FAILURE, payload: { errorMessage, invalidUserOrPassword: false } }
+    ];
+
+    return store.dispatch(AuthActions.login({ user, password, now, AuthClient, Storage }))
+      .then(() => {
+        expect(store.getActions()).toStrictEqual(expected);
+      });
+  });
+
+  it('should dispatch the correct sequence of actions when login fails because of invalid user', () => {
+    const user = 'user';
+
+    const password = 'password';
+
+    const errorMessage = 'UserNotFoundException';
+
+    const store = mockStore({});
+
+    const now = DateTime.fromISO('2020-03-03T05:29:02.700Z');
+
+    const AuthClient = makeAuthClient({ withSuccessfulResponse: false, errorCode: errorMessage });
+
+    const Storage = makeStorage({ setFnMock: () => null, removeFnMock: () => null });
+
+    const expected = [
+      { type: AuthActions.LOGIN_REQUEST, payload: { user } },
+      { type: AuthActions.LOGIN_FAILURE, payload: { errorMessage, invalidUserOrPassword: true } }
+    ];
+
+    return store.dispatch(AuthActions.login({ user, password, now, AuthClient, Storage }))
+      .then(() => {
+        expect(store.getActions()).toStrictEqual(expected);
+      });
+  });
+
+  it('should dispatch the correct sequence of actions when login fails because of invalid password', () => {
+    const user = 'user';
+
+    const password = 'password';
+
+    const errorMessage = 'NotAuthorizedException';
+
+    const store = mockStore({});
+
+    const now = DateTime.fromISO('2020-03-03T05:29:02.700Z');
+
+    const AuthClient = makeAuthClient({ withSuccessfulResponse: false, errorCode: errorMessage });
+
+    const Storage = makeStorage({ setFnMock: () => null, removeFnMock: () => null });
+
+    const expected = [
+      { type: AuthActions.LOGIN_REQUEST, payload: { user } },
+      { type: AuthActions.LOGIN_FAILURE, payload: { errorMessage, invalidUserOrPassword: true } }
     ];
 
     return store.dispatch(AuthActions.login({ user, password, now, AuthClient, Storage }))

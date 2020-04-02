@@ -7,8 +7,9 @@ export function makeAuthState(isAuthenticated = false, user = null, authenticate
     user,
     authenticatedAt,
     login: {
-      isLoggingIn: false,
-      error: null
+      isLogginIn: false,
+      error: null,
+      invalidUserOrPassword: false
     }
   };
 }
@@ -18,7 +19,9 @@ function computeStateOnLoginRequest(state, _) {
     state,
     {
       login: {
-        isLoggingIn: true
+        isLogginIn: true,
+        error: null,
+        invalidUserOrPassword: false
       }
     }
   );
@@ -31,7 +34,8 @@ function computeStateOnLoginSuccess(state, { payload }) {
       isAuthenticated: true,
       user: payload.user,
       login: {
-        isLoggingIn: false
+        isLogginIn: false,
+        invalidUserOrPassword: false
       }
     }
   );
@@ -42,8 +46,9 @@ function computeStateOnLoginFailure(state, { payload }) {
     state,
     {
       login: {
-        isLoggingIn: false,
-        error: payload.errorMessage
+        isLogginIn: false,
+        error: payload.errorMessage,
+        invalidUserOrPassword: payload.invalidUserOrPassword
       }
     }
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { Grommet, Box } from 'grommet';
 import { grommet } from 'grommet/themes/grommet';
 import PrivateRoute from './foundation/routing/PrivateRoute';
@@ -8,8 +8,6 @@ import { LoginScreenContainer } from './auth';
 import { ExpenseListScreenContainer, ExpenseReviewScreenContainer } from './expenses';
 import store from './foundation/state/store';
 import { Settings } from 'luxon';
-
-import { Auth } from 'aws-amplify';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
@@ -24,17 +22,18 @@ function App(props) {
         <Provider store={props.store || store}>
           <Router>
             <Switch>
-              <Route path='/login'>
-                <LoginScreenContainer />
-              </Route>
-            </Switch>
-            <Switch>
               <PrivateRoute path='/expenses/:expenseId/review'>
                 <ExpenseReviewScreenContainer />
               </PrivateRoute>
               <PrivateRoute path='/expenses'>
                 <ExpenseListScreenContainer />
               </PrivateRoute>
+              <Route path='/login'>
+                <LoginScreenContainer />
+              </Route>
+              <Route path='/'>
+                <Redirect to='/expenses' />
+              </Route>
             </Switch>
           </Router>
         </Provider>

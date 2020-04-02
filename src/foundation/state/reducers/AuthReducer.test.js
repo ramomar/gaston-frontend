@@ -8,7 +8,8 @@ describe('auth', () => {
       user: null,
       authenticatedAt: null,
       login: {
-        isLoggingIn: false,
+        isLogginIn: false,
+        invalidUserOrPassword: false,
         error: null
       }
     };
@@ -24,8 +25,9 @@ describe('auth', () => {
       user: null,
       authenticatedAt: null,
       login: {
-        isLoggingIn: false,
-        error: null
+        isLogginIn: false,
+        error: null,
+        invalidUserOrPassword: false
       }
     };
 
@@ -34,8 +36,9 @@ describe('auth', () => {
       user: null,
       authenticatedAt: null,
       login: {
-        isLoggingIn: true,
-        error: null
+        isLogginIn: true,
+        error: null,
+        invalidUserOrPassword: false
       }
     };
 
@@ -56,8 +59,9 @@ describe('auth', () => {
       user: null,
       authenticatedAt: null,
       login: {
-        isLoggingIn: true,
-        error: null
+        isLogginIn: true,
+        error: null,
+        invalidUserOrPassword: false
       }
     };
 
@@ -68,8 +72,9 @@ describe('auth', () => {
       user,
       authenticatedAt: null,
       login: {
-        isLoggingIn: false,
-        error: null
+        isLogginIn: false,
+        error: null,
+        invalidUserOrPassword: false
       }
     };
 
@@ -86,24 +91,28 @@ describe('auth', () => {
       user: null,
       authenticatedAt: null,
       login: {
-        isLoggingIn: true,
-        error: null
+        isLogginIn: true,
+        error: null,
+        invalidUserOrPassword: false
       }
     };
 
-    const errorMessage = 'User not found';
+    const errorMessage = 'An error';
+
+    const invalidUserOrPassword = true;
 
     const expected = {
       isAuthenticated: false,
       user: null,
       authenticatedAt: null,
       login: {
-        isLoggingIn: false,
-        error: errorMessage
+        isLogginIn: false,
+        error: errorMessage,
+        invalidUserOrPassword: true
       }
     };
 
-    const action = Actions.loginFailure({ errorMessage });
+    const action = Actions.loginFailure({ errorMessage, invalidUserOrPassword });
 
     const actual = authReducer(state, action);
 

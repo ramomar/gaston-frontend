@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Shapes from '../shapes';
 import {
   Form,
   FormField,
@@ -9,13 +11,22 @@ import {
 } from 'grommet';
 import Spinner from '../../foundation/components/grommet/Spinner';
 
-function logIn() {
-  console.log('Logging in...');
+const usernameRegex = /^.+@\w+\.\w+$/; // dumb regex
+
+const passwordRegex = /^.{8,}$/;
+
+function onSubmit(logIn) {
+  return ({ value }) => {
+    const { user, password } = value;
+
+    logIn(user, password);
+  };
 }
 
 function LoginForm(props) {
-  const initialValue = {};
-  const hasError = false;
+  const buttonLabel = props.loginStatus.error &&
+    !props.loginStatus.invalidUserOrPassword ?
+    'Reintentar' : 'Continuar';
 
   return (
     <Form
@@ -23,34 +34,39 @@ function LoginForm(props) {
         invalid: ':(',
         required: 'Requerido'
       }}
-      value={initialValue}
-      onSubmit={logIn}>
+      onSubmit={onSubmit(props.logIn)}>
       <FormField
         required
         label='Usuario'
         name='user'
         component={TextInput}
-        placeholder='yo@ramomar.dev' />
+        placeholder='yo@ramomar.dev'
+        validate={{ regexp: usernameRegex, message: 'Correo invalido' }} />
       <FormField
         required
         label='Contraseña'
         name='password'
         type='password'
         component={TextInput}
+        validate={{ regexp: passwordRegex, message: 'Contraseña invalida' }}
         placeholder='********' />
       <Box margin={{ top: 'large' }}>
-        {hasError &&
+        {props.loginStatus.error && !props.loginStatus.invalidUserOrPassword &&
           <Text textAlign='center' color='status-error'>
             ¡Ocurrió un error!
-    </Text>}
+          </Text>}
+        {props.loginStatus.invalidUserOrPassword &&
+          <Text textAlign='center' color='status-error'>
+            Credenciales invalidas.
+          </Text>}
       </Box>
       <Box>
-        {(props.logInStatus ? props.loginStatus.isLoggingIn : false) ?
+        {props.loginStatus.isLogginIn ?
           <Box margin='small' pad='medium'>
             <Spinner />
           </Box> :
           <Button
-            label={hasError ? 'Reintentar' : 'Continuar'}
+            label={buttonLabel}
             primary
             type='submit'
             margin='medium'
@@ -61,6 +77,9 @@ function LoginForm(props) {
   );
 }
 
-// TODO: add props validations
+LoginForm.propTypes = {
+  logIn: PropTypes.func.isRequired,
+  loginStatus: Shapes.loginStatus.isRequired
+};
 
 export default LoginForm;
