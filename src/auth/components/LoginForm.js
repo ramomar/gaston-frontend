@@ -24,10 +24,6 @@ function onSubmit(logIn) {
 }
 
 function LoginForm(props) {
-  const buttonLabel = props.loginStatus.error &&
-    !props.loginStatus.invalidUserOrPassword ?
-    'Reintentar' : 'Continuar';
-
   return (
     <Form
       messages={{
@@ -66,7 +62,7 @@ function LoginForm(props) {
             <Spinner />
           </Box> :
           <Button
-            label={buttonLabel}
+            label='Continuar'
             primary
             type='submit'
             margin='medium'
