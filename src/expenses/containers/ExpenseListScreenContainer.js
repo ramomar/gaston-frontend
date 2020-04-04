@@ -6,7 +6,7 @@ import { SimpleLoadingScreen, SimpleErrorScreen } from '../../foundation/compone
 import expensesByDay from '../../foundation/expensesByDay';
 import ExpenseListScreen from '../components/ExpenseListScreen';
 import makeExpense from '../../foundation/makeExpense';
-import * as Actions from '../../foundation/state/actions';
+import * as Actions from '../../foundation/redux/actions';
 import * as R from 'ramda';
 
 function stateToPagination(state) {

@@ -6,7 +6,7 @@ import { LinkPrevious } from 'grommet-icons';
 import { SimpleLoadingScreen, SimpleErrorScreen } from '../../foundation/components/screen';
 import ExpenseReviewScreen from '../components/ExpenseReviewScreen';
 import ExpenseNotFoundScreen from '../components/ExpenseNotFoundScreen';
-import * as Actions from '../../foundation/state/actions';
+import * as Actions from '../../foundation/redux/actions';
 import makeExpense from '../../foundation/makeExpense';
 import * as R from 'ramda';
 import { DateTime } from 'luxon';

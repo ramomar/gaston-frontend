@@ -6,7 +6,7 @@ import { grommet } from 'grommet/themes/grommet';
 import PrivateRoute from './foundation/routing/PrivateRoute';
 import { LoginScreenContainer } from './auth';
 import { ExpenseListScreenContainer, ExpenseReviewScreenContainer } from './expenses';
-import store from './foundation/state/store';
+import store from './foundation/redux/store';
 import { Settings } from 'luxon';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';

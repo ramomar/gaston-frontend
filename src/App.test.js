@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { rootReducer } from './foundation/state/reducers';
+import { rootReducer } from './foundation/redux/reducers';
 import fetchMock from 'fetch-mock';
 
 const store = createStore(

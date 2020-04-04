@@ -5,7 +5,7 @@ import {
   useLocation
 } from 'react-router-dom';
 import LoginScreen from '../components/LoginScreen';
-import * as Actions from '../../foundation/state/actions';
+import * as Actions from '../../foundation/redux/actions';
 import { DateTime } from 'luxon';
 import { Storage } from '../../foundation/storage';
 import { AuthClient } from '../../foundation/auth';
