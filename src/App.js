@@ -10,8 +10,8 @@ import store from './foundation/state/store';
 import { Settings } from 'luxon';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
-Amplify.configure(awsconfig);
 
+Amplify.configure(awsconfig);
 Settings.defaultLocale = 'es';
 Settings.defaultZoneName = 'America/Mexico_City';
 
