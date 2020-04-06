@@ -12,6 +12,7 @@ import {
 import Spinner from '../../foundation/components/grommet/Spinner';
 
 // https://html.spec.whatwg.org/multipage/input.html#e-mail-state-(type=email)
+/* eslint-disable */
 const usernameRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 const passwordRegex = /^.{8,}$/;
