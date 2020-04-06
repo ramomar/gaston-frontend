@@ -13,11 +13,12 @@ export function loginRequest({ user }) {
   };
 }
 
-export function loginSuccess({ user }) {
+export function loginSuccess({ user, accessToken }) {
   return {
     type: LOGIN_SUCCESS,
     payload: {
-      user
+      user,
+      accessToken
     }
   };
 }
@@ -39,9 +40,9 @@ export function login({ user, password, now, AuthClient, Storage }) {
     Storage.removeItem(StorageKeys.AUTH);
 
     return AuthClient.logIn(user, password)
-      .then(_ => {
-        Storage.setItem(StorageKeys.AUTH, { user, authenticatedAt: now.toISO() });
-        return dispatch(loginSuccess({ user }));
+      .then(({ accessToken }) => {
+        Storage.setItem(StorageKeys.AUTH, { user, authenticatedAt: now.toISO(), accessToken });
+        return dispatch(loginSuccess({ user, accessToken }));
       })
       .catch(error => {
         const invalidUserOrPassword =

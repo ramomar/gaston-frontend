@@ -21,7 +21,7 @@ const createStoreArguments = [rootReducer];
 const isAuthExpired = !!storedData && authIsExpired(storedData);
 
 if (!!storedData && !isAuthExpired) {
-  const stateSlice = { auth: makeAuthState(true, storedData.user, storedData.authenticatedAt) };
+  const stateSlice = { auth: makeAuthState(true, storedData.user, storedData.accessToken, storedData.authenticatedAt) };
 
   createStoreArguments.push(stateSlice);
 } else if (isAuthExpired) {

@@ -6,11 +6,11 @@ import { DateTime } from 'luxon';
 
 const mockStore = configureMockStore([thunk]);
 
-function makeAuthClient({ withSuccessfulResponse, errorCode }) {
+function makeAuthClient({ withSuccessfulResponse, accessToken, errorCode }) {
   return {
     logIn: ({ user, password }) => withSuccessfulResponse ?
-      Promise.resolve({ success: true }) :
-      Promise.reject({ success: false, code: errorCode })
+      Promise.resolve({ accessToken }) :
+      Promise.reject({ code: errorCode })
   };
 }
 
@@ -31,24 +31,26 @@ describe('login', () => {
 
     const now = DateTime.fromISO('2020-03-03T05:29:02.700Z');
 
+    const accessToken = 'token';
+
     const setFnMock = jest.fn();
 
     const removeFnMock = jest.fn();
 
-    const AuthClient = makeAuthClient({ withSuccessfulResponse: true });
+    const AuthClient = makeAuthClient({ withSuccessfulResponse: true, accessToken });
 
     const Storage = makeStorage({ setFnMock, removeFnMock });
 
     const expected = [
       { type: AuthActions.LOGIN_REQUEST, payload: { user } },
-      { type: AuthActions.LOGIN_SUCCESS, payload: { user } }
+      { type: AuthActions.LOGIN_SUCCESS, payload: { user, accessToken } }
     ];
 
     return store.dispatch(AuthActions.login({ user, password, now, AuthClient, Storage }))
       .then(() => {
         expect(store.getActions()).toStrictEqual(expected);
         expect(removeFnMock).toHaveBeenCalledWith(StorageKeys.AUTH);
-        expect(setFnMock).toHaveBeenCalledWith(StorageKeys.AUTH, { user, authenticatedAt: now.toISO() });
+        expect(setFnMock).toHaveBeenCalledWith(StorageKeys.AUTH, { user, authenticatedAt: now.toISO(), accessToken });
       });
   });
 

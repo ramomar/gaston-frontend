@@ -6,6 +6,7 @@ describe('auth', () => {
     const expected = {
       isAuthenticated: false,
       user: null,
+      accessToken: null,
       authenticatedAt: null,
       login: {
         isLogginIn: false,
@@ -24,6 +25,7 @@ describe('auth', () => {
       isAuthenticated: false,
       user: null,
       authenticatedAt: null,
+      accessToken: null,
       login: {
         isLogginIn: false,
         error: null,
@@ -34,6 +36,7 @@ describe('auth', () => {
     const expected = {
       isAuthenticated: false,
       user: null,
+      accessToken: null,
       authenticatedAt: null,
       login: {
         isLogginIn: true,
@@ -58,6 +61,7 @@ describe('auth', () => {
       isAuthenticated: false,
       user: null,
       authenticatedAt: null,
+      accessToken: null,
       login: {
         isLogginIn: true,
         error: null,
@@ -67,9 +71,12 @@ describe('auth', () => {
 
     const user = 'user';
 
+    const accessToken = 'token';
+
     const expected = {
       isAuthenticated: true,
       user,
+      accessToken,
       authenticatedAt: null,
       login: {
         isLogginIn: false,
@@ -78,7 +85,7 @@ describe('auth', () => {
       }
     };
 
-    const action = Actions.loginSuccess({ user });
+    const action = Actions.loginSuccess({ user, accessToken });
 
     const actual = authReducer(state, action);
 
@@ -89,6 +96,7 @@ describe('auth', () => {
     const state = {
       isAuthenticated: false,
       user: null,
+      accessToken: null,
       authenticatedAt: null,
       login: {
         isLogginIn: true,
@@ -104,6 +112,7 @@ describe('auth', () => {
     const expected = {
       isAuthenticated: false,
       user: null,
+      accessToken: null,
       authenticatedAt: null,
       login: {
         isLogginIn: false,

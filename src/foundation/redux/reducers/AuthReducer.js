@@ -1,10 +1,11 @@
 import * as AuthActions from '../actions/AuthActions';
 import * as R from 'ramda';
 
-export function makeAuthState(isAuthenticated = false, user = null, authenticatedAt = null) {
+export function makeAuthState(isAuthenticated = false, user = null, accessToken = null, authenticatedAt = null) {
   return {
     isAuthenticated,
     user,
+    accessToken,
     authenticatedAt,
     login: {
       isLogginIn: false,
@@ -18,6 +19,10 @@ function computeStateOnLoginRequest(state, _) {
   return R.mergeDeepRight(
     state,
     {
+      isAuthenticated: false,
+      user: null,
+      accessToken: null,
+      authenticatedAt: null,
       login: {
         isLogginIn: true,
         error: null,
@@ -33,6 +38,7 @@ function computeStateOnLoginSuccess(state, { payload }) {
     {
       isAuthenticated: true,
       user: payload.user,
+      accessToken: payload.accessToken,
       login: {
         isLogginIn: false,
         invalidUserOrPassword: false
