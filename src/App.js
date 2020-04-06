@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { Grommet, Box } from 'grommet';
 import { grommet } from 'grommet/themes/grommet';
-import PrivateRoute from './foundation/routing/PrivateRoute';
+import { PrivateRoute } from './foundation/routing';
 import { LoginScreenContainer } from './auth';
 import { ExpenseListScreenContainer, ExpenseReviewScreenContainer } from './expenses';
 import store from './foundation/redux/store';
