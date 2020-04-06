@@ -1,4 +1,4 @@
-import * as AuthClient from './auth';
+import * as AuthClient from './authClient';
 
 export {
   AuthClient
