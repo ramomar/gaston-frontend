@@ -29,8 +29,10 @@ function isAuthExpired(auth) {
 export function getAuthData(Storage) {
   const storedAuth = Storage.getItem(Storage.keys.AUTH);
 
-  if (!!storedAuth && isAuthExpired(storedAuth)) {
-    Storage.deleteItem(Storage.keys.AUTH);
+  if (!storedAuth) {
+    return null;
+  } else if (isAuthExpired(storedAuth)) {
+    Storage.removeItem(Storage.keys.AUTH);
 
     return null;
   }
