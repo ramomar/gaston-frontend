@@ -1,8 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as AuthActions from './AuthActions';
-import * as StorageKeys from '../../storage/keys';
-import { DateTime } from 'luxon';
 
 const mockStore = configureMockStore([thunk]);
 
@@ -14,10 +12,10 @@ function makeAuthClient({ withSuccessfulResponse, accessToken, errorCode }) {
   };
 }
 
-function makeStorage({ setFnMock, removeFnMock }) {
+function makeStorage() {
   return {
-    setItem: setFnMock,
-    removeItem: removeFnMock
+    setItem: jest.fn(),
+    removeItem: jest.fn()
   };
 }
 
@@ -29,28 +27,20 @@ describe('login', () => {
 
     const store = mockStore({});
 
-    const now = DateTime.fromISO('2020-03-03T05:29:02.700Z');
-
     const accessToken = 'token';
-
-    const setFnMock = jest.fn();
-
-    const removeFnMock = jest.fn();
 
     const AuthClient = makeAuthClient({ withSuccessfulResponse: true, accessToken });
 
-    const Storage = makeStorage({ setFnMock, removeFnMock });
+    const Storage = makeStorage();
 
     const expected = [
       { type: AuthActions.LOGIN_REQUEST, payload: { user } },
       { type: AuthActions.LOGIN_SUCCESS, payload: { user, accessToken } }
     ];
 
-    return store.dispatch(AuthActions.login({ user, password, now, AuthClient, Storage }))
+    return store.dispatch(AuthActions.login({ user, password, AuthClient, Storage }))
       .then(() => {
         expect(store.getActions()).toStrictEqual(expected);
-        expect(removeFnMock).toHaveBeenCalledWith(StorageKeys.AUTH);
-        expect(setFnMock).toHaveBeenCalledWith(StorageKeys.AUTH, { user, authenticatedAt: now.toISO(), accessToken });
       });
   });
 
@@ -60,22 +50,20 @@ describe('login', () => {
 
     const password = 'password';
 
-    const errorMessage = 'An error';
+    const errorMessage = new Error('An error');
 
     const store = mockStore({});
 
-    const now = DateTime.fromISO('2020-03-03T05:29:02.700Z');
-
     const AuthClient = makeAuthClient({ withSuccessfulResponse: false, errorCode: errorMessage });
 
-    const Storage = makeStorage({ setFnMock: () => null, removeFnMock: () => null });
+    const Storage = makeStorage();
 
     const expected = [
       { type: AuthActions.LOGIN_REQUEST, payload: { user } },
       { type: AuthActions.LOGIN_FAILURE, payload: { errorMessage, invalidUserOrPassword: false } }
     ];
 
-    return store.dispatch(AuthActions.login({ user, password, now, AuthClient, Storage }))
+    return store.dispatch(AuthActions.login({ user, password, AuthClient, Storage }))
       .then(() => {
         expect(store.getActions()).toStrictEqual(expected);
       });
@@ -90,18 +78,16 @@ describe('login', () => {
 
     const store = mockStore({});
 
-    const now = DateTime.fromISO('2020-03-03T05:29:02.700Z');
-
     const AuthClient = makeAuthClient({ withSuccessfulResponse: false, errorCode: errorMessage });
 
-    const Storage = makeStorage({ setFnMock: () => null, removeFnMock: () => null });
+    const Storage = makeStorage();
 
     const expected = [
       { type: AuthActions.LOGIN_REQUEST, payload: { user } },
       { type: AuthActions.LOGIN_FAILURE, payload: { errorMessage, invalidUserOrPassword: true } }
     ];
 
-    return store.dispatch(AuthActions.login({ user, password, now, AuthClient, Storage }))
+    return store.dispatch(AuthActions.login({ user, password, AuthClient, Storage }))
       .then(() => {
         expect(store.getActions()).toStrictEqual(expected);
       });
@@ -116,18 +102,16 @@ describe('login', () => {
 
     const store = mockStore({});
 
-    const now = DateTime.fromISO('2020-03-03T05:29:02.700Z');
-
     const AuthClient = makeAuthClient({ withSuccessfulResponse: false, errorCode: errorMessage });
 
-    const Storage = makeStorage({ setFnMock: () => null, removeFnMock: () => null });
+    const Storage = makeStorage();
 
     const expected = [
       { type: AuthActions.LOGIN_REQUEST, payload: { user } },
       { type: AuthActions.LOGIN_FAILURE, payload: { errorMessage, invalidUserOrPassword: true } }
     ];
 
-    return store.dispatch(AuthActions.login({ user, password, now, AuthClient, Storage }))
+    return store.dispatch(AuthActions.login({ user, password, AuthClient, Storage }))
       .then(() => {
         expect(store.getActions()).toStrictEqual(expected);
       });

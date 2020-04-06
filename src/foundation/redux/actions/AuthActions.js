@@ -1,5 +1,3 @@
-import { Keys as StorageKeys } from '../../storage';
-
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -33,24 +31,19 @@ export function loginFailure({ errorMessage, invalidUserOrPassword }) {
   };
 }
 
-export function login({ user, password, now, AuthClient, Storage }) {
+export function login({ user, password, AuthClient, Storage }) {
   return dispatch => {
     dispatch(loginRequest({ user }));
 
-    Storage.removeItem(StorageKeys.AUTH);
-
-    return AuthClient.logIn(user, password)
-      .then(({ accessToken }) => {
-        Storage.setItem(StorageKeys.AUTH, { user, authenticatedAt: now.toISO(), accessToken });
-        return dispatch(loginSuccess({ user, accessToken }));
-      })
+    return AuthClient.logIn(user, password, Storage)
+      .then(({ accessToken }) => dispatch(loginSuccess({ user, accessToken })))
       .catch(error => {
         const invalidUserOrPassword =
           error.code === 'UserNotFoundException' ||
           error.code === 'NotAuthorizedException';
 
         dispatch(loginFailure({
-          errorMessage: error.code,
+          errorMessage: error.code || error.message,
           invalidUserOrPassword
         }));
 

@@ -6,16 +6,12 @@ import {
 } from 'react-router-dom';
 import LoginScreen from '../components/LoginScreen';
 import * as Actions from '../../foundation/redux/actions';
-import { DateTime } from 'luxon';
 import { Storage } from '../../foundation/storage';
 import { AuthClient } from '../../foundation/auth';
 
 function logIn(dispatch) {
-  return (user, password) => {
-    const now = DateTime.utc();
-
-    dispatch(Actions.login({ user, password, now, AuthClient, Storage }));
-  };
+  return (user, password) =>
+    dispatch(Actions.login({ user, password, AuthClient, Storage }));
 }
 
 function LoginScreenContainer(props) {

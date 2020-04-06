@@ -1,7 +1,12 @@
 import * as AuthActions from '../actions/AuthActions';
 import * as R from 'ramda';
 
-export function makeAuthState(isAuthenticated = false, user = null, accessToken = null, authenticatedAt = null) {
+export function makeAuthState({
+  isAuthenticated = false,
+  user = null,
+  accessToken = null,
+  authenticatedAt = null
+} = {}) {
   return {
     isAuthenticated,
     user,
