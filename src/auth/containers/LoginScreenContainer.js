@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   useHistory,
@@ -27,11 +27,13 @@ function LoginScreenContainer(props) {
 
   const location = useLocation();
 
-  if (isAuthenticated && location.state && location.state.from) {
-    history.replace(location.state.from);
-  } else if (isAuthenticated) {
-    history.replace('/');
-  }
+  useEffect(() => {
+    if (isAuthenticated && location.state && location.state.from) {
+      history.replace(location.state.from);
+    } else if (isAuthenticated) {
+      history.replace('/');
+    }
+  }, [location, history, isAuthenticated]);
 
   return (
     <LoginScreen logIn={logIn(useDispatch())} loginStatus={loginStatus} />
