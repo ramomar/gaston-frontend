@@ -42,3 +42,6 @@ amplifyxc.config
 
 # amplify folder
 amplify/
+
+# Local Netlify folder
+.netlify
