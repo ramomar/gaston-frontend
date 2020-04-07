@@ -37,6 +37,7 @@ function LoginForm(props) {
         required
         label='Usuario'
         name='user'
+        type='email'
         component={TextInput}
         placeholder='yo@ramomar.dev'
         validate={{ regexp: usernameRegex, message: 'Correo invalido' }} />
