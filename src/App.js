@@ -5,7 +5,7 @@ import { Grommet, Box } from 'grommet';
 import { grommet } from 'grommet/themes/grommet';
 import { PrivateRoute } from './foundation/routing';
 import { LoginScreenContainer } from './auth';
-import { ExpenseListScreenContainer, ExpenseReviewScreenContainer } from './expenses';
+import { RecordListScreenContainer, RecordReviewScreenContainer } from './records';
 import store from './foundation/redux/store';
 import { Settings } from 'luxon';
 import Amplify from 'aws-amplify';
@@ -22,17 +22,17 @@ function App(props) {
         <Provider store={props.store || store}>
           <Router>
             <Switch>
-              <PrivateRoute path='/expenses/:expenseId/review'>
-                <ExpenseReviewScreenContainer />
+              <PrivateRoute path='/records/:recordId/review'>
+                <RecordReviewScreenContainer />
               </PrivateRoute>
-              <PrivateRoute path='/expenses'>
-                <ExpenseListScreenContainer />
+              <PrivateRoute path='/records'>
+                <RecordListScreenContainer />
               </PrivateRoute>
               <Route path='/login'>
                 <LoginScreenContainer />
               </Route>
               <Route path='/'>
-                <Redirect to='/expenses' />
+                <Redirect to='/records' />
               </Route>
             </Switch>
           </Router>

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import { expenseReducer } from './ExpenseReducer';
-import { expenseCategoryReducer } from './ExpenseCategoryReducer';
+import { recordReducer } from './RecordReducer';
+import { recordCategoryReducer } from './RecordCategoryReducer';
 import { authReducer } from './AuthReducer';
 
 const rootReducer = combineReducers({
-  expenses: expenseReducer,
-  categories: expenseCategoryReducer,
+  records: recordReducer,
+  categories: recordCategoryReducer,
   auth: authReducer
 });
 

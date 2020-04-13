@@ -1,7 +1,7 @@
-import computeTotalAmount from './computeTotalAmount';
+import recordsByDay from './recordsByDay';
 import { DateTime } from 'luxon';
 
-it('should compute total amount for a given list of records', () => {
+it('should group a list of records by day and return gropus as well as records in descending order', () => {
   const record1 = {
     'id': '0007182d-54cb-42b7-88fc-bbaba51db198',
     'amount': 150,
@@ -37,9 +37,22 @@ it('should compute total amount for a given list of records', () => {
     record4
   ];
 
-  const expected = 1231.75;
+  const expected = [
+    {
+      day: record2.date.startOf('day'),
+      records: [record2]
+    },
+    {
+      day: record4.date.startOf('day'),
+      records: [record4, record3]
+    },
+    {
+      day: record1.date.startOf('day'),
+      records: [record1]
+    }
+  ];
 
-  const actual = computeTotalAmount(records);
+  const actual = recordsByDay(records);
 
-  expect(actual).toEqual(expected);
+  expect(actual).toStrictEqual(expected);
 });

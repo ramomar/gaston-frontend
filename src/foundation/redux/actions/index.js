@@ -1,3 +1,3 @@
-export * from './ExpenseActions';
-export * from './ExpenseCategoryActions';
+export * from './RecordActions';
+export * from './RecordCategoryActions';
 export * from './AuthActions';
