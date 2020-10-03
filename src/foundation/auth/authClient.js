@@ -7,15 +7,15 @@ export function logIn(user, password, Storage) {
   return Auth
     .signIn(user, password)
     .then(result => {
-      const accessToken = result.signInUserSession.accessToken.jwtToken;
+      const token = result.signInUserSession.idToken.jwtToken;
 
       Storage.setItem(Storage.keys.AUTH, {
         user,
         authenticatedAt: DateTime.utc().toISO(),
-        accessToken
+        token
       });
 
-      return { accessToken };
+      return { token };
     });
 }
 

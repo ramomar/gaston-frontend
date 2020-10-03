@@ -11,12 +11,12 @@ export function loginRequest({ user }) {
   };
 }
 
-export function loginSuccess({ user, accessToken }) {
+export function loginSuccess({ user, token }) {
   return {
     type: LOGIN_SUCCESS,
     payload: {
       user,
-      accessToken
+      token
     }
   };
 }
@@ -36,7 +36,7 @@ export function login({ user, password, AuthClient, Storage }) {
     dispatch(loginRequest({ user }));
 
     return AuthClient.logIn(user, password, Storage)
-      .then(({ accessToken }) => dispatch(loginSuccess({ user, accessToken })))
+      .then(({ token }) => dispatch(loginSuccess({ user, token })))
       .catch(error => {
         const invalidUserOrPassword =
           error.code === 'UserNotFoundException' ||

@@ -4,13 +4,13 @@ import * as R from 'ramda';
 export function makeAuthState({
   isAuthenticated = false,
   user = null,
-  accessToken = null,
+  token = null,
   authenticatedAt = null
 } = {}) {
   return {
     isAuthenticated,
     user,
-    accessToken,
+    token,
     authenticatedAt,
     login: {
       isLogginIn: false,
@@ -26,7 +26,7 @@ function computeStateOnLoginRequest(state, _) {
     {
       isAuthenticated: false,
       user: null,
-      accessToken: null,
+      token: null,
       authenticatedAt: null,
       login: {
         isLogginIn: true,
@@ -43,7 +43,7 @@ function computeStateOnLoginSuccess(state, { payload }) {
     {
       isAuthenticated: true,
       user: payload.user,
-      accessToken: payload.accessToken,
+      token: payload.token,
       login: {
         isLogginIn: false,
         invalidUserOrPassword: false

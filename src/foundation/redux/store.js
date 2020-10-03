@@ -14,7 +14,7 @@ if (auth) {
   const authParams = {
     isAuthenticated: true,
     user: auth.user,
-    accessToken: auth.accessToken,
+    token: auth.token,
     authenticatedAt: auth.authenticatedAt
   };
 
