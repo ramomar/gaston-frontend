@@ -4,10 +4,10 @@ import * as AuthActions from './AuthActions';
 
 const mockStore = configureMockStore([thunk]);
 
-function makeAuthClient({ withSuccessfulResponse, accessToken, errorCode }) {
+function makeAuthClient({ withSuccessfulResponse, token, errorCode }) {
   return {
     logIn: ({ user, password }) => withSuccessfulResponse ?
-      Promise.resolve({ accessToken }) :
+      Promise.resolve({ token }) :
       Promise.reject({ code: errorCode })
   };
 }
@@ -27,15 +27,15 @@ describe('login', () => {
 
     const store = mockStore({});
 
-    const accessToken = 'token';
+    const token = 'token';
 
-    const AuthClient = makeAuthClient({ withSuccessfulResponse: true, accessToken });
+    const AuthClient = makeAuthClient({ withSuccessfulResponse: true, token });
 
     const Storage = makeStorage();
 
     const expected = [
       { type: AuthActions.LOGIN_REQUEST, payload: { user } },
-      { type: AuthActions.LOGIN_SUCCESS, payload: { user, accessToken } }
+      { type: AuthActions.LOGIN_SUCCESS, payload: { user, token } }
     ];
 
     return store.dispatch(AuthActions.login({ user, password, AuthClient, Storage }))
