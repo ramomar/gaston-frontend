@@ -21,9 +21,9 @@ export function logIn(user, password, Storage) {
 
 function isAuthExpired(auth) {
   const AUTH_EXPIRATION_HOURS = 1;
+  const diffInHours = DateTime.local().diff(DateTime.fromISO(auth.authenticatedAt), 'hours').hours;
 
-  return DateTime.fromISO(auth.authenticatedAt)
-    .diff(DateTime.local(), 'hours') > AUTH_EXPIRATION_HOURS;
+  return Math.abs(diffInHours) > AUTH_EXPIRATION_HOURS;
 }
 
 export function getAuthData(Storage) {
