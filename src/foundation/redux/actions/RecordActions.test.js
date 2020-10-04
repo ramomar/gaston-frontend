@@ -3,13 +3,6 @@ import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import * as RecordActions from './RecordActions';
 
-function makeFetchError(message) {
-  const error = new Error(message);
-  error.name = 'FetchError';
-
-  return error;
-}
-
 const mockStore = configureMockStore([thunk]);
 
 describe('fetchRecords', () => {
@@ -65,7 +58,7 @@ describe('fetchRecords', () => {
       body
     });
 
-    const error = makeFetchError('invalid json response body at http://localhost:5000/records reason: Unexpected token N in JSON at position 0');
+    const error = new Error('invalid json response body at http://localhost:5000/records reason: Unexpected token N in JSON at position 0');
 
     const expected = [
       { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
@@ -88,7 +81,7 @@ describe('fetchRecords', () => {
       status: 403
     });
 
-    const error = makeFetchError('Forbidden');
+    const error = new Error('Forbidden');
 
     const expected = [
       { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
@@ -107,7 +100,7 @@ describe('fetchRecords', () => {
 
     const paginationEnd = 10;
 
-    const error = makeFetchError('Some error');
+    const error = new Error('Some error');
 
     fetchMock.getOnce('end:/records', {
       throws: error
@@ -170,7 +163,7 @@ describe('fetchRecord', () => {
       body
     });
 
-    const error = makeFetchError(`invalid json response body at http://localhost:5000/records/${recordId} reason: Unexpected token N in JSON at position 0`);
+    const error = new Error(`invalid json response body at http://localhost:5000/records/${recordId} reason: Unexpected token N in JSON at position 0`);
 
     const expected = [
       { type: RecordActions.FETCH_RECORD_REQUEST, payload: { id: recordId } },
@@ -191,7 +184,7 @@ describe('fetchRecord', () => {
       status: 403
     });
 
-    const error = makeFetchError('Forbidden');
+    const error = new Error('Forbidden');
 
     const expected = [
       { type: RecordActions.FETCH_RECORD_REQUEST, payload: { id: recordId } },
@@ -208,7 +201,7 @@ describe('fetchRecord', () => {
   it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
     const recordId = '0007182d-54cb-42b7-88fc-bbaba51db198';
 
-    const error = makeFetchError('Some error');
+    const error = new Error('Some error');
 
     fetchMock.getOnce(`end:/records/${recordId}`, {
       throws: error
@@ -294,7 +287,7 @@ describe('reviewRecordRequest', () => {
       status: 400
     });
 
-    const error = makeFetchError('Bad Request');
+    const error = new Error('Bad Request');
 
     const expected = [
       { type: RecordActions.REVIEW_RECORD_REQUEST, payload: { record, review } },
@@ -328,7 +321,7 @@ describe('reviewRecordRequest', () => {
       status: 200
     });
 
-    const error = makeFetchError('invalid json response body at http://localhost:5000/records/0007182d-54cb-42b7-88fc-bbaba51db198/review reason: Unexpected token H in JSON at position 0');
+    const error = new Error('invalid json response body at http://localhost:5000/records/0007182d-54cb-42b7-88fc-bbaba51db198/review reason: Unexpected token H in JSON at position 0');
 
     const expected = [
       { type: RecordActions.REVIEW_RECORD_REQUEST, payload: { record, review } },
@@ -362,7 +355,7 @@ describe('reviewRecordRequest', () => {
       status: 403
     });
 
-    const error = makeFetchError('Forbidden');
+    const error = new Error('Forbidden');
 
     const expected = [
       { type: RecordActions.REVIEW_RECORD_REQUEST, payload: { record, review } },
@@ -391,7 +384,7 @@ describe('reviewRecordRequest', () => {
       category: 'Comida'
     };
 
-    const error = makeFetchError('Some error');
+    const error = new Error('Some error');
 
     fetchMock.putOnce(`end:/records/${record.id}/review`, {
       throws: error
