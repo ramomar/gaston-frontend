@@ -316,6 +316,8 @@ describe('records', () => {
   });
 
   it(`should handle ${Actions.FETCH_RECORDS_FAILURE}`, () => {
+    const error = new Error('Some error');
+
     const state = {
       records: {
         byId: {}
@@ -344,7 +346,7 @@ describe('records', () => {
       fetch: {
         isFetching: false,
         hasMore: true,
-        error: 'Some error',
+        error: error,
         paginationStart: 0,
         paginationEnd: 0
       },
@@ -359,7 +361,7 @@ describe('records', () => {
     };
 
     const action = Actions.fetchRecordsFailure({
-      errorMessage: 'Some error'
+      error: error
     });
 
     const actual = recordReducer(state, action);
@@ -645,6 +647,8 @@ describe('records', () => {
   });
 
   it(`should handle ${Actions.FETCH_RECORD_FAILURE}`, () => {
+    const error = new Error('Some error');
+
     const record1 = {
       id: '0007182d-54cb-42b7-88fc-bbaba51db198',
       amount: 150,
@@ -693,7 +697,7 @@ describe('records', () => {
       },
       singleFetch: {
         isFetching: false,
-        error: 'Some error',
+        error: error,
         found: true
       },
       review: {
@@ -701,7 +705,7 @@ describe('records', () => {
       }
     };
 
-    const action = Actions.fetchRecordFailure({ errorMessage: 'Some error' });
+    const action = Actions.fetchRecordFailure({ error });
 
     const actual = recordReducer(state, action);
 
@@ -896,6 +900,8 @@ describe('records', () => {
       category: 'Comida'
     };
 
+    const error = new Error('Some error');
+
     const state = {
       records: {
         byId: R.fromPairs(R.map(e => [e.id, e], [record1, record2]))
@@ -937,7 +943,7 @@ describe('records', () => {
         byId: {
           '0007182d-54cb-42b7-88fc-bbaba51db198': {
             isReviewing: false,
-            error: 'Some error',
+            error: error,
             review: {
               amount: 50,
               date: '2017-03-24T19:42:25.608Z',
@@ -953,7 +959,7 @@ describe('records', () => {
     const action = Actions.reviewRecordFailure({
       record: record1,
       review: record1Review,
-      errorMessage: 'Some error'
+      error: error
     });
 
     const actual = recordReducer(state, action);

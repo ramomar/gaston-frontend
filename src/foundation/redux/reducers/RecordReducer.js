@@ -60,7 +60,7 @@ function computeStateOnRecordsFailure(state, { payload }) {
     {
       fetch: {
         isFetching: false,
-        error: payload.errorMessage
+        error: payload.error
       }
     }
   );
@@ -103,7 +103,7 @@ function computeStateOnFetchRecordFailure(state, { payload }) {
     {
       singleFetch: {
         isFetching: false,
-        error: payload.errorMessage
+        error: payload.error
       }
     }
   );
@@ -146,7 +146,7 @@ function computeStateOnReviewRecordSuccess(state, { payload }) {
 }
 
 function computeStateOnReviewRecordFailure(state, { payload }) {
-  const { record, review, errorMessage } = payload;
+  const { record, review, error } = payload;
 
   return R.mergeDeepRight(
     state,
@@ -154,7 +154,7 @@ function computeStateOnReviewRecordFailure(state, { payload }) {
       review: {
         byId: R.fromPairs([[record.id, {
           isReviewing: false,
-          error: errorMessage,
+          error: error,
           review: review,
           isReviewed: false
         }]])

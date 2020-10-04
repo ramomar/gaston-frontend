@@ -3,6 +3,13 @@ import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import * as RecordActions from './RecordActions';
 
+function makeFetchError(message) {
+  const error = new Error(message);
+  error.name = 'FetchError';
+
+  return error;
+}
+
 const mockStore = configureMockStore([thunk]);
 
 describe('fetchRecords', () => {
@@ -58,17 +65,17 @@ describe('fetchRecords', () => {
       body
     });
 
-    const errorMessage = 'invalid json response body at http://localhost:5000/records reason: Unexpected token N in JSON at position 0';
+    const error = makeFetchError('invalid json response body at http://localhost:5000/records reason: Unexpected token N in JSON at position 0');
 
     const expected = [
       { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
-      { type: RecordActions.FETCH_RECORDS_FAILURE, payload: { errorMessage } }
+      { type: RecordActions.FETCH_RECORDS_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordActions.fetchRecords({ paginationStart, paginationEnd })).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 
@@ -81,17 +88,17 @@ describe('fetchRecords', () => {
       status: 403
     });
 
-    const errorMessage = 'Forbidden';
+    const error = makeFetchError('Forbidden');
 
     const expected = [
       { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
-      { type: RecordActions.FETCH_RECORDS_FAILURE, payload: { errorMessage } }
+      { type: RecordActions.FETCH_RECORDS_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordActions.fetchRecords({ paginationStart, paginationEnd })).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 
@@ -100,9 +107,7 @@ describe('fetchRecords', () => {
 
     const paginationEnd = 10;
 
-    const errorMessage = 'Some error';
-
-    const error = new Error(errorMessage);
+    const error = makeFetchError('Some error');
 
     fetchMock.getOnce('end:/records', {
       throws: error
@@ -110,13 +115,13 @@ describe('fetchRecords', () => {
 
     const expected = [
       { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
-      { type: RecordActions.FETCH_RECORDS_FAILURE, payload: { errorMessage } }
+      { type: RecordActions.FETCH_RECORDS_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordActions.fetchRecords({ paginationStart, paginationEnd })).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 });
@@ -165,17 +170,17 @@ describe('fetchRecord', () => {
       body
     });
 
-    const errorMessage = `invalid json response body at http://localhost:5000/records/${recordId} reason: Unexpected token N in JSON at position 0`;
+    const error = makeFetchError(`invalid json response body at http://localhost:5000/records/${recordId} reason: Unexpected token N in JSON at position 0`);
 
     const expected = [
       { type: RecordActions.FETCH_RECORD_REQUEST, payload: { id: recordId } },
-      { type: RecordActions.FETCH_RECORD_FAILURE, payload: { errorMessage } }
+      { type: RecordActions.FETCH_RECORD_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordActions.fetchRecord({ id: recordId })).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 
@@ -186,26 +191,24 @@ describe('fetchRecord', () => {
       status: 403
     });
 
-    const errorMessage = 'Forbidden';
+    const error = makeFetchError('Forbidden');
 
     const expected = [
       { type: RecordActions.FETCH_RECORD_REQUEST, payload: { id: recordId } },
-      { type: RecordActions.FETCH_RECORD_FAILURE, payload: { errorMessage } }
+      { type: RecordActions.FETCH_RECORD_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordActions.fetchRecord({ id: recordId })).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
     const recordId = '0007182d-54cb-42b7-88fc-bbaba51db198';
 
-    const errorMessage = 'Some error';
-
-    const error = new Error(errorMessage);
+    const error = makeFetchError('Some error');
 
     fetchMock.getOnce(`end:/records/${recordId}`, {
       throws: error
@@ -213,13 +216,13 @@ describe('fetchRecord', () => {
 
     const expected = [
       { type: RecordActions.FETCH_RECORD_REQUEST, payload: { id: recordId } },
-      { type: RecordActions.FETCH_RECORD_FAILURE, payload: { errorMessage } }
+      { type: RecordActions.FETCH_RECORD_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordActions.fetchRecord({ id: recordId })).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 });
@@ -291,17 +294,17 @@ describe('reviewRecordRequest', () => {
       status: 400
     });
 
-    const errorMessage = 'Bad Request';
+    const error = makeFetchError('Bad Request');
 
     const expected = [
       { type: RecordActions.REVIEW_RECORD_REQUEST, payload: { record, review } },
-      { type: RecordActions.REVIEW_RECORD_FAILURE, payload: { record, review, errorMessage } }
+      { type: RecordActions.REVIEW_RECORD_FAILURE, payload: { record, review, error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordActions.reviewRecord({ record, review })).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 
@@ -325,17 +328,17 @@ describe('reviewRecordRequest', () => {
       status: 200
     });
 
-    const errorMessage = 'invalid json response body at http://localhost:5000/records/0007182d-54cb-42b7-88fc-bbaba51db198/review reason: Unexpected token H in JSON at position 0';
+    const error = makeFetchError('invalid json response body at http://localhost:5000/records/0007182d-54cb-42b7-88fc-bbaba51db198/review reason: Unexpected token H in JSON at position 0');
 
     const expected = [
       { type: RecordActions.REVIEW_RECORD_REQUEST, payload: { record, review } },
-      { type: RecordActions.REVIEW_RECORD_FAILURE, payload: { record, review, errorMessage } }
+      { type: RecordActions.REVIEW_RECORD_FAILURE, payload: { record, review, error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordActions.reviewRecord({ record, review })).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 
@@ -359,17 +362,17 @@ describe('reviewRecordRequest', () => {
       status: 403
     });
 
-    const errorMessage = 'Forbidden';
+    const error = makeFetchError('Forbidden');
 
     const expected = [
       { type: RecordActions.REVIEW_RECORD_REQUEST, payload: { record, review } },
-      { type: RecordActions.REVIEW_RECORD_FAILURE, payload: { record, review, errorMessage } }
+      { type: RecordActions.REVIEW_RECORD_FAILURE, payload: { record, review, error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordActions.reviewRecord({ record, review })).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 
@@ -388,9 +391,7 @@ describe('reviewRecordRequest', () => {
       category: 'Comida'
     };
 
-    const errorMessage = 'Some error';
-
-    const error = new Error(errorMessage);
+    const error = makeFetchError('Some error');
 
     fetchMock.putOnce(`end:/records/${record.id}/review`, {
       throws: error
@@ -398,13 +399,13 @@ describe('reviewRecordRequest', () => {
 
     const expected = [
       { type: RecordActions.REVIEW_RECORD_REQUEST, payload: { record, review } },
-      { type: RecordActions.REVIEW_RECORD_FAILURE, payload: { record, review, errorMessage } }
+      { type: RecordActions.REVIEW_RECORD_FAILURE, payload: { record, review, error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordActions.reviewRecord({ record, review })).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 });

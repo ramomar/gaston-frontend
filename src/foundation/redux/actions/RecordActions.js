@@ -24,11 +24,11 @@ export function fetchRecordsSuccess({ records, hasMore, paginationStart, paginat
   };
 }
 
-export function fetchRecordsFailure({ errorMessage }) {
+export function fetchRecordsFailure({ error }) {
   return {
     type: FETCH_RECORDS_FAILURE,
     payload: {
-      errorMessage
+      error
     }
   };
 }
@@ -58,7 +58,7 @@ export function fetchRecords({ paginationStart, paginationEnd }) {
       .then(successAction)
       .catch(
         (error) => {
-          dispatch(fetchRecordsFailure({ errorMessage: error.message }));
+          dispatch(fetchRecordsFailure({ error }));
           return Promise.resolve(error);
         });
   };
@@ -86,11 +86,11 @@ export function fetchRecordSuccess({ record }) {
   };
 }
 
-export function fetchRecordFailure({ errorMessage }) {
+export function fetchRecordFailure({ error }) {
   return {
     type: FETCH_RECORD_FAILURE,
     payload: {
-      errorMessage
+      error
     }
   };
 }
@@ -120,7 +120,7 @@ export function fetchRecord({ id }) {
       .then(successAction)
       .catch(
         (error) => {
-          dispatch(fetchRecordFailure({ errorMessage: error.message }));
+          dispatch(fetchRecordFailure({ error: error }));
           return Promise.resolve(error);
         });
   };
@@ -150,13 +150,13 @@ export function reviewRecordSuccess({ record, review }) {
   };
 }
 
-export function reviewRecordFailure({ record, review, errorMessage }) {
+export function reviewRecordFailure({ record, review, error }) {
   return {
     type: REVIEW_RECORD_FAILURE,
     payload: {
       record,
       review,
-      errorMessage
+      error
     }
   };
 }
@@ -177,7 +177,7 @@ export function reviewRecord({ record, review }) {
       .then(({ review }) => dispatch(reviewRecordSuccess({ record, review })))
       .catch(
         (error) => {
-          dispatch(reviewRecordFailure({ record, review, errorMessage: error.message }));
+          dispatch(reviewRecordFailure({ record, review, error: error }));
           return Promise.resolve(error);
         });
   };
