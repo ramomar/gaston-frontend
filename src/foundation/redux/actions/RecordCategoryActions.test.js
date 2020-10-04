@@ -42,17 +42,17 @@ describe('fetchRecordCategories', () => {
       body
     });
 
-    const errorMessage = 'invalid json response body at http://localhost:5000/records/categories reason: Unexpected token N in JSON at position 0';
+    const error = new Error('invalid json response body at http://localhost:5000/records/categories reason: Unexpected token N in JSON at position 0');
 
     const expected = [
       { type: RecordCategoryActions.FETCH_RECORD_CATEGORIES_REQUEST, payload: {} },
-      { type: RecordCategoryActions.FETCH_RECORD_CATEGORIES_FAILURE, payload: { errorMessage } }
+      { type: RecordCategoryActions.FETCH_RECORD_CATEGORIES_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordCategoryActions.fetchRecordCategories()).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 
@@ -61,24 +61,22 @@ describe('fetchRecordCategories', () => {
       status: 403
     });
 
-    const errorMessage = 'Forbidden';
+    const error = new Error('Forbidden');
 
     const expected = [
       { type: RecordCategoryActions.FETCH_RECORD_CATEGORIES_REQUEST, payload: {} },
-      { type: RecordCategoryActions.FETCH_RECORD_CATEGORIES_FAILURE, payload: { errorMessage } }
+      { type: RecordCategoryActions.FETCH_RECORD_CATEGORIES_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordCategoryActions.fetchRecordCategories()).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
-    const errorMessage = 'Some error';
-
-    const error = new Error(errorMessage);
+    const error = new Error('Some error');
 
     fetchMock.getOnce('end:/records/categories', {
       throws: error
@@ -86,13 +84,13 @@ describe('fetchRecordCategories', () => {
 
     const expected = [
       { type: RecordCategoryActions.FETCH_RECORD_CATEGORIES_REQUEST, payload: {} },
-      { type: RecordCategoryActions.FETCH_RECORD_CATEGORIES_FAILURE, payload: { errorMessage } }
+      { type: RecordCategoryActions.FETCH_RECORD_CATEGORIES_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
     return store.dispatch(RecordCategoryActions.fetchRecordCategories()).then(() => {
-      expect(store.getActions()).toStrictEqual(expected);
+      expect(store.getActions()).toEqual(expected);
     });
   });
 });

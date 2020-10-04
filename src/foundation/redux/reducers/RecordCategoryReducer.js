@@ -41,7 +41,7 @@ function computeStateOnRecordCategoriesFailure(state, { payload }) {
     {
       fetch: {
         isFetching: false,
-        error: payload.errorMessage
+        error: payload.error
       }
     }
   );

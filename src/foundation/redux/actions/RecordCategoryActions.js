@@ -18,11 +18,11 @@ export function fetchRecordCategoriesSuccess({ categories }) {
   };
 }
 
-export function fetchRecordCategoriesFailure({ errorMessage }) {
+export function fetchRecordCategoriesFailure({ error }) {
   return {
     type: FETCH_RECORD_CATEGORIES_FAILURE,
     payload: {
-      errorMessage
+      error
     }
   };
 }
@@ -47,7 +47,7 @@ export function fetchRecordCategories() {
       .then(({ categories }) => successAction(categories))
       .catch(
         (error) => {
-          dispatch(fetchRecordCategoriesFailure({ errorMessage: error.message }));
+          dispatch(fetchRecordCategoriesFailure({ error }));
           return Promise.resolve(error);
         });
   };

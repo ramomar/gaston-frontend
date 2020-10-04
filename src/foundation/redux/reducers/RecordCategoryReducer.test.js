@@ -96,16 +96,18 @@ describe('categories', () => {
       }
     };
 
+    const error = new Error('Some error');
+
     const expected = {
       categories: new Set([]),
       fetch: {
         isFetching: false,
-        error: 'Some error'
+        error: error
       }
     };
 
     const action = actions.fetchRecordCategoriesFailure({
-      errorMessage: 'Some error'
+      error
     });
 
     const actual = recordCategoryReducer(state, action);
