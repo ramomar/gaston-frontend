@@ -86,7 +86,7 @@ export default function RecordListScreenContainer(props) {
     dispatch(Actions.fetchRecords({ paginationStart: 0, paginationEnd: 10 }));
 
   useEffect(() => {
-    if (shouldFetchRecords) {
+    if (shouldFetchRecords && !recordsFetchFailed) {
       dispatch(Actions.fetchRecords({ paginationStart: 0, paginationEnd: 10 }));
     }
   }, [dispatch, shouldFetchRecords]);
