@@ -20,10 +20,10 @@ export function logIn(user, password, Storage) {
 }
 
 function isAuthExpired(auth) {
-  const AUTH_EXPIRATION_DAYS = 28;
+  const AUTH_EXPIRATION_HOURS = 1;
 
   return DateTime.fromISO(auth.authenticatedAt)
-    .diff(DateTime.local(), 'days') > AUTH_EXPIRATION_DAYS;
+    .diff(DateTime.local(), 'hours') > AUTH_EXPIRATION_HOURS;
 }
 
 export function getAuthData(Storage) {
