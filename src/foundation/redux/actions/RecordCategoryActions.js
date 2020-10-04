@@ -39,7 +39,7 @@ export function fetchRecordCategories() {
       dispatch(fetchRecordCategoriesSuccess({ categories }));
     };
 
-    return fetch(`${process.env.REACT_APP_API_HOST}/api/records/categories`, {
+    return fetch(`${process.env.REACT_APP_API_HOST}/records/categories`, {
       method: 'GET'
     })
       .then(response =>

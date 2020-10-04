@@ -26,7 +26,7 @@ describe('fetchRecords', () => {
 
     const paginationEnd = 10;
 
-    fetchMock.getOnce('end:/api/records', {
+    fetchMock.getOnce('end:/records', {
       headers: { 'Content-Type': 'application/json' },
       body: {
         records,
@@ -54,11 +54,11 @@ describe('fetchRecords', () => {
 
     const body = 'Not a json response';
 
-    fetchMock.getOnce('end:/api/records', {
+    fetchMock.getOnce('end:/records', {
       body
     });
 
-    const errorMessage = 'invalid json response body at http://localhost:5000/api/records reason: Unexpected token N in JSON at position 0';
+    const errorMessage = 'invalid json response body at http://localhost:5000/records reason: Unexpected token N in JSON at position 0';
 
     const expected = [
       { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
@@ -77,7 +77,7 @@ describe('fetchRecords', () => {
 
     const paginationEnd = 10;
 
-    fetchMock.getOnce('end:/api/records', {
+    fetchMock.getOnce('end:/records', {
       status: 403
     });
 
@@ -104,7 +104,7 @@ describe('fetchRecords', () => {
 
     const error = new Error(errorMessage);
 
-    fetchMock.getOnce('end:/api/records', {
+    fetchMock.getOnce('end:/records', {
       throws: error
     });
 
@@ -136,7 +136,7 @@ describe('fetchRecord', () => {
       note: 'Cena'
     };
 
-    fetchMock.getOnce(`end:/api/records/${recordId}`, {
+    fetchMock.getOnce(`end:/records/${recordId}`, {
       headers: { 'Content-Type': 'application/json' },
       body: {
         record
@@ -161,11 +161,11 @@ describe('fetchRecord', () => {
 
     const body = 'Not a json response';
 
-    fetchMock.getOnce(`end:/api/records/${recordId}`, {
+    fetchMock.getOnce(`end:/records/${recordId}`, {
       body
     });
 
-    const errorMessage = `invalid json response body at http://localhost:5000/api/records/${recordId} reason: Unexpected token N in JSON at position 0`;
+    const errorMessage = `invalid json response body at http://localhost:5000/records/${recordId} reason: Unexpected token N in JSON at position 0`;
 
     const expected = [
       { type: RecordActions.FETCH_RECORD_REQUEST, payload: { id: recordId } },
@@ -182,7 +182,7 @@ describe('fetchRecord', () => {
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of some HTTP error', () => {
     const recordId = '0007182d-54cb-42b7-88fc-bbaba51db198';
 
-    fetchMock.getOnce(`end:/api/records/${recordId}`, {
+    fetchMock.getOnce(`end:/records/${recordId}`, {
       status: 403
     });
 
@@ -207,7 +207,7 @@ describe('fetchRecord', () => {
 
     const error = new Error(errorMessage);
 
-    fetchMock.getOnce(`end:/api/records/${recordId}`, {
+    fetchMock.getOnce(`end:/records/${recordId}`, {
       throws: error
     });
 
@@ -252,7 +252,7 @@ describe('reviewRecordRequest', () => {
       category: 'Comida'
     };
 
-    fetchMock.putOnce(`end:/api/records/${record.id}/review`, {
+    fetchMock.putOnce(`end:/records/${record.id}/review`, {
       headers: { 'Content-Type': 'application/json' },
       body: {
         review: reviewSuccess
@@ -286,7 +286,7 @@ describe('reviewRecordRequest', () => {
       category: 'Comida'
     };
 
-    fetchMock.putOnce(`end:/api/records/${record.id}/review`, {
+    fetchMock.putOnce(`end:/records/${record.id}/review`, {
       body: 'Bad Request',
       status: 400
     });
@@ -320,12 +320,12 @@ describe('reviewRecordRequest', () => {
       category: 'Comida'
     };
 
-    fetchMock.putOnce(`end:/api/records/${record.id}/review`, {
+    fetchMock.putOnce(`end:/records/${record.id}/review`, {
       body: 'Hello',
       status: 200
     });
 
-    const errorMessage = 'invalid json response body at http://localhost:5000/api/records/0007182d-54cb-42b7-88fc-bbaba51db198/review reason: Unexpected token H in JSON at position 0';
+    const errorMessage = 'invalid json response body at http://localhost:5000/records/0007182d-54cb-42b7-88fc-bbaba51db198/review reason: Unexpected token H in JSON at position 0';
 
     const expected = [
       { type: RecordActions.REVIEW_RECORD_REQUEST, payload: { record, review } },
@@ -354,7 +354,7 @@ describe('reviewRecordRequest', () => {
       category: 'Comida'
     };
 
-    fetchMock.putOnce(`end:/api/records/${record.id}/review`, {
+    fetchMock.putOnce(`end:/records/${record.id}/review`, {
       body: 'Forbidden',
       status: 403
     });
@@ -392,7 +392,7 @@ describe('reviewRecordRequest', () => {
 
     const error = new Error(errorMessage);
 
-    fetchMock.putOnce(`end:/api/records/${record.id}/review`, {
+    fetchMock.putOnce(`end:/records/${record.id}/review`, {
       throws: error
     });
 

@@ -50,7 +50,7 @@ export function fetchRecords({ paginationStart, paginationEnd }) {
       }));
     };
 
-    return fetch(`${process.env.REACT_APP_API_HOST}/api/records`, {
+    return fetch(`${process.env.REACT_APP_API_HOST}/records`, {
       method: 'GET'
     })
       .then(response =>
@@ -104,7 +104,7 @@ export function fetchRecord({ id }) {
         record
       }));
 
-    return fetch(`${process.env.REACT_APP_API_HOST}/api/records/${id}`, {
+    return fetch(`${process.env.REACT_APP_API_HOST}/records/${id}`, {
       method: 'GET'
     })
       .then(response => {
@@ -165,7 +165,7 @@ export function reviewRecord({ record, review }) {
   return dispatch => {
     dispatch(reviewRecordRequest({ record, review }));
 
-    return fetch(`${process.env.REACT_APP_API_HOST}/api/records/${record.id}/review`, {
+    return fetch(`${process.env.REACT_APP_API_HOST}/records/${record.id}/review`, {
       method: 'PUT',
       body: JSON.stringify(review),
       headers: {
