@@ -58,7 +58,7 @@ function computeStateOnLoginFailure(state, { payload }) {
     {
       login: {
         isLogginIn: false,
-        error: payload.errorMessage,
+        error: payload.error,
         invalidUserOrPassword: payload.invalidUserOrPassword
       }
     }

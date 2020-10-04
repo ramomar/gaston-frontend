@@ -50,7 +50,9 @@ describe('login', () => {
 
     const password = 'password';
 
-    const errorMessage = new Error('An error');
+    const errorMessage = 'An error';
+
+    const error = new Error(errorMessage);
 
     const store = mockStore({});
 
@@ -60,7 +62,7 @@ describe('login', () => {
 
     const expected = [
       { type: AuthActions.LOGIN_REQUEST, payload: { user } },
-      { type: AuthActions.LOGIN_FAILURE, payload: { errorMessage, invalidUserOrPassword: false } }
+      { type: AuthActions.LOGIN_FAILURE, payload: { error, invalidUserOrPassword: false } }
     ];
 
     return store.dispatch(AuthActions.login({ user, password, AuthClient, Storage }))
@@ -76,6 +78,8 @@ describe('login', () => {
 
     const errorMessage = 'UserNotFoundException';
 
+    const error = new Error(errorMessage);
+
     const store = mockStore({});
 
     const AuthClient = makeAuthClient({ withSuccessfulResponse: false, errorCode: errorMessage });
@@ -84,7 +88,7 @@ describe('login', () => {
 
     const expected = [
       { type: AuthActions.LOGIN_REQUEST, payload: { user } },
-      { type: AuthActions.LOGIN_FAILURE, payload: { errorMessage, invalidUserOrPassword: true } }
+      { type: AuthActions.LOGIN_FAILURE, payload: { error, invalidUserOrPassword: true } }
     ];
 
     return store.dispatch(AuthActions.login({ user, password, AuthClient, Storage }))
@@ -100,6 +104,8 @@ describe('login', () => {
 
     const errorMessage = 'NotAuthorizedException';
 
+    const error = new Error(errorMessage);
+
     const store = mockStore({});
 
     const AuthClient = makeAuthClient({ withSuccessfulResponse: false, errorCode: errorMessage });
@@ -108,7 +114,7 @@ describe('login', () => {
 
     const expected = [
       { type: AuthActions.LOGIN_REQUEST, payload: { user } },
-      { type: AuthActions.LOGIN_FAILURE, payload: { errorMessage, invalidUserOrPassword: true } }
+      { type: AuthActions.LOGIN_FAILURE, payload: { error, invalidUserOrPassword: true } }
     ];
 
     return store.dispatch(AuthActions.login({ user, password, AuthClient, Storage }))

@@ -21,11 +21,11 @@ export function loginSuccess({ user, token }) {
   };
 }
 
-export function loginFailure({ errorMessage, invalidUserOrPassword }) {
+export function loginFailure({ error, invalidUserOrPassword }) {
   return {
     type: LOGIN_FAILURE,
     payload: {
-      errorMessage,
+      error,
       invalidUserOrPassword
     }
   };
@@ -43,7 +43,7 @@ export function login({ user, password, AuthClient, Storage }) {
           error.code === 'NotAuthorizedException';
 
         dispatch(loginFailure({
-          errorMessage: error.code || error.message,
+          error: new Error(error.code) || error,
           invalidUserOrPassword
         }));
 

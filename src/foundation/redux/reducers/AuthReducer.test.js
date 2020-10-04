@@ -105,7 +105,7 @@ describe('auth', () => {
       }
     };
 
-    const errorMessage = 'An error';
+    const error = new Error('An error');
 
     const invalidUserOrPassword = true;
 
@@ -116,12 +116,12 @@ describe('auth', () => {
       authenticatedAt: null,
       login: {
         isLogginIn: false,
-        error: errorMessage,
+        error: error,
         invalidUserOrPassword: true
       }
     };
 
-    const action = Actions.loginFailure({ errorMessage, invalidUserOrPassword });
+    const action = Actions.loginFailure({ error, invalidUserOrPassword });
 
     const actual = authReducer(state, action);
 
