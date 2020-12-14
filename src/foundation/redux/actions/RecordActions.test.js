@@ -221,11 +221,18 @@ describe('fetchRecord', () => {
       }
     });
 
+    const expectedRecord = {
+      id: recordId,
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
+    };
+
     const store = mockStore({});
 
     const expected = [
       { type: RecordActions.FETCH_RECORD_REQUEST, payload: { id: recordId } },
-      { type: RecordActions.FETCH_RECORD_SUCCESS, payload: { record } }
+      { type: RecordActions.FETCH_RECORD_SUCCESS, payload: { record: expectedRecord } }
     ];
 
     return store.dispatch(RecordActions.fetchRecord({ id: recordId }))

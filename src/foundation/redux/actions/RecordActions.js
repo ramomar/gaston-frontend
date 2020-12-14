@@ -1,6 +1,15 @@
 import { Storage as STORAGE } from '../../storage';
 import { AuthClient } from '../../auth';
 
+function adaptRecord(record) {
+  return {
+    id: record.record_id,
+    amount: record.amount,
+    date: record.date,
+    note: record.note
+  };
+}
+
 export const FETCH_RECORDS_REQUEST = 'FETCH_RECORDS_REQUEST';
 export const FETCH_RECORDS_SUCCESS = 'FETCH_RECORDS_SUCCESS';
 export const FETCH_RECORDS_FAILURE = 'FETCH_RECORDS_FAILURE';
@@ -45,15 +54,8 @@ export function fetchRecords({ paginationStart, paginationEnd }) {
         throw Error('Invalid response: no records and response says there are more records.');
       }
 
-      const adaptedRecords = records.map(r => ({
-        id: r.record_id,
-        amount: r.amount,
-        date: r.date,
-        note: r.note
-      }));
-
       dispatch(fetchRecordsSuccess({
-        records: adaptedRecords,
+        records: records.map(adaptRecord),
         hasMore,
         paginationStart,
         paginationEnd
@@ -115,7 +117,7 @@ export function fetchRecord({ id }) {
 
     const successAction = ({ record }) =>
       dispatch(fetchRecordSuccess({
-        record
+        record: adaptRecord(record)
       }));
 
     return fetch(`${process.env.REACT_APP_API_HOST}/records/${id}`, {
