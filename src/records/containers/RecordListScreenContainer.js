@@ -89,7 +89,7 @@ export default function RecordListScreenContainer(props) {
     if (shouldFetchRecords && !recordsFetchFailed) {
       dispatch(Actions.fetchRecords({ paginationStart: 0, paginationEnd: 10 }));
     }
-  }, [dispatch, shouldFetchRecords]);
+  }, [dispatch, shouldFetchRecords, recordsFetchFailed]);
 
   const title = <Text weight='bold' size='large'>{`Revisión de gastos`}</Text>;
 
