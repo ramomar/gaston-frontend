@@ -42,7 +42,7 @@ export function fetchRecordCategories() {
       dispatch(fetchRecordCategoriesSuccess({ categories }));
     };
 
-    return fetch(`${process.env.REACT_APP_API_HOST}/records/categories`, {
+    return fetch(`${process.env.REACT_APP_API_HOST}/categories`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${AuthClient.getAuthData(STORAGE).token}`,

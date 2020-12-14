@@ -25,7 +25,7 @@ describe('fetchRecordCategories', () => {
   ];
 
   it('should dispatch the correct sequence of actions when the request is successful', () => {
-    fetchMock.getOnce('end:/records/categories', {
+    fetchMock.getOnce('end:/categories', {
       body: {
         categories
       }
@@ -45,7 +45,7 @@ describe('fetchRecordCategories', () => {
   });
 
   it('should use the correct headers', () => {
-    fetchMock.getOnce('end:/records/categories', 200);
+    fetchMock.getOnce('end:/categories', 200);
 
     const store = mockStore({});
 
@@ -67,11 +67,11 @@ describe('fetchRecordCategories', () => {
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of invalid json', () => {
     const body = 'Not a json response';
 
-    fetchMock.getOnce('end:/records/categories', {
+    fetchMock.getOnce('end:/categories', {
       body
     });
 
-    const error = new Error('invalid json response body at http://localhost:5000/records/categories reason: Unexpected token N in JSON at position 0');
+    const error = new Error('invalid json response body at http://localhost:5000/categories reason: Unexpected token N in JSON at position 0');
 
     const expected = [
       { type: RecordCategoryActions.FETCH_RECORD_CATEGORIES_REQUEST, payload: {} },
@@ -86,7 +86,7 @@ describe('fetchRecordCategories', () => {
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of some HTTP error', () => {
-    fetchMock.getOnce('end:/records/categories', {
+    fetchMock.getOnce('end:/categories', {
       status: 403
     });
 
@@ -107,7 +107,7 @@ describe('fetchRecordCategories', () => {
   it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
     const error = new Error('Some error');
 
-    fetchMock.getOnce('end:/records/categories', {
+    fetchMock.getOnce('end:/categories', {
       throws: error
     });
 
