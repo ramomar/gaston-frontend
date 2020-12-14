@@ -46,7 +46,7 @@ describe('fetchRecords', () => {
   it('should dispatch the correct sequence of actions when the request is successful', () => {
     const records = [
       {
-        id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+        record_id: '0007182d-54cb-42b7-88fc-bbaba51db198',
         amount: 150,
         date: '2017-03-19T05:29:02.700Z',
         note: 'Cena'
@@ -67,11 +67,20 @@ describe('fetchRecords', () => {
       }
     });
 
+    const expectedRecords = [
+      {
+        id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+        amount: 150,
+        date: '2017-03-19T05:29:02.700Z',
+        note: 'Cena'
+      }
+    ];
+
     const store = mockStore({});
 
     const expected = [
       { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
-      { type: RecordActions.FETCH_RECORDS_SUCCESS, payload: { records, hasMore, paginationStart, paginationEnd } }
+      { type: RecordActions.FETCH_RECORDS_SUCCESS, payload: { records: expectedRecords, hasMore, paginationStart, paginationEnd } }
     ];
 
     return store.dispatch(RecordActions.fetchRecords({ paginationStart, paginationEnd }))
@@ -165,7 +174,7 @@ describe('fetchRecord', () => {
     const recordId = '0007182d-54cb-42b7-88fc-bbaba51db198';
 
     const record = {
-      id: recordId,
+      record_id: recordId,
       amount: 150,
       date: '2017-03-19T05:29:02.700Z',
       note: 'Cena'
@@ -199,7 +208,7 @@ describe('fetchRecord', () => {
     const recordId = '0007182d-54cb-42b7-88fc-bbaba51db198';
 
     const record = {
-      id: recordId,
+      record_id: recordId,
       amount: 150,
       date: '2017-03-19T05:29:02.700Z',
       note: 'Cena'

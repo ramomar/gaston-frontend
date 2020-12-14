@@ -45,8 +45,15 @@ export function fetchRecords({ paginationStart, paginationEnd }) {
         throw Error('Invalid response: no records and response says there are more records.');
       }
 
+      const adaptedRecords = records.map(r => ({
+        id: r.record_id,
+        amount: r.amount,
+        date: r.date,
+        note: r.note
+      }));
+
       dispatch(fetchRecordsSuccess({
-        records,
+        records: adaptedRecords,
         hasMore,
         paginationStart,
         paginationEnd
