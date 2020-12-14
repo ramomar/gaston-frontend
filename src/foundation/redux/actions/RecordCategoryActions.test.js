@@ -2,10 +2,19 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import * as RecordCategoryActions from './RecordCategoryActions';
+import { AuthClient } from '../../auth';
+
+jest.mock('../../auth');
+
+process.env.REACT_APP_API_KEY = 'API_KEY';
 
 const mockStore = configureMockStore([thunk]);
 
 describe('fetchRecordCategories', () => {
+  const token = 'token';
+
+  AuthClient.getAuthData.mockReturnValue({ token });
+
   afterEach(() => {
     fetchMock.reset();
   });
@@ -32,6 +41,26 @@ describe('fetchRecordCategories', () => {
     return store.dispatch(RecordCategoryActions.fetchRecordCategories())
       .then(() => {
         expect(store.getActions()).toStrictEqual(expected);
+      });
+  });
+
+  it('should use the correct headers', () => {
+    fetchMock.getOnce('end:/records/categories', 200);
+
+    const store = mockStore({});
+
+    const expected = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'X-Api-Key': 'API_KEY'
+      }
+    };
+
+    return store.dispatch(RecordCategoryActions.fetchRecordCategories())
+      .then(() => {
+        const [_, options] = fetchMock.lastCall();
+        expect(options).toMatchObject(expected);
       });
   });
 

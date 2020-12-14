@@ -2,12 +2,45 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import * as RecordActions from './RecordActions';
+import { AuthClient } from '../../auth';
+
+jest.mock('../../auth');
+
+process.env.REACT_APP_API_KEY = 'API_KEY';
 
 const mockStore = configureMockStore([thunk]);
 
 describe('fetchRecords', () => {
+  const token = 'token';
+
+  AuthClient.getAuthData.mockReturnValue({ token });
+
   afterEach(() => {
     fetchMock.reset();
+  });
+
+  it('should use the correct headers', () => {
+    fetchMock.getOnce('end:/records', 200);
+
+    const store = mockStore({});
+
+    const paginationStart = 0;
+
+    const paginationEnd = 10;
+
+    const expected = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'X-Api-Key': 'API_KEY'
+      }
+    };
+
+    return store.dispatch(RecordActions.fetchRecords({ paginationStart, paginationEnd }))
+      .then(() => {
+        const [_, options] = fetchMock.lastCall();
+        expect(options).toMatchObject(expected);
+      });
   });
 
   it('should dispatch the correct sequence of actions when the request is successful', () => {
@@ -120,8 +153,46 @@ describe('fetchRecords', () => {
 });
 
 describe('fetchRecord', () => {
+  const token = 'token';
+
+  AuthClient.getAuthData.mockReturnValue({ token });
+
   afterEach(() => {
     fetchMock.reset();
+  });
+
+  it('should use the correct headers', () => {
+    const recordId = '0007182d-54cb-42b7-88fc-bbaba51db198';
+
+    const record = {
+      id: recordId,
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
+    };
+
+    fetchMock.getOnce(`end:/records/${recordId}`, {
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        record
+      }
+    });
+
+    const store = mockStore({});
+
+    const expected = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'X-Api-Key': 'API_KEY'
+      }
+    };
+
+    return store.dispatch(RecordActions.fetchRecord({ id: recordId }))
+      .then(() => {
+        const [_, options] = fetchMock.lastCall();
+        expect(options).toMatchObject(expected);
+      });
   });
 
   it('should dispatch the correct sequence of actions when the request is successful', () => {
@@ -221,8 +292,59 @@ describe('fetchRecord', () => {
 });
 
 describe('reviewRecordRequest', () => {
+  const token = 'token';
+
+  AuthClient.getAuthData.mockReturnValue({ token });
+
   afterEach(() => {
     fetchMock.reset();
+  });
+
+  it('should use the correct headers', () => {
+    const record = {
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
+    };
+
+    const review = {
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena',
+      category: 'Comida'
+    };
+
+    const reviewSuccess = {
+      id: '574b9903-03eb-46be-96a2-176d6b578da3',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena',
+      category: 'Comida'
+    };
+
+    fetchMock.putOnce(`end:/records/${record.id}/review`, {
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        review: reviewSuccess
+      }
+    });
+
+    const store = mockStore({});
+
+    const expected = {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'X-Api-Key': 'API_KEY'
+      }
+    };
+
+    return store.dispatch(RecordActions.reviewRecord({ record, review }))
+      .then(() => {
+        const [_, options] = fetchMock.lastCall();
+        expect(options).toMatchObject(expected);
+      });
   });
 
   it('should dispatch the correct sequence of actions when the request is successful', () => {
