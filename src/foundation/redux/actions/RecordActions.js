@@ -1,5 +1,6 @@
 import { Storage as STORAGE } from '../../storage';
 import { AuthClient } from '../../auth';
+import * as R from 'ramda';
 
 function adaptRecord(record) {
   return {
@@ -187,7 +188,7 @@ export function reviewRecord({ record, review }) {
 
     return fetch(`${process.env.REACT_APP_API_HOST}/records/${record.id}/review`, {
       method: 'PUT',
-      body: JSON.stringify(review),
+      body: JSON.stringify({ review: R.map((v) => v.toString(), review) }),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${AuthClient.getAuthData(STORAGE).token}`,

@@ -363,6 +363,54 @@ describe('reviewRecordRequest', () => {
       });
   });
 
+  it('should use the correct body', () => {
+    const record = {
+      id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena'
+    };
+
+    const review = {
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena',
+      category: 'Comida'
+    };
+
+    const reviewSuccess = {
+      id: '574b9903-03eb-46be-96a2-176d6b578da3',
+      amount: 150,
+      date: '2017-03-19T05:29:02.700Z',
+      note: 'Cena',
+      category: 'Comida'
+    };
+
+    fetchMock.putOnce(`end:/records/${record.id}/review`, {
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        review: reviewSuccess
+      }
+    });
+
+    const store = mockStore({});
+
+    const expected = {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'X-Api-Key': 'API_KEY'
+      },
+      body: '{"review":{"amount":"150","date":"2017-03-19T05:29:02.700Z","note":"Cena","category":"Comida"}}'
+    };
+
+    return store.dispatch(RecordActions.reviewRecord({ record, review }))
+      .then(() => {
+        const [_, options] = fetchMock.lastCall()
+        expect(options).toMatchObject(expected);
+      });
+  });
+
   it('should dispatch the correct sequence of actions when the request is successful', () => {
     const record = {
       id: '0007182d-54cb-42b7-88fc-bbaba51db198',
