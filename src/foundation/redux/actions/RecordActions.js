@@ -25,12 +25,11 @@ export function fetchRecordsRequest({ status, nextPage = null }) {
   };
 }
 
-export function fetchRecordsSuccess({ records, hasMore, status, nextPage }) {
+export function fetchRecordsSuccess({ records, status, nextPage }) {
   return {
     type: FETCH_RECORDS_SUCCESS,
     payload: {
       records,
-      hasMore,
       status,
       nextPage
     }
@@ -50,14 +49,9 @@ export function fetchRecords({ status, nextPage = null }) {
   return dispatch => {
     dispatch(fetchRecordsRequest({ status, nextPage }));
 
-    const successAction = ({ records, hasMore, nextPage }) => {
-      if (records.length === 0 && hasMore) {
-        throw Error('Invalid response: no records and response says there are more records.');
-      }
-
+    const successAction = ({ records, nextPage }) => {
       dispatch(fetchRecordsSuccess({
         records: records.map(adaptRecord),
-        hasMore,
         status,
         nextPage
       }));

@@ -77,8 +77,6 @@ describe('fetchRecords', () => {
       }
     ];
 
-    const hasMore = true;
-
     const status = 'unreviewed';
 
     const nextPage = null;
@@ -87,7 +85,6 @@ describe('fetchRecords', () => {
       headers: { 'Content-Type': 'application/json' },
       body: {
         records,
-        hasMore,
         nextPage
       }
     });
@@ -105,7 +102,7 @@ describe('fetchRecords', () => {
 
     const expected = [
       { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { status, nextPage } },
-      { type: RecordActions.FETCH_RECORDS_SUCCESS, payload: { records: expectedRecords, hasMore, status, nextPage } }
+      { type: RecordActions.FETCH_RECORDS_SUCCESS, payload: { records: expectedRecords, status, nextPage } }
     ];
 
     return store.dispatch(RecordActions.fetchRecords({ status, nextPage }))

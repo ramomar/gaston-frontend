@@ -10,7 +10,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null,
       },
@@ -36,7 +35,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -56,7 +54,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: true,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -84,7 +81,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: 'Some error',
         nextPage: null
       },
@@ -104,7 +100,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: true,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -159,7 +154,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -173,8 +167,6 @@ describe('records', () => {
       }
     };
 
-    const hasMore = true;
-
     const nextPage = null;
 
     const fetchedRecords = [
@@ -187,7 +179,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore,
         error: null,
         nextPage
       },
@@ -203,7 +194,6 @@ describe('records', () => {
 
     const action = Actions.fetchRecordsSuccess({
       records: fetchedRecords,
-      hasMore,
       nextPage
     });
 
@@ -246,7 +236,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -259,8 +248,6 @@ describe('records', () => {
         byId: {}
       }
     };
-
-    const hasMore = true;
 
     const nextPage = null;
 
@@ -275,7 +262,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore,
         error: null,
         nextPage
       },
@@ -290,8 +276,7 @@ describe('records', () => {
     };
 
     const action = Actions.fetchRecordsSuccess({
-      records: fetchedRecords,
-      hasMore
+      records: fetchedRecords
     });
 
     const actual = recordReducer(state, action);
@@ -308,7 +293,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: true,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -328,7 +312,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: error,
         nextPage: null
       },
@@ -379,7 +362,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -399,7 +381,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -448,7 +429,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -468,7 +448,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -517,7 +496,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -537,7 +515,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -579,7 +556,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -599,7 +575,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -643,7 +618,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -663,7 +637,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -712,7 +685,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -732,7 +704,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: false,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -793,7 +764,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: true,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -813,7 +783,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: true,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -876,7 +845,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: true,
-        hasMore: true,
         error: null,
         nextPage: null
       },
@@ -896,7 +864,6 @@ describe('records', () => {
       },
       fetch: {
         isFetching: true,
-        hasMore: true,
         error: null,
         nextPage: null
       },

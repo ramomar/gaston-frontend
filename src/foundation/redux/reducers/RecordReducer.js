@@ -8,7 +8,6 @@ function makeRecordsState() {
     },
     fetch: {
       isFetching: false,
-      hasMore: true,
       error: null,
       nextPage: null
     },
@@ -45,7 +44,6 @@ function computeStateOnRecordsSuccess(state, { payload }) {
       fetch: {
         nextPage: payload.nextPage || null,
         isFetching: false,
-        hasMore: payload.hasMore,
         error: null
       }
     }

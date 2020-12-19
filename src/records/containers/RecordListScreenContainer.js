@@ -18,9 +18,9 @@ function stateToPagination(state) {
 }
 
 function stateToShouldFetchRecords(state) {
-  const { records: { fetch: { isFetching, error, hasMore }, records: { byId } } } = state;
+  const { records: { fetch: { isFetching, error }, records: { byId } } } = state;
 
-  return !isFetching && !error && hasMore && Object.keys(byId).length === 0;
+  return !isFetching && !error && Object.keys(byId).length === 0;
 }
 
 function stateToRecordsFetchFailed(state) {
@@ -43,7 +43,7 @@ function stateToProps(state) {
   return {
     recordGroups: makeRecordGroups(recordsById),
     isFetching: records.fetch.isFetching,
-    hasMore: records.fetch.hasMore
+    hasMore: !!records.fetch.nextPage
   };
 }
 
