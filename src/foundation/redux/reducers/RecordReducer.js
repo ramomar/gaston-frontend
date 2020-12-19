@@ -10,8 +10,7 @@ function makeRecordsState() {
       isFetching: false,
       hasMore: true,
       error: null,
-      paginationStart: 0,
-      paginationEnd: 0
+      nextPage: null
     },
     singleFetch: {
       isFetching: false,
@@ -44,8 +43,7 @@ function computeStateOnRecordsSuccess(state, { payload }) {
         byId: R.fromPairs(R.map(e => [e.id, e], payload.records))
       },
       fetch: {
-        paginationStart: payload.paginationStart,
-        paginationEnd: payload.paginationEnd,
+        nextPage: payload.nextPage || null,
         isFetching: false,
         hasMore: payload.hasMore,
         error: null

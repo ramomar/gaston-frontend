@@ -20,13 +20,13 @@ describe('fetchRecords', () => {
   });
 
   it('should use the correct headers', () => {
-    fetchMock.getOnce('end:/records', 200);
+    const status = 'unreviewed';
+
+    const nextPage = null;
+
+    fetchMock.getOnce(`end:/records/${status}`, 200);
 
     const store = mockStore({});
-
-    const paginationStart = 0;
-
-    const paginationEnd = 10;
 
     const expected = {
       method: 'GET',
@@ -36,7 +36,31 @@ describe('fetchRecords', () => {
       }
     };
 
-    return store.dispatch(RecordActions.fetchRecords({ paginationStart, paginationEnd }))
+    return store.dispatch(RecordActions.fetchRecords({ status, nextPage }))
+      .then(() => {
+        const [_, options] = fetchMock.lastCall();
+        expect(options).toMatchObject(expected);
+      });
+  });
+
+  it('should use the correct query params when page param is present', () => {
+    const status = 'unreviewed';
+
+    const nextPage = 'eyJyZWNvcmRfaWQiOiAiNWYwMThiM2QtZTUwZS00NGM5LWE1NDAtMTcxN2UwMGYwOWJhIiwgIm93bmVyX2lkIjogInJhbW9tYXIifQ==';
+
+    fetchMock.getOnce(`end:/records/${status}?page=eyJyZWNvcmRfaWQiOiAiNWYwMThiM2QtZTUwZS00NGM5LWE1NDAtMTcxN2UwMGYwOWJhIiwgIm93bmVyX2lkIjogInJhbW9tYXIifQ%3D%3D`, 200);
+
+    const store = mockStore({});
+
+    const expected = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'X-Api-Key': 'API_KEY'
+      }
+    };
+
+    return store.dispatch(RecordActions.fetchRecords({ status, nextPage }))
       .then(() => {
         const [_, options] = fetchMock.lastCall();
         expect(options).toMatchObject(expected);
@@ -55,15 +79,16 @@ describe('fetchRecords', () => {
 
     const hasMore = true;
 
-    const paginationStart = 0;
+    const status = 'unreviewed';
 
-    const paginationEnd = 10;
+    const nextPage = null;
 
-    fetchMock.getOnce('end:/records', {
+    fetchMock.getOnce(`end:/records/${status}`, {
       headers: { 'Content-Type': 'application/json' },
       body: {
         records,
-        hasMore
+        hasMore,
+        nextPage
       }
     });
 
@@ -79,83 +104,83 @@ describe('fetchRecords', () => {
     const store = mockStore({});
 
     const expected = [
-      { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
-      { type: RecordActions.FETCH_RECORDS_SUCCESS, payload: { records: expectedRecords, hasMore, paginationStart, paginationEnd } }
+      { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { status, nextPage } },
+      { type: RecordActions.FETCH_RECORDS_SUCCESS, payload: { records: expectedRecords, hasMore, status, nextPage } }
     ];
 
-    return store.dispatch(RecordActions.fetchRecords({ paginationStart, paginationEnd }))
+    return store.dispatch(RecordActions.fetchRecords({ status, nextPage }))
       .then(() => {
         expect(store.getActions()).toStrictEqual(expected);
       });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of invalid json', () => {
-    const paginationStart = 0;
+    const status = 'unreviewed';
 
-    const paginationEnd = 10;
+    const nextPage = null;
 
     const body = 'Not a json response';
 
-    fetchMock.getOnce('end:/records', {
+    fetchMock.getOnce(`end:/records/${status}`, {
       body
     });
 
-    const error = new Error('invalid json response body at http://localhost:5000/records reason: Unexpected token N in JSON at position 0');
+    const error = new Error(`invalid json response body at http://localhost:5000/records/${status} reason: Unexpected token N in JSON at position 0`);
 
     const expected = [
-      { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
+      { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { status, nextPage } },
       { type: RecordActions.FETCH_RECORDS_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(RecordActions.fetchRecords({ paginationStart, paginationEnd })).then(() => {
+    return store.dispatch(RecordActions.fetchRecords({ status, nextPage })).then(() => {
       expect(store.getActions()).toEqual(expected);
     });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because of some HTTP error', () => {
-    const paginationStart = 0;
+    const status = 'unreviewed';
 
-    const paginationEnd = 10;
+    const nextPage = null;
 
-    fetchMock.getOnce('end:/records', {
+    fetchMock.getOnce(`end:/records/${status}`, {
       status: 403
     });
 
     const error = new Error('Forbidden');
 
     const expected = [
-      { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
+      { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { status, nextPage } },
       { type: RecordActions.FETCH_RECORDS_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(RecordActions.fetchRecords({ paginationStart, paginationEnd })).then(() => {
+    return store.dispatch(RecordActions.fetchRecords({ status, nextPage })).then(() => {
       expect(store.getActions()).toEqual(expected);
     });
   });
 
   it('should dispatch the correct sequence of actions when the request is unsuccessful because any other error', () => {
-    const paginationStart = 0;
+    const status = 'unreviewed';
 
-    const paginationEnd = 10;
+    const nextPage = null;
 
     const error = new Error('Some error');
 
-    fetchMock.getOnce('end:/records', {
+    fetchMock.getOnce(`end:/records/${status}`, {
       throws: error
     });
 
     const expected = [
-      { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { paginationStart, paginationEnd } },
+      { type: RecordActions.FETCH_RECORDS_REQUEST, payload: { status, nextPage } },
       { type: RecordActions.FETCH_RECORDS_FAILURE, payload: { error } }
     ];
 
     const store = mockStore({});
 
-    return store.dispatch(RecordActions.fetchRecords({ paginationStart, paginationEnd })).then(() => {
+    return store.dispatch(RecordActions.fetchRecords({ status, nextPage })).then(() => {
       expect(store.getActions()).toEqual(expected);
     });
   });

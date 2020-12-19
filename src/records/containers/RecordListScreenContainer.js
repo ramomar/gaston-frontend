@@ -13,8 +13,7 @@ function stateToPagination(state) {
   const { records: { fetch } } = state;
 
   return {
-    paginationStart: fetch.paginationStart,
-    paginationEnd: fetch.paginationEnd
+    nextPage: fetch.nextPage
   };
 }
 
@@ -48,13 +47,16 @@ function stateToProps(state) {
   };
 }
 
-function dispatchToProps(dispatch, paginationStart, paginationEnd) {
+function fetchUnreviewedRecords(nextPage) {
+  return Actions.fetchRecords({
+    status: 'unreviewed',
+    nextPage
+  });
+}
+
+function dispatchToProps(dispatch, nextPage) {
   return {
-    moreRecords: () =>
-      dispatch(Actions.fetchRecords({
-        paginationStart: paginationStart,
-        paginationEnd: paginationEnd + 10
-      }))
+    moreRecords: () => dispatch(fetchUnreviewedRecords(nextPage))
   };
 }
 
@@ -68,7 +70,7 @@ export default function RecordListScreenContainer(props) {
 
   const { isFetching } = stateProps;
 
-  const { paginationStart, paginationEnd } = useSelector(stateToPagination);
+  const { nextPage } = useSelector(stateToPagination);
 
   const shouldFetchRecords = useSelector(stateToShouldFetchRecords);
 
@@ -78,18 +80,17 @@ export default function RecordListScreenContainer(props) {
 
   const dispatchProps = dispatchToProps(
     dispatch,
-    paginationStart,
-    paginationEnd
+    nextPage
   );
 
   const retryFetch = () =>
-    dispatch(Actions.fetchRecords({ paginationStart: 0, paginationEnd: 10 }));
+    dispatch(fetchUnreviewedRecords(nextPage));
 
   useEffect(() => {
     if (shouldFetchRecords && !recordsFetchFailed) {
-      dispatch(Actions.fetchRecords({ paginationStart: 0, paginationEnd: 10 }));
+      dispatch(fetchUnreviewedRecords(nextPage));
     }
-  }, [dispatch, shouldFetchRecords, recordsFetchFailed]);
+  }, [dispatch, shouldFetchRecords, recordsFetchFailed, nextPage]);
 
   const title = <Text weight='bold' size='large'>{`Revisión de gastos`}</Text>;
 

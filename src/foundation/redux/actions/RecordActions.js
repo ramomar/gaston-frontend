@@ -15,24 +15,24 @@ export const FETCH_RECORDS_REQUEST = 'FETCH_RECORDS_REQUEST';
 export const FETCH_RECORDS_SUCCESS = 'FETCH_RECORDS_SUCCESS';
 export const FETCH_RECORDS_FAILURE = 'FETCH_RECORDS_FAILURE';
 
-export function fetchRecordsRequest({ paginationStart, paginationEnd }) {
+export function fetchRecordsRequest({ status, nextPage = null }) {
   return {
     type: FETCH_RECORDS_REQUEST,
     payload: {
-      paginationStart,
-      paginationEnd
+      status,
+      nextPage
     }
   };
 }
 
-export function fetchRecordsSuccess({ records, hasMore, paginationStart, paginationEnd }) {
+export function fetchRecordsSuccess({ records, hasMore, status, nextPage }) {
   return {
     type: FETCH_RECORDS_SUCCESS,
     payload: {
       records,
       hasMore,
-      paginationStart,
-      paginationEnd
+      status,
+      nextPage
     }
   };
 }
@@ -46,11 +46,11 @@ export function fetchRecordsFailure({ error }) {
   };
 }
 
-export function fetchRecords({ paginationStart, paginationEnd }) {
+export function fetchRecords({ status, nextPage = null }) {
   return dispatch => {
-    dispatch(fetchRecordsRequest({ paginationStart, paginationEnd }));
+    dispatch(fetchRecordsRequest({ status, nextPage }));
 
-    const successAction = ({ records, hasMore }) => {
+    const successAction = ({ records, hasMore, nextPage }) => {
       if (records.length === 0 && hasMore) {
         throw Error('Invalid response: no records and response says there are more records.');
       }
@@ -58,12 +58,18 @@ export function fetchRecords({ paginationStart, paginationEnd }) {
       dispatch(fetchRecordsSuccess({
         records: records.map(adaptRecord),
         hasMore,
-        paginationStart,
-        paginationEnd
+        status,
+        nextPage
       }));
     };
 
-    return fetch(`${process.env.REACT_APP_API_HOST}/records`, {
+    const params = [
+      ['page', nextPage]
+    ].filter(([_, v]) => !!v);
+
+    const queryParams = new URLSearchParams(params);
+
+    return fetch(`${process.env.REACT_APP_API_HOST}/records/${status}` + (params.length > 0 ? `?${queryParams}` : ''), {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${AuthClient.getAuthData(STORAGE).token}`,
