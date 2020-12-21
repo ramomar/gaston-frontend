@@ -57,9 +57,9 @@ const amountMask = [
 ];
 
 function extractAmount(string) {
-  const r = /\d+\.\d{2}/;
+  const r = /\d+\.\d+|\d+/;
 
-  return parseFloat(r.exec(string));
+  return parseFloat(r.exec(string)[0]);
 }
 
 function createLuxonDate(day, hour) {
