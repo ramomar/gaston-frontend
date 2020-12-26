@@ -57,13 +57,13 @@ export function fetchRecords({ status, nextPage = null }) {
       }));
     };
 
-    const params = [
-      ['page', nextPage]
-    ].filter(([_, v]) => !!v);
+    const params = {
+      ...(nextPage && { page: nextPage })
+    };
 
     const queryParams = new URLSearchParams(params);
 
-    return fetch(`${process.env.REACT_APP_API_HOST}/records/${status}` + (params.length > 0 ? `?${queryParams}` : ''), {
+    return fetch(`${process.env.REACT_APP_API_HOST}/records/${status}` + (Object.keys(params).length > 0 ? `?${queryParams}` : ''), {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${AuthClient.getAuthData(STORAGE).token}`,
