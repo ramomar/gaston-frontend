@@ -59,7 +59,7 @@ describe('fetchRecordCategories', () => {
 
     return store.dispatch(RecordCategoryActions.fetchRecordCategories())
       .then(() => {
-        const [_, options] = fetchMock.lastCall();
+        const [, options] = fetchMock.lastCall();
         expect(options).toMatchObject(expected);
       });
   });

@@ -38,7 +38,7 @@ describe('fetchRecords', () => {
 
     return store.dispatch(RecordActions.fetchRecords({ status, nextPage }))
       .then(() => {
-        const [_, options] = fetchMock.lastCall();
+        const [, options] = fetchMock.lastCall();
         expect(options).toMatchObject(expected);
       });
   });
@@ -62,7 +62,7 @@ describe('fetchRecords', () => {
 
     return store.dispatch(RecordActions.fetchRecords({ status, nextPage }))
       .then(() => {
-        const [_, options] = fetchMock.lastCall();
+        const [, options] = fetchMock.lastCall();
         expect(options).toMatchObject(expected);
       });
   });
@@ -224,7 +224,7 @@ describe('fetchRecord', () => {
 
     return store.dispatch(RecordActions.fetchRecord({ id: recordId }))
       .then(() => {
-        const [_, options] = fetchMock.lastCall();
+        const [, options] = fetchMock.lastCall();
         expect(options).toMatchObject(expected);
       });
   });
@@ -385,7 +385,7 @@ describe('reviewRecordRequest', () => {
 
     return store.dispatch(RecordActions.reviewRecord({ record, review }))
       .then(() => {
-        const [_, options] = fetchMock.lastCall();
+        const [, options] = fetchMock.lastCall();
         expect(options).toMatchObject(expected);
       });
   });
@@ -433,7 +433,7 @@ describe('reviewRecordRequest', () => {
 
     return store.dispatch(RecordActions.reviewRecord({ record, review }))
       .then(() => {
-        const [_, options] = fetchMock.lastCall();
+        const [, options] = fetchMock.lastCall();
         expect(options).toMatchObject(expected);
       });
   });
