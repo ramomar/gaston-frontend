@@ -5,6 +5,7 @@ import { Text, Button } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { Screen, ScreenHeader, ScreenBody } from '../../foundation/components/screen';
 import RecordReviewForm from './RecordReviewForm';
+import RecordInfo from './RecordInfo';
 
 function RecordReviewScreen(props) {
   const { record } = props;
@@ -22,6 +23,7 @@ function RecordReviewScreen(props) {
           reviewRecord={props.reviewRecord}
           recordCategories={props.recordCategories}
           recordReviewStatus={props.recordReviewStatus} />
+        <RecordInfo record={props.record} />
       </ScreenBody>
     </Screen>
   );

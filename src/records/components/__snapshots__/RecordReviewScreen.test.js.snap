@@ -44,7 +44,7 @@ exports[`renders correctly 1`] = `
           className="StyledText-sc-1sadyjn-0 dFefMJ"
           size="large"
         >
-          Movimiento el 18 de March
+          Movimiento el 17 de January
         </span>
       </div>
       <div
@@ -52,7 +52,7 @@ exports[`renders correctly 1`] = `
       />
     </div>
     <div
-      className="StyledBox-sc-13pk1d4-0 tkzRw"
+      className="StyledBox-sc-13pk1d4-0 djBcgz"
     >
       <form
         onReset={[Function]}
@@ -79,7 +79,7 @@ exports[`renders correctly 1`] = `
               onFocus={[Function]}
               onKeyDown={[Function]}
               placeholder="Cena del viernes en la noche"
-              value="Cena"
+              value="RETIRO DE EFECTIVO"
             />
           </div>
         </div>
@@ -181,7 +181,7 @@ exports[`renders correctly 1`] = `
                 onFocus={[Function]}
                 onKeyDown={[Function]}
                 placeholder="12/28/2019"
-                value="3/18/2017"
+                value="1/17/2021"
               />
             </div>
           </div>
@@ -210,7 +210,7 @@ exports[`renders correctly 1`] = `
                 onFocus={[Function]}
                 onKeyDown={[Function]}
                 placeholder="18:00"
-                value="23:29"
+                value="06:38"
               />
             </div>
           </div>
@@ -239,7 +239,7 @@ exports[`renders correctly 1`] = `
                 onFocus={[Function]}
                 onKeyDown={[Function]}
                 placeholder="$ 250.00"
-                value="$ 150.00"
+                value="$ 2000.00"
               />
             </div>
           </div>
@@ -262,6 +262,263 @@ exports[`renders correctly 1`] = `
           </button>
         </div>
       </form>
+      <div
+        className="StyledBox-sc-13pk1d4-0 bmEWzQ"
+      >
+        <div
+          className="StyledBox-sc-13pk1d4-0 diNbmr"
+        >
+          <span
+            className="StyledText-sc-1sadyjn-0 dvuZpX"
+            size="large"
+          >
+            Detalles
+          </span>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 hMaZmZ"
+          style={
+            Object {
+              "fontFamily": "Courier New, monospace",
+            }
+          }
+        >
+          <div
+            className="StyledBox-sc-13pk1d4-0 lfluzk"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 bnqisW"
+            >
+              source
+            </span>
+          </div>
+          <div
+            className="StyledBox-sc-13pk1d4-0 fWrrBh"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 fWSbXS"
+            >
+              "CASH_WITHDRAWAL_EMAIL"
+            </span>
+          </div>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 hMaZmZ"
+          style={
+            Object {
+              "fontFamily": "Courier New, monospace",
+            }
+          }
+        >
+          <div
+            className="StyledBox-sc-13pk1d4-0 lfluzk"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 bnqisW"
+            >
+              type
+            </span>
+          </div>
+          <div
+            className="StyledBox-sc-13pk1d4-0 fWrrBh"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 fWSbXS"
+            >
+              "EXPENSE"
+            </span>
+          </div>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 hMaZmZ"
+          style={
+            Object {
+              "fontFamily": "Courier New, monospace",
+            }
+          }
+        >
+          <div
+            className="StyledBox-sc-13pk1d4-0 lfluzk"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 bnqisW"
+            >
+              note
+            </span>
+          </div>
+          <div
+            className="StyledBox-sc-13pk1d4-0 fWrrBh"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 fWSbXS"
+            >
+              "RETIRO DE EFECTIVO"
+            </span>
+          </div>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 hMaZmZ"
+          style={
+            Object {
+              "fontFamily": "Courier New, monospace",
+            }
+          }
+        >
+          <div
+            className="StyledBox-sc-13pk1d4-0 lfluzk"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 bnqisW"
+            >
+              amount
+            </span>
+          </div>
+          <div
+            className="StyledBox-sc-13pk1d4-0 fWrrBh"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 fWSbXS"
+            >
+              "2000.00"
+            </span>
+          </div>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 hMaZmZ"
+          style={
+            Object {
+              "fontFamily": "Courier New, monospace",
+            }
+          }
+        >
+          <div
+            className="StyledBox-sc-13pk1d4-0 lfluzk"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 bnqisW"
+            >
+              operation_date
+            </span>
+          </div>
+          <div
+            className="StyledBox-sc-13pk1d4-0 fWrrBh"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 fWSbXS"
+            >
+              "17/Feb/2021 12:38:51 HORAS"
+            </span>
+          </div>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 hMaZmZ"
+          style={
+            Object {
+              "fontFamily": "Courier New, monospace",
+            }
+          }
+        >
+          <div
+            className="StyledBox-sc-13pk1d4-0 lfluzk"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 bnqisW"
+            >
+              application_date
+            </span>
+          </div>
+          <div
+            className="StyledBox-sc-13pk1d4-0 fWrrBh"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 fWSbXS"
+            >
+              "17/Feb/2021"
+            </span>
+          </div>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 hMaZmZ"
+          style={
+            Object {
+              "fontFamily": "Courier New, monospace",
+            }
+          }
+        >
+          <div
+            className="StyledBox-sc-13pk1d4-0 lfluzk"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 bnqisW"
+            >
+              receiver
+            </span>
+          </div>
+          <div
+            className="StyledBox-sc-13pk1d4-0 fWrrBh"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 fWSbXS"
+            >
+              null
+            </span>
+          </div>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 hMaZmZ"
+          style={
+            Object {
+              "fontFamily": "Courier New, monospace",
+            }
+          }
+        >
+          <div
+            className="StyledBox-sc-13pk1d4-0 lfluzk"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 bnqisW"
+            >
+              channel
+            </span>
+          </div>
+          <div
+            className="StyledBox-sc-13pk1d4-0 fWrrBh"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 fWSbXS"
+            >
+              {"type":"Cajero Banorte","details":{"name":"ROMA SUR 4","location":"CDMX"}}
+            </span>
+          </div>
+        </div>
+        <div
+          className="StyledBox-sc-13pk1d4-0 hMaZmZ"
+          style={
+            Object {
+              "fontFamily": "Courier New, monospace",
+            }
+          }
+        >
+          <div
+            className="StyledBox-sc-13pk1d4-0 lfluzk"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 bnqisW"
+            >
+              extra_amounts
+            </span>
+          </div>
+          <div
+            className="StyledBox-sc-13pk1d4-0 fWrrBh"
+          >
+            <span
+              className="StyledText-sc-1sadyjn-0 fWSbXS"
+            >
+              []
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

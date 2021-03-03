@@ -25,7 +25,7 @@ exports[`renders correctly 1`] = `
     />
   </div>
   <div
-    className="StyledBox-sc-13pk1d4-0 tkzRw"
+    className="StyledBox-sc-13pk1d4-0 djBcgz"
   >
     <div
       className="StyledBox-sc-13pk1d4-0 tkzRw"
@@ -45,7 +45,7 @@ exports[`renders correctly 1`] = `
           <span
             className="StyledText-sc-1sadyjn-0 bnqisW"
           >
-            18 de March
+            17 de February
           </span>
           <div
             className="StyledBox-sc-13pk1d4-0 cgqXer"
@@ -86,7 +86,7 @@ exports[`renders correctly 1`] = `
               className="StyledText-sc-1sadyjn-0 gNZQxf"
               size="small"
             >
-              23:29
+              06:38
             </span>
           </div>
         </div>
