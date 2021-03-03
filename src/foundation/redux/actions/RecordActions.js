@@ -7,7 +7,8 @@ function adaptRecord(record) {
     id: record.record_id,
     amount: record.amount,
     date: record.date,
-    note: record.note
+    note: record.note,
+    raw: record.raw
   };
 }
 

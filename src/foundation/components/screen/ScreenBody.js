@@ -4,7 +4,7 @@ import { Box } from 'grommet';
 
 function ScreenBody(props) {
   return (
-    <Box fill='vertical'>
+    <Box fill='vertical' overflow='scroll'>
       {props.children}
     </Box>
   );

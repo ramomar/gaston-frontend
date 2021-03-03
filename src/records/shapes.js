@@ -5,7 +5,8 @@ const record = PropTypes.shape({
   id: PropTypes.string.isRequired,
   note: PropTypes.string.isRequired,
   amount: PropTypes.number.isRequired,
-  date: PropTypes.instanceOf(DateTime).isRequired
+  date: PropTypes.instanceOf(DateTime).isRequired,
+  raw: PropTypes.string.isRequired
 });
 
 const recordGroup = PropTypes.shape({
