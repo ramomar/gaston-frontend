@@ -34,7 +34,8 @@
     "rules": {
       "semi": "error",
       "comma-dangle": "error",
-      "eol-last": "error"
+      "eol-last": "error",
+      "no-useless-escape": "error"
     }
   },
   "browserslist": {

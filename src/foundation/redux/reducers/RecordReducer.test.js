@@ -11,7 +11,7 @@ describe('records', () => {
       fetch: {
         isFetching: false,
         error: null,
-        nextPage: null,
+        nextPage: null
       },
       singleFetch: {
         isFetching: false,

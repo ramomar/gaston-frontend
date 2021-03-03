@@ -74,7 +74,7 @@ describe('fetchRecords', () => {
         amount: 150,
         date: '2021-02-17T12:38:51.700Z',
         note: 'Cena',
-        raw: '{\"source\": \"CHARGE_EMAIL\", \"type\": \"EXPENSE\", \"amount\": \"150.00\", \"operation_date\": \"17/Feb/2021 12:38:51 HORAS\", \"application_date\": \"17/Feb/2021\", \"receiver\": null, \"channel\": {\"type\": \"TPV(COMPRA COMERCIO)\"}}'
+        raw: '{"source": "CHARGE_EMAIL", "type": "EXPENSE", "amount": "150.00", "operation_date": "17/Feb/2021 12:38:51 HORAS", "application_date": "17/Feb/2021", "receiver": null, "channel": {"type": "TPV(COMPRA COMERCIO)"}}'
       }
     ];
 
@@ -96,7 +96,7 @@ describe('fetchRecords', () => {
         amount: 150,
         date: '2021-02-17T12:38:51.700Z',
         note: 'Cena',
-        raw: '{\"source\": \"CHARGE_EMAIL\", \"type\": \"EXPENSE\", \"amount\": \"150.00\", \"operation_date\": \"17/Feb/2021 12:38:51 HORAS\", \"application_date\": \"17/Feb/2021\", \"receiver\": null, \"channel\": {\"type\": \"TPV(COMPRA COMERCIO)\"}}'
+        raw: '{"source": "CHARGE_EMAIL", "type": "EXPENSE", "amount": "150.00", "operation_date": "17/Feb/2021 12:38:51 HORAS", "application_date": "17/Feb/2021", "receiver": null, "channel": {"type": "TPV(COMPRA COMERCIO)"}}'
       }
     ];
 
@@ -202,8 +202,8 @@ describe('fetchRecord', () => {
       amount: 150,
       date: '2021-02-17T12:38:51.700Z',
       note: 'Cena',
-      raw: '{\"source\": \"CHARGE_EMAIL\", \"type\": \"EXPENSE\", \"amount\": \"150.00\", \"operation_date\": \"17/Feb/2021 12:38:51 HORAS\", \"application_date\": \"17/Feb/2021\", \"receiver\": null, \"channel\": {\"type\": \"TPV(COMPRA COMERCIO)\"}}'
-    }
+      raw: '{"source": "CHARGE_EMAIL", "type": "EXPENSE", "amount": "150.00", "operation_date": "17/Feb/2021 12:38:51 HORAS", "application_date": "17/Feb/2021", "receiver": null, "channel": {"type": "TPV(COMPRA COMERCIO)"}}'
+    };
 
     fetchMock.getOnce(`end:/records/${recordId}`, {
       headers: { 'Content-Type': 'application/json' },
@@ -237,8 +237,8 @@ describe('fetchRecord', () => {
       amount: 150,
       date: '2021-02-17T12:38:51.700Z',
       note: 'Cena',
-      raw: '{\"source\": \"CHARGE_EMAIL\", \"type\": \"EXPENSE\", \"amount\": \"150.00\", \"operation_date\": \"17/Feb/2021 12:38:51 HORAS\", \"application_date\": \"17/Feb/2021\", \"receiver\": null, \"channel\": {\"type\": \"TPV(COMPRA COMERCIO)\"}}'
-    }
+      raw: '{"source": "CHARGE_EMAIL", "type": "EXPENSE", "amount": "150.00", "operation_date": "17/Feb/2021 12:38:51 HORAS", "application_date": "17/Feb/2021", "receiver": null, "channel": {"type": "TPV(COMPRA COMERCIO)"}}'
+    };
 
     fetchMock.getOnce(`end:/records/${recordId}`, {
       headers: { 'Content-Type': 'application/json' },
@@ -252,7 +252,7 @@ describe('fetchRecord', () => {
         amount: 150,
         date: '2021-02-17T12:38:51.700Z',
         note: 'Cena',
-        raw: '{\"source\": \"CHARGE_EMAIL\", \"type\": \"EXPENSE\", \"amount\": \"150.00\", \"operation_date\": \"17/Feb/2021 12:38:51 HORAS\", \"application_date\": \"17/Feb/2021\", \"receiver\": null, \"channel\": {\"type\": \"TPV(COMPRA COMERCIO)\"}}'
+        raw: '{"source": "CHARGE_EMAIL", "type": "EXPENSE", "amount": "150.00", "operation_date": "17/Feb/2021 12:38:51 HORAS", "application_date": "17/Feb/2021", "receiver": null, "channel": {"type": "TPV(COMPRA COMERCIO)"}}'
     };
 
     const store = mockStore({});
@@ -433,7 +433,7 @@ describe('reviewRecordRequest', () => {
 
     return store.dispatch(RecordActions.reviewRecord({ record, review }))
       .then(() => {
-        const [_, options] = fetchMock.lastCall()
+        const [_, options] = fetchMock.lastCall();
         expect(options).toMatchObject(expected);
       });
   });
