@@ -131,7 +131,7 @@ exports[`renders correctly 1`] = `
             onFocus={[Function]}
             onKeyDown={[Function]}
             placeholder="12/28/2019"
-            value="3/18/2017"
+            value="2/17/2021"
           />
         </div>
       </div>
@@ -160,7 +160,7 @@ exports[`renders correctly 1`] = `
             onFocus={[Function]}
             onKeyDown={[Function]}
             placeholder="18:00"
-            value="23:29"
+            value="06:38"
           />
         </div>
       </div>
