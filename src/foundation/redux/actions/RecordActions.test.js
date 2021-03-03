@@ -72,8 +72,9 @@ describe('fetchRecords', () => {
       {
         record_id: '0007182d-54cb-42b7-88fc-bbaba51db198',
         amount: 150,
-        date: '2017-03-19T05:29:02.700Z',
-        note: 'Cena'
+        date: '2021-02-17T12:38:51.700Z',
+        note: 'Cena',
+        raw: '{\"source\": \"CHARGE_EMAIL\", \"type\": \"EXPENSE\", \"amount\": \"150.00\", \"operation_date\": \"17/Feb/2021 12:38:51 HORAS\", \"application_date\": \"17/Feb/2021\", \"receiver\": null, \"channel\": {\"type\": \"TPV(COMPRA COMERCIO)\"}}'
       }
     ];
 
@@ -93,8 +94,9 @@ describe('fetchRecords', () => {
       {
         id: '0007182d-54cb-42b7-88fc-bbaba51db198',
         amount: 150,
-        date: '2017-03-19T05:29:02.700Z',
-        note: 'Cena'
+        date: '2021-02-17T12:38:51.700Z',
+        note: 'Cena',
+        raw: '{\"source\": \"CHARGE_EMAIL\", \"type\": \"EXPENSE\", \"amount\": \"150.00\", \"operation_date\": \"17/Feb/2021 12:38:51 HORAS\", \"application_date\": \"17/Feb/2021\", \"receiver\": null, \"channel\": {\"type\": \"TPV(COMPRA COMERCIO)\"}}'
       }
     ];
 
@@ -195,12 +197,13 @@ describe('fetchRecord', () => {
   it('should use the correct headers', () => {
     const recordId = '0007182d-54cb-42b7-88fc-bbaba51db198';
 
-    const record = {
+    const record =       {
       record_id: recordId,
       amount: 150,
-      date: '2017-03-19T05:29:02.700Z',
-      note: 'Cena'
-    };
+      date: '2021-02-17T12:38:51.700Z',
+      note: 'Cena',
+      raw: '{\"source\": \"CHARGE_EMAIL\", \"type\": \"EXPENSE\", \"amount\": \"150.00\", \"operation_date\": \"17/Feb/2021 12:38:51 HORAS\", \"application_date\": \"17/Feb/2021\", \"receiver\": null, \"channel\": {\"type\": \"TPV(COMPRA COMERCIO)\"}}'
+    }
 
     fetchMock.getOnce(`end:/records/${recordId}`, {
       headers: { 'Content-Type': 'application/json' },
@@ -229,12 +232,13 @@ describe('fetchRecord', () => {
   it('should dispatch the correct sequence of actions when the request is successful', () => {
     const recordId = '0007182d-54cb-42b7-88fc-bbaba51db198';
 
-    const record = {
+    const record =       {
       record_id: recordId,
       amount: 150,
-      date: '2017-03-19T05:29:02.700Z',
-      note: 'Cena'
-    };
+      date: '2021-02-17T12:38:51.700Z',
+      note: 'Cena',
+      raw: '{\"source\": \"CHARGE_EMAIL\", \"type\": \"EXPENSE\", \"amount\": \"150.00\", \"operation_date\": \"17/Feb/2021 12:38:51 HORAS\", \"application_date\": \"17/Feb/2021\", \"receiver\": null, \"channel\": {\"type\": \"TPV(COMPRA COMERCIO)\"}}'
+    }
 
     fetchMock.getOnce(`end:/records/${recordId}`, {
       headers: { 'Content-Type': 'application/json' },
@@ -244,10 +248,11 @@ describe('fetchRecord', () => {
     });
 
     const expectedRecord = {
-      id: recordId,
-      amount: 150,
-      date: '2017-03-19T05:29:02.700Z',
-      note: 'Cena'
+        id: '0007182d-54cb-42b7-88fc-bbaba51db198',
+        amount: 150,
+        date: '2021-02-17T12:38:51.700Z',
+        note: 'Cena',
+        raw: '{\"source\": \"CHARGE_EMAIL\", \"type\": \"EXPENSE\", \"amount\": \"150.00\", \"operation_date\": \"17/Feb/2021 12:38:51 HORAS\", \"application_date\": \"17/Feb/2021\", \"receiver\": null, \"channel\": {\"type\": \"TPV(COMPRA COMERCIO)\"}}'
     };
 
     const store = mockStore({});
