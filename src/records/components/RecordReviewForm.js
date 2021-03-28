@@ -56,6 +56,20 @@ const amountMask = [
   }
 ];
 
+const dayValidate = (date) => {
+  if (DateTime.fromFormat(date, 'd/L/yyyy').isValid) {
+    return null;
+  }
+
+  return 'Fecha invalida.'
+};
+
+const hourValidate = {
+  regexp: /^2[0-3]:[0-5][0-9]$|^1[0-9]:[0-5][0-9]$|^[0-9]:[0-5][0-9]$/,
+  message: 'Hora invalida.',
+  status: 'error'
+};
+
 function extractAmount(string) {
   const r = /\d+\.\d+|\d+/;
 
@@ -133,6 +147,7 @@ function RecordReviewForm(props) {
         name='day'
         component={MaskedInput}
         mask={dateMask}
+        validate={dayValidate}
         placeholder={now.toLocaleString()} />
       <FormField
         required
@@ -140,6 +155,7 @@ function RecordReviewForm(props) {
         name='hour'
         component={MaskedInput}
         mask={hourMask}
+        validate={hourValidate}
         placeholder={now.toLocaleString(DateTime.TIME_24_SIMPLE)} />
       <FormField
         required
