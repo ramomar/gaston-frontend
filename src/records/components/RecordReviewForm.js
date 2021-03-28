@@ -61,7 +61,7 @@ const dayValidate = (date) => {
     return null;
   }
 
-  return 'Fecha invalida.'
+  return 'Fecha invalida.';
 };
 
 const hourValidate = {
