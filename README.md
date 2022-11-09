@@ -1,4 +1,4 @@
-# Gaston
+# gaston-frontend
 
 Frontend for the Gaston project made with React.
 
